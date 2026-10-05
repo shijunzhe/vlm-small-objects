@@ -1,0 +1,902 @@
+[
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 gem38",
+  "diff": 0.32194014419475975,
+  "lo": 0.20155475366900294,
+  "hi": 0.44855394569382007,
+  "n": 34,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 gemini25",
+  "diff": 0.3615983486217602,
+  "lo": 0.27889262546229465,
+  "hi": 0.4420720644803587,
+  "n": 34,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 gemma4",
+  "diff": 0.6443628133427203,
+  "lo": 0.5250763975940017,
+  "hi": 0.762279603971608,
+  "n": 34,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 gpt54",
+  "diff": 0.18567469421079288,
+  "lo": 0.018748522961113748,
+  "hi": 0.3598465216013977,
+  "n": 25,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "REDP-X40 gpt54",
+  "diff": -0.1518186645426789,
+  "lo": -0.33655913978494617,
+  "hi": -0.020565843621399158,
+  "n": 9,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 gpt56",
+  "diff": 0.13666183946213917,
+  "lo": 0.011764979191297133,
+  "hi": 0.2769617326330898,
+  "n": 25,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "REDP-X40 gpt56",
+  "diff": -0.05625248904818798,
+  "lo": -0.20888092393468735,
+  "hi": 0.033950617283950595,
+  "n": 9,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 qwen3vl",
+  "diff": 0.3853575611739963,
+  "lo": 0.23458272126025237,
+  "hi": 0.5407238593522139,
+  "n": 25,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "REDP-X40 qwen3vl",
+  "diff": -0.05147019779636267,
+  "lo": -0.3150231481481482,
+  "hi": 0.22003185981680604,
+  "n": 9,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 sonnet46",
+  "diff": 0.48216328084378024,
+  "lo": 0.3386470264489617,
+  "hi": 0.6200814980094879,
+  "n": 27,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "REDP-X40 sonnet46",
+  "diff": -0.2579365079365079,
+  "lo": -0.44444444444444436,
+  "hi": -0.04761904761904764,
+  "n": 7,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "REDP-X40 sonnet55",
+  "diff": 0.2430739521378338,
+  "lo": 0.12413574194880124,
+  "hi": 0.3744509986600403,
+  "n": 25,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "REDP-X40 sonnet55",
+  "diff": -0.02998141510686314,
+  "lo": -0.06666666666666667,
+  "hi": -0.004115226337448565,
+  "n": 9,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 gem38",
+  "diff": 0.11026944209636519,
+  "lo": 0.07888050037569266,
+  "hi": 0.14454966481168405,
+  "n": 338,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 gemini25",
+  "diff": 0.0983614905804255,
+  "lo": 0.060071191710984614,
+  "hi": 0.13647107726675034,
+  "n": 338,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 gemma4",
+  "diff": 0.2912867375885127,
+  "lo": 0.25042918168287986,
+  "hi": 0.3332690359853821,
+  "n": 338,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 gpt54",
+  "diff": -0.017082501663339994,
+  "lo": -0.06716222317270222,
+  "hi": 0.03387772074897826,
+  "n": 167,
+  "verdict": "consistent"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-300 gpt54",
+  "diff": -0.1993959257117152,
+  "lo": -0.25555741651136393,
+  "hi": -0.14405376868096165,
+  "n": 171,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 gpt56",
+  "diff": 0.022725501378195987,
+  "lo": -0.02364333832335328,
+  "hi": 0.0725203283908374,
+  "n": 167,
+  "verdict": "consistent"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-300 gpt56",
+  "diff": -0.14301655134988467,
+  "lo": -0.19647608604845446,
+  "hi": -0.09326039011346028,
+  "n": 171,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 qwen3vl",
+  "diff": 0.09418995342648034,
+  "lo": 0.04950833452143333,
+  "hi": 0.1399381890979945,
+  "n": 167,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-300 qwen3vl",
+  "diff": -0.15963519910888335,
+  "lo": -0.2154500835421888,
+  "hi": -0.10303414786967414,
+  "n": 171,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 sonnet46",
+  "diff": 0.09004821525779609,
+  "lo": 0.037715947974181506,
+  "hi": 0.14078880874614413,
+  "n": 167,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-300 sonnet46",
+  "diff": -0.2600293468714521,
+  "lo": -0.31518692564745193,
+  "hi": -0.20642095355911144,
+  "n": 171,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-300 sonnet55",
+  "diff": 0.059477257606000124,
+  "lo": 0.005704008649367929,
+  "hi": 0.11585049597774152,
+  "n": 167,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-300 sonnet55",
+  "diff": -0.13720965519211134,
+  "lo": -0.18706450063906202,
+  "hi": -0.08963868003341685,
+  "n": 171,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets gem38",
+  "diff": 0.17549057223661682,
+  "lo": 0.11918933393682751,
+  "hi": 0.22784922588761425,
+  "n": 175,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets gemini25",
+  "diff": 0.14514680226486443,
+  "lo": 0.08461392507829761,
+  "hi": 0.20764646632550685,
+  "n": 175,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets gemma4",
+  "diff": 0.3692968681231145,
+  "lo": 0.3073017037180805,
+  "hi": 0.42842280978065156,
+  "n": 175,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets gpt54",
+  "diff": 0.035372116136171625,
+  "lo": -0.03336008528719581,
+  "hi": 0.10172187532626603,
+  "n": 54,
+  "verdict": "consistent"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-sheets gpt54",
+  "diff": -0.20239920841630807,
+  "lo": -0.2852885874628236,
+  "hi": -0.12270509068507522,
+  "n": 121,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets gpt56",
+  "diff": 0.04720057769681433,
+  "lo": -0.04628301589938023,
+  "hi": 0.14814992014516357,
+  "n": 54,
+  "verdict": "consistent"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-sheets gpt56",
+  "diff": -0.12544741633510628,
+  "lo": -0.21067394219467372,
+  "hi": -0.04181777079178005,
+  "n": 121,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets qwen3vl",
+  "diff": 0.20554049431828114,
+  "lo": 0.14245220907754363,
+  "hi": 0.26859519212274285,
+  "n": 54,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-sheets qwen3vl",
+  "diff": -0.07085376196048132,
+  "lo": -0.14067944130538648,
+  "hi": -0.0002941566755255466,
+  "n": 121,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets sonnet46",
+  "diff": 0.19999850375095932,
+  "lo": 0.1283428176515606,
+  "hi": 0.2746490671439797,
+  "n": 91,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-sheets sonnet46",
+  "diff": -0.16098828420256991,
+  "lo": -0.24855661675239202,
+  "hi": -0.07327852182539682,
+  "n": 84,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FPC-sheets sonnet55",
+  "diff": 0.11119418697231727,
+  "lo": 0.027832303038960244,
+  "hi": 0.22595038076684143,
+  "n": 54,
+  "verdict": "supported"
+ },
+ {
+  "family": "outside",
+  "rule": "tiles (S_tile < S_whole) - whole (no prediction)",
+  "label": "FPC-sheets sonnet55",
+  "diff": -0.04512601655892857,
+  "lo": -0.1022160973067926,
+  "hi": 0.009661239381437208,
+  "n": 121,
+  "verdict": "n/a"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FSC-147 gpt56",
+  "diff": 0.10469909909839405,
+  "lo": 0.07454868260710842,
+  "hi": 0.13664059881709853,
+  "n": 136,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FSC-147 sonnet55",
+  "diff": 0.09795984889865983,
+  "lo": 0.030338230215803844,
+  "hi": 0.16579761986490849,
+  "n": 136,
+  "verdict": "supported"
+ },
+ {
+  "family": "Thm1",
+  "rule": "tiles (S_tile >= S_whole) - whole",
+  "label": "FSC-147 gem38",
+  "diff": 0.14856459883721115,
+  "lo": 0.10330021171324508,
+  "hi": 0.19471370295437665,
+  "n": 135,
+  "verdict": "supported"
+ },
+ {
+  "family": "M",
+  "rule": "tiles of upsampled - whole upsampled",
+  "label": "FSC-147 gpt56",
+  "diff": 0.046064041182626136,
+  "lo": 0.023132184227944868,
+  "hi": 0.07117203574362457,
+  "n": 136,
+  "verdict": "supported"
+ },
+ {
+  "family": "M",
+  "rule": "tiles of upsampled - whole upsampled",
+  "label": "FSC-147 sonnet55",
+  "diff": 0.04668056148753477,
+  "lo": -0.017269645424850166,
+  "hi": 0.10922790809838412,
+  "n": 136,
+  "verdict": "consistent"
+ },
+ {
+  "family": "M",
+  "rule": "tiles of upsampled - whole upsampled",
+  "label": "FSC-147 gem38",
+  "diff": 0.1467102293321747,
+  "lo": 0.10235080084080306,
+  "hi": 0.19079694143848414,
+  "n": 136,
+  "verdict": "supported"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - native (same pixels, higher S)",
+  "label": "FSC-147 gpt56",
+  "diff": 0.058635057915767896,
+  "lo": 0.028267933895392925,
+  "hi": 0.08874876898254362,
+  "n": 136,
+  "verdict": "supported"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - native (same pixels, higher S)",
+  "label": "FSC-147 sonnet55",
+  "diff": 0.05127928741112505,
+  "lo": -0.019947523665052074,
+  "hi": 0.12549843760124824,
+  "n": 136,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - original (same pixels, higher S)",
+  "label": "synthetic gpt54",
+  "diff": -0.6111111111111112,
+  "lo": -0.7708333333333334,
+  "hi": -0.4444444444444444,
+  "n": 18,
+  "verdict": "violated"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - original (same pixels, higher S)",
+  "label": "synthetic sonnet46",
+  "diff": -0.10416666666666667,
+  "lo": -0.3194444444444444,
+  "hi": 0.125,
+  "n": 18,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - original (same pixels, higher S)",
+  "label": "synthetic qwen3vl",
+  "diff": -0.0625,
+  "lo": -0.2361111111111111,
+  "hi": 0.10434027777777842,
+  "n": 18,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - original (same pixels, higher S)",
+  "label": "synthetic gpt56",
+  "diff": 0.0625,
+  "lo": -0.006944444444444444,
+  "hi": 0.18055555555555555,
+  "n": 18,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "upsampled - original (same pixels, higher S)",
+  "label": "synthetic sonnet55",
+  "diff": -0.013888888888888888,
+  "lo": -0.034722222222222224,
+  "hi": 0.0,
+  "n": 18,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "Gemini 3.8 budget default - low (same pixels)",
+  "label": "FPC-300",
+  "diff": 0.1130398127513512,
+  "lo": 0.07533002688309626,
+  "hi": 0.15313985841149752,
+  "n": 338,
+  "verdict": "supported"
+ },
+ {
+  "family": "R",
+  "rule": "Gemini 3.8 budget ultra-high - default (same pixels)",
+  "label": "FPC-300",
+  "diff": -0.0017271297078989395,
+  "lo": -0.033776600665866,
+  "hi": 0.03130378572917005,
+  "n": 338,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "Gemini 3.8 budget default - low (same pixels)",
+  "label": "FPC-sheets",
+  "diff": 0.10868794517939875,
+  "lo": 0.07582377814588671,
+  "hi": 0.141982818982816,
+  "n": 175,
+  "verdict": "supported"
+ },
+ {
+  "family": "R",
+  "rule": "Gemini 3.8 budget ultra-high - default (same pixels)",
+  "label": "FPC-sheets",
+  "diff": 0.021344635665945917,
+  "lo": -0.013055126773085849,
+  "hi": 0.05667820030820159,
+  "n": 175,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "Gemini 3.8 budget default - low (same pixels)",
+  "label": "synthetic",
+  "diff": 0.09523809523809523,
+  "lo": 0.011904761904761904,
+  "hi": 0.19047619047619047,
+  "n": 42,
+  "verdict": "supported"
+ },
+ {
+  "family": "R",
+  "rule": "Gemini 3.8 budget ultra-high - default (same pixels)",
+  "label": "synthetic",
+  "diff": 0.020833333333333332,
+  "lo": -0.017931547619047594,
+  "hi": 0.06845238095238096,
+  "n": 42,
+  "verdict": "consistent"
+ },
+ {
+  "family": "M",
+  "rule": "single tiles - 2 tiles per image",
+  "label": "REDP-X40 sheets gpt56",
+  "diff": 0.03161046951334717,
+  "lo": -0.056039378837096414,
+  "hi": 0.11796133599327192,
+  "n": 14,
+  "verdict": "consistent"
+ },
+ {
+  "family": "M",
+  "rule": "single tiles - 4 tiles per image",
+  "label": "REDP-X40 sheets gpt56",
+  "diff": 0.089987218625637,
+  "lo": -0.006137673156940733,
+  "hi": 0.18377974286986012,
+  "n": 14,
+  "verdict": "consistent"
+ },
+ {
+  "family": "M",
+  "rule": "single tiles - 8 tiles per image",
+  "label": "REDP-X40 sheets gpt56",
+  "diff": 0.30618988385718326,
+  "lo": 0.15475403717062408,
+  "hi": 0.44032659696687065,
+  "n": 14,
+  "verdict": "supported"
+ },
+ {
+  "family": "M",
+  "rule": "single tiles - 2 tiles per image",
+  "label": "REDP-X40 sheets sonnet55",
+  "diff": 0.03542749561662696,
+  "lo": 0.0012601672585634113,
+  "hi": 0.07904796816087141,
+  "n": 14,
+  "verdict": "supported"
+ },
+ {
+  "family": "M",
+  "rule": "single tiles - 4 tiles per image",
+  "label": "REDP-X40 sheets sonnet55",
+  "diff": 0.1244923823766366,
+  "lo": 0.035633013730172684,
+  "hi": 0.26397013843518935,
+  "n": 14,
+  "verdict": "supported"
+ },
+ {
+  "family": "M",
+  "rule": "single tiles - 8 tiles per image",
+  "label": "REDP-X40 sheets sonnet55",
+  "diff": 0.09700657050738841,
+  "lo": 0.023380812678408802,
+  "hi": 0.18936873797227086,
+  "n": 14,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gpt54",
+  "diff": 0.14052656120475268,
+  "lo": 0.025498655821129222,
+  "hi": 0.26502130681818187,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gpt54",
+  "diff": 0.21431919882717754,
+  "lo": 0.11733417236575483,
+  "hi": 0.31870332792207795,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets sonnet46",
+  "diff": 0.3311011904761904,
+  "lo": 0.20654017857142856,
+  "hi": 0.45402157738095233,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets sonnet46",
+  "diff": 0.41562499999999997,
+  "lo": 0.29092261904761907,
+  "hi": 0.5327380952380952,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gemini25",
+  "diff": 0.035597137791286725,
+  "lo": -0.06425136144883484,
+  "hi": 0.1332009878419453,
+  "n": 56,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gemini25",
+  "diff": 0.15004749240121582,
+  "lo": 0.054949578900709214,
+  "hi": 0.2462883896909828,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gemma4",
+  "diff": 0.2995018574805809,
+  "lo": 0.187544959473151,
+  "hi": 0.41577378313914226,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gemma4",
+  "diff": 0.3763867781155015,
+  "lo": 0.2662677304964539,
+  "hi": 0.485567850810537,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets qwen3vl",
+  "diff": 0.22271825396825395,
+  "lo": 0.10832589285714285,
+  "hi": 0.3352281746031746,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets qwen3vl",
+  "diff": 0.42063492063492064,
+  "lo": 0.29324900793650793,
+  "hi": 0.5498015873015872,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gpt56",
+  "diff": 0.08554561573178594,
+  "lo": -0.006108537406742201,
+  "hi": 0.17914899373675974,
+  "n": 56,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gpt56",
+  "diff": 0.23159194528875382,
+  "lo": 0.09969976887031409,
+  "hi": 0.3651807877406282,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets sonnet55",
+  "diff": 0.0384469696969697,
+  "lo": -0.04285714285714285,
+  "hi": 0.1258008658008658,
+  "n": 56,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets sonnet55",
+  "diff": 0.15658820346320348,
+  "lo": 0.07068452380952381,
+  "hi": 0.255556682900433,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gem38",
+  "diff": 0.1463048033526757,
+  "lo": 0.0344504337639311,
+  "hi": 0.2582805735930736,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gem38",
+  "diff": 0.34635459841576866,
+  "lo": 0.24371846792392005,
+  "hi": 0.45231054129824083,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gem38lo",
+  "diff": 0.3419688910380399,
+  "lo": 0.23689676015473887,
+  "hi": 0.4505681818181818,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gem38lo",
+  "diff": 0.5913601248042737,
+  "lo": 0.4839148058280372,
+  "hi": 0.7008942099567101,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 2x2 sheet",
+  "label": "FPC-sheets gem38uh",
+  "diff": 0.1642949249332228,
+  "lo": 0.06611828774062818,
+  "hi": 0.26756896472322006,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "R+M",
+  "rule": "first block alone - inside 3x3 sheet",
+  "label": "FPC-sheets gem38uh",
+  "diff": 0.34401969927235887,
+  "lo": 0.24253058942387398,
+  "hi": 0.4491235277355623,
+  "n": 56,
+  "verdict": "supported"
+ },
+ {
+  "family": "M",
+  "rule": "overview crop - overview (agent)",
+  "label": "REDP-X40 gpt56",
+  "diff": -0.023481312551308163,
+  "lo": -0.08002805348250881,
+  "hi": 0.01865662430016913,
+  "n": 34,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "enlarged crop - crop (agent)",
+  "label": "REDP-X40 gpt56",
+  "diff": 0.05843212885526843,
+  "lo": 0.01675343388202716,
+  "hi": 0.12269833622651485,
+  "n": 34,
+  "verdict": "supported"
+ },
+ {
+  "family": "I",
+  "rule": "native zoom - enlarged crop (agent)",
+  "label": "REDP-X40 gpt56",
+  "diff": 0.004149952392197983,
+  "lo": -0.0036959350914395773,
+  "hi": 0.01197026259159542,
+  "n": 34,
+  "verdict": "consistent"
+ },
+ {
+  "family": "M",
+  "rule": "overview crop - overview (agent)",
+  "label": "REDP-X40 sonnet55",
+  "diff": 0.03387559044726661,
+  "lo": -0.07013143183454798,
+  "hi": 0.1343255263838778,
+  "n": 34,
+  "verdict": "consistent"
+ },
+ {
+  "family": "R",
+  "rule": "enlarged crop - crop (agent)",
+  "label": "REDP-X40 sonnet55",
+  "diff": 0.06285882192879401,
+  "lo": -0.0020729692875942913,
+  "hi": 0.13984124951019788,
+  "n": 34,
+  "verdict": "consistent"
+ },
+ {
+  "family": "I",
+  "rule": "native zoom - enlarged crop (agent)",
+  "label": "REDP-X40 sonnet55",
+  "diff": 0.05227283601753898,
+  "lo": 0.013874133013758509,
+  "hi": 0.10537386280549325,
+  "n": 34,
+  "verdict": "supported"
+ }
+]

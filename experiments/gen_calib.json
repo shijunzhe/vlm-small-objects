@@ -1,0 +1,350 @@
+[
+ {
+  "vendor": "sonnet55",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 26
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 386
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1394
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 3050
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 4786
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 4809
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 2113
+ },
+ {
+  "vendor": "sonnet55",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 4257
+ },
+ {
+  "vendor": "opus55",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 26
+ },
+ {
+  "vendor": "opus55",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 386
+ },
+ {
+  "vendor": "opus55",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1394
+ },
+ {
+  "vendor": "opus55",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 3050
+ },
+ {
+  "vendor": "opus55",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 4786
+ },
+ {
+  "vendor": "opus55",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 4809
+ },
+ {
+  "vendor": "opus55",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 2113
+ },
+ {
+  "vendor": "opus55",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 4257
+ },
+ {
+  "vendor": "gpt55",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 20
+ },
+ {
+  "vendor": "gpt55",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 326
+ },
+ {
+  "vendor": "gpt55",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1247
+ },
+ {
+  "vendor": "gpt55",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2783
+ },
+ {
+  "vendor": "gpt55",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 4934
+ },
+ {
+  "vendor": "gpt55",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 4490
+ },
+ {
+  "vendor": "gpt55",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1939
+ },
+ {
+  "vendor": "gpt55",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 9849
+ },
+ {
+  "vendor": "gpt56",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 20
+ },
+ {
+  "vendor": "gpt56",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 326
+ },
+ {
+  "vendor": "gpt56",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1247
+ },
+ {
+  "vendor": "gpt56",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2783
+ },
+ {
+  "vendor": "gpt56",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 4934
+ },
+ {
+  "vendor": "gpt56",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 4490
+ },
+ {
+  "vendor": "gpt56",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1939
+ },
+ {
+  "vendor": "gpt56",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 9849
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 20
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 326
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1247
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2783
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 4934
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 4490
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 11078
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1939
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 9849
+ },
+ {
+  "vendor": "gpt56orig",
+  "w": 6000,
+  "h": 4000,
+  "input_tokens": 28219
+ },
+ {
+  "vendor": "gem38",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 1100
+ },
+ {
+  "vendor": "gem38",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 1100
+ },
+ {
+  "vendor": "gem38",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1100
+ },
+ {
+  "vendor": "gem38",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 1100
+ },
+ {
+  "vendor": "gem38",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 1100
+ },
+ {
+  "vendor": "gem38",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 1111
+ },
+ {
+  "vendor": "gem38",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1103
+ },
+ {
+  "vendor": "gem38",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 1092
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 2220
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 2220
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 2220
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2220
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 2220
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 2216
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 2194
+ },
+ {
+  "vendor": "gem38uh",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 2189
+ }
+]

@@ -1,0 +1,352 @@
+[
+ {
+  "vendor": "claude",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 22,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 256,
+  "h": 256,
+  "input_tokens": 121,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 382,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 768,
+  "h": 768,
+  "input_tokens": 805,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1390,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 1542,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 1542,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 1542,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1571,
+  "provider": null
+ },
+ {
+  "vendor": "claude",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 1589,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 20,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 256,
+  "h": 256,
+  "input_tokens": 95,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 326,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 768,
+  "h": 768,
+  "input_tokens": 710,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1247,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2783,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 3019,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 3019,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1939,
+  "provider": null
+ },
+ {
+  "vendor": "gpt",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 2476,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 256,
+  "h": 256,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 768,
+  "h": 768,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "gemini",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 269,
+  "provider": null
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 88,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 256,
+  "h": 256,
+  "input_tokens": 88,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 280,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 768,
+  "h": 768,
+  "input_tokens": 600,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1048,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2328,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 2524,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 2524,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1574,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "qwen3vl",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 2509,
+  "provider": "Alibaba"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 256,
+  "h": 256,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 768,
+  "h": 768,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 286,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 303,
+  "provider": "CoreWeave"
+ },
+ {
+  "vendor": "gemma4",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 283,
+  "provider": "CoreWeave"
+ }
+]

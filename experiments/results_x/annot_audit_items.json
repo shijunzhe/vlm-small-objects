@@ -1,0 +1,687 @@
+[
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 2126.7115454545456,
+  "y": 2152.3631212121213,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 3202.1666666666665,
+  "y": 1800.0436666666667,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 2041.0187272727271,
+  "y": 2404.606121212121,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 1897.579484848485,
+  "y": 2058.482151515151,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 3660.6516666666666,
+  "y": 2048.103333333333,
+  "methods": [
+   "D_gemma4",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 3903.1673333333333,
+  "y": 3034.0383333333334,
+  "methods": [
+   "D_gemma4",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 1720.4676969696968,
+  "y": 2547.8831212121213,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 1821.4889090909091,
+  "y": 1957.2353030303032,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 3320.5730000000003,
+  "y": 1704.793,
+  "methods": [
+   "D_gemma4",
+   "H_qwen",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 2798.6513333333332,
+  "y": 1376.3833333333332,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 3797.540333333333,
+  "y": 2765.871333333333,
+  "methods": [
+   "D_gemma4",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 1719.3836666666666,
+  "y": 3570.472333333333,
+  "methods": [
+   "D_gemma4",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 4391.106,
+  "y": 2416.674606060606,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 4639.170939393939,
+  "y": 4282.842515151515,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 4389.533454545454,
+  "y": 4532.807,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 4265.306121212121,
+  "y": 4660.063272727272,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 4172.468636363636,
+  "y": 4742.591878787879,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 4059.719818181818,
+  "y": 4849.454696969698,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 2654.9646666666667,
+  "y": 794.1616666666667,
+  "methods": [
+   "D_gemma4",
+   "H_qwen",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d009",
+  "kind": "possible_missed",
+  "x": 2333.4103333333333,
+  "y": 1803.667666666667,
+  "methods": [
+   "D_gemma4",
+   "H_qwen",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 6104.584333333333,
+  "y": 629.9184545454544,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 6456.0803636363635,
+  "y": 982.2136666666667,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 2491.7761818181816,
+  "y": 696.3262000000001,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 4991.517454545454,
+  "y": 807.5434545454546,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 6697.881181818182,
+  "y": 2015.2755,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 2494.0762363636363,
+  "y": 4101.778272727273,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 7026.419381818183,
+  "y": 3878.433418181818,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 990.3896666666666,
+  "y": 3004.012,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 1490.6218181818183,
+  "y": 3009.1929999999998,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56"
+  ]
+ },
+ {
+  "did": "d011",
+  "kind": "possible_missed",
+  "x": 5493.291575757576,
+  "y": 2805.812303030303,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56"
+  ]
+ },
+ {
+  "did": "d012",
+  "kind": "possible_missed",
+  "x": 6941.400000000001,
+  "y": 4364.733333333334,
+  "methods": [
+   "D_gemma4",
+   "H_qwen",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d013",
+  "kind": "possible_missed",
+  "x": 2212.8316666666665,
+  "y": 1870.5003636363635,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d013",
+  "kind": "possible_missed",
+  "x": 2817.647363636364,
+  "y": 3520.020666666667,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d013",
+  "kind": "possible_missed",
+  "x": 2818.496363636363,
+  "y": 3874.366121212121,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d018",
+  "kind": "possible_missed",
+  "x": 4114.319909090909,
+  "y": 3478.931121212121,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d018",
+  "kind": "possible_missed",
+  "x": 6775.919333333334,
+  "y": 1720.694181818182,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d023",
+  "kind": "possible_missed",
+  "x": 135.675,
+  "y": 376.45059090909086,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d024",
+  "kind": "possible_missed",
+  "x": 1131.867077922078,
+  "y": 290.10858441558446,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d024",
+  "kind": "possible_missed",
+  "x": 1545.0477402597403,
+  "y": 1395.6411818181818,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d024",
+  "kind": "possible_missed",
+  "x": 1353.318696969697,
+  "y": 877.2571818181818,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d024",
+  "kind": "possible_missed",
+  "x": 1196.5046493506493,
+  "y": 772.4646623376622,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen",
+   "H_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d027",
+  "kind": "possible_missed",
+  "x": 561.5181818181818,
+  "y": 1153.1676363636363,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "TM"
+  ]
+ },
+ {
+  "did": "d028",
+  "kind": "possible_missed",
+  "x": 341.54866666666663,
+  "y": 220.10833333333335,
+  "methods": [
+   "D_gem38",
+   "D_gemma4",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1038.0086363636362,
+  "y": 409.1034848484848,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1040.1191515151515,
+  "y": 527.0376363636364,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1040.1191515151515,
+  "y": 574.1661212121212,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1040.1191515151515,
+  "y": 637.5203636363636,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1040.1191515151515,
+  "y": 660.7664242424243,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 252.51924242424244,
+  "y": 100.29187878787879,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 434.5495757575757,
+  "y": 236.6180606060606,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 354.22339393939393,
+  "y": 250.97309090909093,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 253.46739393939393,
+  "y": 272.95921212121215,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 170.2641212121212,
+  "y": 288.61254545454545,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 314.5357575757576,
+  "y": 307.4763636363636,
+  "methods": [
+   "D_gem38",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 214.1838181818182,
+  "y": 327.9846969696969,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1034.6882954545454,
+  "y": 356.8276818181818,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "H_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 1038.7110303030304,
+  "y": 1048.8117575757576,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d029",
+  "kind": "possible_missed",
+  "x": 207.58339393939391,
+  "y": 1055.9327272727273,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55"
+  ]
+ },
+ {
+  "did": "d033",
+  "kind": "possible_missed",
+  "x": 417.43890909090914,
+  "y": 263.96815151515153,
+  "methods": [
+   "D_gemma4",
+   "D_sonnet55",
+   "TM"
+  ]
+ },
+ {
+  "did": "d033",
+  "kind": "possible_missed",
+  "x": 129.28841818181817,
+  "y": 263.6993636363636,
+  "methods": [
+   "D_gemma4",
+   "D_gpt56",
+   "D_sonnet55",
+   "H_qwen",
+   "TM"
+  ]
+ }
+]

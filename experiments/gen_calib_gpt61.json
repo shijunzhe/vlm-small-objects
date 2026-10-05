@@ -1,0 +1,56 @@
+[
+ {
+  "vendor": "gpt61",
+  "w": 16,
+  "h": 16,
+  "input_tokens": 20
+ },
+ {
+  "vendor": "gpt61",
+  "w": 512,
+  "h": 512,
+  "input_tokens": 326
+ },
+ {
+  "vendor": "gpt61",
+  "w": 1024,
+  "h": 1024,
+  "input_tokens": 1247
+ },
+ {
+  "vendor": "gpt61",
+  "w": 1536,
+  "h": 1536,
+  "input_tokens": 2783
+ },
+ {
+  "vendor": "gpt61",
+  "w": 2048,
+  "h": 2048,
+  "input_tokens": 4934
+ },
+ {
+  "vendor": "gpt61",
+  "w": 2576,
+  "h": 1449,
+  "input_tokens": 4490
+ },
+ {
+  "vendor": "gpt61",
+  "w": 3072,
+  "h": 3072,
+  "input_tokens": 11078
+ },
+ {
+  "vendor": "gpt61",
+  "w": 1600,
+  "h": 1000,
+  "input_tokens": 1939
+ },
+ {
+  "vendor": "gpt61",
+  "w": 4096,
+  "h": 2048,
+  "input_tokens": 9849
+ }
+]

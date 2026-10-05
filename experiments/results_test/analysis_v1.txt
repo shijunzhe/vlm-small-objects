@@ -1,0 +1,92 @@
+TM threshold chosen on dev only: 0.75
+
+cond   model    | all34 F1 recall  prec relerr | sheets  views | n   runs
+A1     gpt      |     0.61   0.66  0.60   0.47 |   0.37   0.79 | 34  2
+A1     claude   |     0.18   0.19  0.18   0.47 |   0.02   0.29 | 34  2
+A1     gemini   |     0.03   0.04  0.03   1.38 |   0.01   0.05 | 34  2
+A1     gemma4   |     0.01   0.00  0.01   0.44 |   0.01   0.00 | 34  2
+A1     qwen3vl  |     0.01   0.01  0.01   0.94 |   0.01   0.00 | 34  2
+A2     gpt      |     0.61   0.66  0.60   0.47 |   0.37   0.79 | 34  2
+A2     claude   |     0.18   0.19  0.18   0.47 |   0.02   0.29 | 34  2
+A2     gemini   |     0.06   0.08  0.06   1.38 |   0.00   0.10 | 34  2
+A2     gemma4   |     0.31   0.30  0.32   0.44 |   0.07   0.48 | 34  2
+A2     qwen3vl  |     0.01   0.00  0.04   0.94 |   0.00   0.01 | 34  2
+B      gpt      |     0.49   0.54  0.48   0.45 |   0.14   0.74 | 34  2
+B      gemini   |     0.16   0.19  0.15   1.58 |   0.02   0.26 | 34  2
+C      gpt      |     0.67   0.75  0.63   0.56 |   0.65   0.68 | 34  2
+C      claude   |     0.61   0.70  0.58   0.70 |   0.59   0.62 | 34  2
+C      gemini   |     0.17   0.19  0.16   0.77 |   0.12   0.20 | 34  2
+C      gemma4   |     0.67   0.75  0.67   0.77 |   0.51   0.79 | 34  2
+C      qwen3vl  |     0.52   0.50  0.67   0.49 |   0.51   0.52 | 34  2
+D      gpt      |     0.67   0.75  0.63   0.56 |   0.65   0.68 | 34  2
+D      claude   |     0.61   0.70  0.58   0.70 |   0.59   0.62 | 34  2
+D      gemini   |     0.41   0.44  0.42   0.58 |   0.41   0.40 | 34  2
+D      gemma4   |     0.75   0.95  0.68   1.14 |   0.66   0.81 | 34  2
+D      qwen3vl  |     0.52   0.50  0.67   0.49 |   0.51   0.52 | 34  2
+Dmask  gpt      |     0.69   0.79  0.65   0.54 |   0.65   0.72 | 34  1
+Dmask  claude   |     0.69   0.80  0.66   0.85 |   0.59   0.76 | 34  1
+H      gpt      |     0.83   0.83  0.90   0.31 |   0.75   0.89 | 34  1
+H      claude   |     0.86   0.90  0.85   0.31 |   0.84   0.87 | 34  1
+H      gemini   |     0.85   0.91  0.85   0.36 |   0.85   0.86 | 34  1
+H      gemma4   |     0.86   0.91  0.85   0.39 |   0.84   0.87 | 34  1
+H      qwen3vl  |     0.90   0.90  0.93   0.12 |   0.87   0.93 | 34  1
+TM dev-thr      |     0.87                     |   0.85   0.88 | 34
+analyze_test.py:126: RuntimeWarning: Mean of empty slice
+  return (np.nanmean(v, axis=0), len(v)) if v else (None, 0)
+TM LOO          |     0.89                     |   0.86   0.91 | 34
+H candidate bound (perfect verifier): 0.974
+
+=== pre-registered hypotheses
+H1  D - A1  gpt      +0.05 [-0.06, +0.17] n=34 Holm p=0.3650
+H1  D - A1  claude   +0.42 [+0.30, +0.54] n=34 Holm p=0.0000
+H1  D - A1  gemini   +0.37 [+0.31, +0.44] n=34 Holm p=0.0000
+H1  D - A1  gemma4   +0.75 [+0.66, +0.83] n=34 Holm p=0.0000
+H1  D - A1  qwen3vl  +0.51 [+0.42, +0.60] n=34 Holm p=0.0000
+H2  rank A1 ['gpt', 'claude', 'gemini', 'qwen3vl', 'gemma4']  rank D ['gemma4', 'gpt', 'claude', 'qwen3vl', 'gemini']  gemma A1 rank 5, D rank 1
+H3  D - C   gemini   +0.24 [+0.17, +0.31]
+H3  D - C   gemma4   +0.08 [+0.02, +0.14]
+H4  B - D   gpt      -0.17 [-0.30, -0.04]
+H4  B - D   gemini   -0.25 [-0.33, -0.15]
+H5  A2 - A1 gemini   F1 +0.03 [-0.01, +0.07]   |relerr| +0.00 (count unchanged by construction)
+H5  A2 - A1 gemma4   F1 +0.30 [+0.18, +0.43]   |relerr| +0.00 (count unchanged by construction)
+H5  A2 - A1 qwen3vl  F1 +0.00 [-0.01, +0.02]   |relerr| +0.00 (count unchanged by construction)
+H6  D-A1 gain gpt      sheets +0.29  views -0.11  -> holds
+H6  D-A1 gain claude   sheets +0.56  views +0.33  -> holds
+H6  D-A1 gain gemini   sheets +0.41  views +0.35  -> holds
+H6  D-A1 gain gemma4   sheets +0.65  views +0.81  -> fails
+H6  D-A1 gain qwen3vl  sheets +0.50  views +0.52  -> fails
+H7  best D (gemma4) - TM dev-thr: -0.12 [-0.20, -0.05]
+H7  best D (gemma4) - TM LOO: -0.14 [-0.22, -0.07]
+H8  Dmask - D gpt      +0.02 [-0.04, +0.09]
+H8  Dmask - D claude   +0.09 [-0.00, +0.17]
+H9  cells above ceiling+0.05: 1/48  [('C', 'gemma4', 'views', np.float64(0.79), np.float64(0.51))]
+H10 gemini   A1 sheets 0.01 (<=0.10?) views 0.05 | A2 sheets 0.00
+H10 gemma4   A1 sheets 0.01 (<=0.10?) views 0.00 | A2 sheets 0.07
+H11 gpt      Spearman(A1 obs, ceiling) +0.75 [+0.56, +0.87] n=34
+H11 claude   Spearman(A1 obs, ceiling) +0.52 [+0.22, +0.72] n=34
+H12 gpt      D-A1 gain low-ceiling +0.41 (n=9)  high-ceiling -0.09 [-0.22, +0.03] (n=16)
+H12 claude   D-A1 gain low-ceiling +0.57 (n=12)  high-ceiling +0.30 [+0.09, +0.51] (n=16)
+H12 gemini   D-A1 gain low-ceiling +0.35 (n=27)  high-ceiling +0.59 [+0.49, +0.63] (n=3)
+H12 gemma4   D-A1 gain low-ceiling +0.69 (n=27)  high-ceiling +0.98 [+0.95, +1.00] (n=3)
+H12 qwen3vl  D-A1 gain low-ceiling +0.51 (n=9)  high-ceiling +0.56 [+0.41, +0.70] (n=16)
+H13 H - D   gpt      +0.16 [+0.07, +0.25] Holm p=0.0000
+H13 H - D   claude   +0.25 [+0.16, +0.34] Holm p=0.0000
+H13 H - D   gemini   +0.45 [+0.37, +0.52] Holm p=0.0000
+H13 H - D   gemma4   +0.11 [+0.04, +0.17] Holm p=0.0010
+H13 H - D   qwen3vl  +0.39 [+0.30, +0.47] Holm p=0.0000
+H14 range across models: H 0.07  D 0.34
+H15 gpt      verifier acc 0.887 TPR 0.814 FPR 0.079 | H F1 / bound = 0.85
+H15 claude   verifier acc 0.907 TPR 0.908 FPR 0.093 | H F1 / bound = 0.88
+H15 gemini   verifier acc 0.888 TPR 0.921 FPR 0.128 | H F1 / bound = 0.88
+H15 gemma4   verifier acc 0.879 TPR 0.925 FPR 0.143 | H F1 / bound = 0.88
+H15 qwen3vl  verifier acc 0.951 TPR 0.914 FPR 0.032 | H F1 / bound = 0.93
+H16 H - TM dev-thr gpt      -0.04 [-0.12, +0.04]
+H16 H - TM dev-thr claude   -0.01 [-0.08, +0.05]
+H16 H - TM dev-thr gemini   -0.02 [-0.09, +0.05]
+H16 H - TM dev-thr gemma4   -0.01 [-0.08, +0.05]
+H16 H - TM dev-thr qwen3vl  +0.03 [-0.04, +0.10]
+H16 H - TM LOO     gpt      -0.06 [-0.14, +0.01]
+H16 H - TM LOO     claude   -0.03 [-0.09, +0.02]
+H16 H - TM LOO     gemini   -0.04 [-0.10, +0.02]
+H16 H - TM LOO     gemma4   -0.04 [-0.10, +0.01]
+H16 H - TM LOO     qwen3vl  +0.01 [-0.05, +0.07]

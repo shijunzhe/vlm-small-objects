@@ -1,0 +1,200 @@
+[
+ {
+  "cell": "A1 whole gpt",
+  "observed": 0.32301380553919534,
+  "ceiling": 0.4196021821679021,
+  "n": 6
+ },
+ {
+  "cell": "A1 whole claude",
+  "observed": 0.01351967025620244,
+  "ceiling": 0.29816390505169843,
+  "n": 6
+ },
+ {
+  "cell": "A1 whole gemini",
+  "observed": 0.013054816523207356,
+  "ceiling": 0.0481542621988455,
+  "n": 6
+ },
+ {
+  "cell": "A1 whole gemma4",
+  "observed": 0.019197697760750743,
+  "ceiling": 0.047120414707482454,
+  "n": 6
+ },
+ {
+  "cell": "B gpt original",
+  "observed": 0.17928569235699052,
+  "ceiling": 0.950882301169428,
+  "n": 6
+ },
+ {
+  "cell": "B gemini HIGH",
+  "observed": 0.01864674138646741,
+  "ceiling": 0.6150606409557998,
+  "n": 6
+ },
+ {
+  "cell": "T512 tiles gpt",
+  "observed": 0.545,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T768 tiles gpt",
+  "observed": 0.64,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T1024 tiles gpt",
+  "observed": 0.6833333333333332,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T512 tiles claude",
+  "observed": 0.625,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T768 tiles claude",
+  "observed": 0.51,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T1024 tiles claude",
+  "observed": 0.5299999999999999,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "L1 step2 gpt",
+  "observed": 0.3983333333333334,
+  "ceiling": 0.49862450434119404,
+  "n": 6
+ },
+ {
+  "cell": "L2 step2 gpt",
+  "observed": 0.32166666666666666,
+  "ceiling": 0.9996875,
+  "n": 6
+ },
+ {
+  "cell": "S1 step2 gpt",
+  "observed": 0.27166666666666667,
+  "ceiling": 0.49862450434119404,
+  "n": 6
+ },
+ {
+  "cell": "S2 step2 gpt",
+  "observed": 0.49166666666666664,
+  "ceiling": 0.9996875,
+  "n": 6
+ },
+ {
+  "cell": "L2n step2 gpt",
+  "observed": 0.5,
+  "ceiling": 0.9996875,
+  "n": 6
+ },
+ {
+  "cell": "L1 step2 claude",
+  "observed": 0.2866666666666667,
+  "ceiling": 0.6465872945116006,
+  "n": 6
+ },
+ {
+  "cell": "L2 step2 claude",
+  "observed": 0.21333333333333335,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "S1 step2 claude",
+  "observed": 0.13,
+  "ceiling": 0.6465872945116006,
+  "n": 6
+ },
+ {
+  "cell": "S2 step2 claude",
+  "observed": 0.5216666666666666,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "L2n step2 claude",
+  "observed": 0.29,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "k1.0 FOV gemini",
+  "observed": 0.17333333333333334,
+  "ceiling": 0.8957816503123585,
+  "n": 6
+ },
+ {
+  "cell": "k1.5 FOV gemini",
+  "observed": 0.25166666666666665,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "k2.5 FOV gemini",
+  "observed": 0.3066666666666667,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "k1.0 FOV gemma4",
+  "observed": 0.7083333333333334,
+  "ceiling": 0.9231515753528031,
+  "n": 6
+ },
+ {
+  "cell": "k1.5 FOV gemma4",
+  "observed": 0.8350000000000001,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T1024 p0 qwen",
+  "observed": 0.5416666666666666,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "S1pad p0 gpt",
+  "observed": 0.5750000000000001,
+  "ceiling": 0.49862450434119404,
+  "n": 6
+ },
+ {
+  "cell": "S1pad p0 claude",
+  "observed": 0.49666666666666665,
+  "ceiling": 0.6465872945116006,
+  "n": 6
+ },
+ {
+  "cell": "k1.5ruler p0 gemini",
+  "observed": 0.3333333333333333,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T1024mask p0 gpt",
+  "observed": 0.7498747243819611,
+  "ceiling": 1.0,
+  "n": 6
+ },
+ {
+  "cell": "T1024mask p0 claude",
+  "observed": 0.6603061345356684,
+  "ceiling": 1.0,
+  "n": 6
+ }
+]

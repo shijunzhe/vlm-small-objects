@@ -1,0 +1,2042 @@
+{
+ "d002|sonnet55": {
+  "ceiling_f1": 0.486,
+  "weak": 1.0,
+  "sym_tokens": 0.56,
+  "subset": "sheet"
+ },
+ "d002|opus55": {
+  "ceiling_f1": 0.486,
+  "weak": 1.0,
+  "sym_tokens": 0.56,
+  "subset": "sheet"
+ },
+ "d002|gpt55": {
+  "ceiling_f1": 0.387,
+  "weak": 1.0,
+  "sym_tokens": 0.49,
+  "subset": "sheet"
+ },
+ "d002|gpt56": {
+  "ceiling_f1": 0.387,
+  "weak": 1.0,
+  "sym_tokens": 0.49,
+  "subset": "sheet"
+ },
+ "d002|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.25,
+  "subset": "sheet"
+ },
+ "d002|gem38": {
+  "ceiling_f1": 0.126,
+  "weak": 1.0,
+  "sym_tokens": 0.32,
+  "subset": "sheet"
+ },
+ "d002|gem38uh": {
+  "ceiling_f1": 0.32,
+  "weak": 1.0,
+  "sym_tokens": 0.46,
+  "subset": "sheet"
+ },
+ "d002|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d002|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d002|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d003|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.9,
+  "subset": "sheet"
+ },
+ "d003|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.9,
+  "subset": "sheet"
+ },
+ "d003|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.66,
+  "subset": "sheet"
+ },
+ "d003|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.66,
+  "subset": "sheet"
+ },
+ "d003|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 4.25,
+  "subset": "sheet"
+ },
+ "d003|gem38": {
+  "ceiling_f1": 0.916,
+  "weak": 1.0,
+  "sym_tokens": 1.1,
+  "subset": "sheet"
+ },
+ "d003|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "sheet"
+ },
+ "d003|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d003|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d003|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d005|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "sheet"
+ },
+ "d005|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "sheet"
+ },
+ "d005|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.37,
+  "subset": "sheet"
+ },
+ "d005|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.37,
+  "subset": "sheet"
+ },
+ "d005|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.5,
+  "subset": "sheet"
+ },
+ "d005|gem38": {
+  "ceiling_f1": 0.801,
+  "weak": 1.0,
+  "sym_tokens": 0.9,
+  "subset": "sheet"
+ },
+ "d005|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.28,
+  "subset": "sheet"
+ },
+ "d005|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d005|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d005|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d006|sonnet55": {
+  "ceiling_f1": 0.329,
+  "weak": 1.0,
+  "sym_tokens": 0.63,
+  "subset": "sheet"
+ },
+ "d006|opus55": {
+  "ceiling_f1": 0.329,
+  "weak": 1.0,
+  "sym_tokens": 0.63,
+  "subset": "sheet"
+ },
+ "d006|gpt55": {
+  "ceiling_f1": 0.228,
+  "weak": 1.0,
+  "sym_tokens": 0.55,
+  "subset": "sheet"
+ },
+ "d006|gpt56": {
+  "ceiling_f1": 0.228,
+  "weak": 1.0,
+  "sym_tokens": 0.55,
+  "subset": "sheet"
+ },
+ "d006|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.41,
+  "subset": "sheet"
+ },
+ "d006|gem38": {
+  "ceiling_f1": 0.112,
+  "weak": 1.0,
+  "sym_tokens": 0.36,
+  "subset": "sheet"
+ },
+ "d006|gem38uh": {
+  "ceiling_f1": 0.215,
+  "weak": 1.0,
+  "sym_tokens": 0.52,
+  "subset": "sheet"
+ },
+ "d006|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d006|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d006|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d007|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.51,
+  "subset": "sheet"
+ },
+ "d007|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.51,
+  "subset": "sheet"
+ },
+ "d007|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.32,
+  "subset": "sheet"
+ },
+ "d007|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.32,
+  "subset": "sheet"
+ },
+ "d007|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.38,
+  "subset": "sheet"
+ },
+ "d007|gem38": {
+  "ceiling_f1": 0.725,
+  "weak": 1.0,
+  "sym_tokens": 0.87,
+  "subset": "sheet"
+ },
+ "d007|gem38uh": {
+  "ceiling_f1": 0.989,
+  "weak": 1.0,
+  "sym_tokens": 1.24,
+  "subset": "sheet"
+ },
+ "d007|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d007|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d007|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d009|sonnet55": {
+  "ceiling_f1": 0.617,
+  "weak": 1.0,
+  "sym_tokens": 0.88,
+  "subset": "sheet"
+ },
+ "d009|opus55": {
+  "ceiling_f1": 0.617,
+  "weak": 1.0,
+  "sym_tokens": 0.88,
+  "subset": "sheet"
+ },
+ "d009|gpt55": {
+  "ceiling_f1": 0.492,
+  "weak": 1.0,
+  "sym_tokens": 0.77,
+  "subset": "sheet"
+ },
+ "d009|gpt56": {
+  "ceiling_f1": 0.492,
+  "weak": 1.0,
+  "sym_tokens": 0.77,
+  "subset": "sheet"
+ },
+ "d009|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.64,
+  "subset": "sheet"
+ },
+ "d009|gem38": {
+  "ceiling_f1": 0.201,
+  "weak": 0.991,
+  "sym_tokens": 0.51,
+  "subset": "sheet"
+ },
+ "d009|gem38uh": {
+  "ceiling_f1": 0.465,
+  "weak": 0.999,
+  "sym_tokens": 0.73,
+  "subset": "sheet"
+ },
+ "d009|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d009|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d009|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d011|sonnet55": {
+  "ceiling_f1": 0.957,
+  "weak": 1.0,
+  "sym_tokens": 0.48,
+  "subset": "sheet"
+ },
+ "d011|opus55": {
+  "ceiling_f1": 0.957,
+  "weak": 1.0,
+  "sym_tokens": 0.48,
+  "subset": "sheet"
+ },
+ "d011|gpt55": {
+  "ceiling_f1": 0.872,
+  "weak": 1.0,
+  "sym_tokens": 0.42,
+  "subset": "sheet"
+ },
+ "d011|gpt56": {
+  "ceiling_f1": 0.872,
+  "weak": 1.0,
+  "sym_tokens": 0.42,
+  "subset": "sheet"
+ },
+ "d011|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.83,
+  "subset": "sheet"
+ },
+ "d011|gem38": {
+  "ceiling_f1": 0.382,
+  "weak": 1.0,
+  "sym_tokens": 0.28,
+  "subset": "sheet"
+ },
+ "d011|gem38uh": {
+  "ceiling_f1": 0.774,
+  "weak": 1.0,
+  "sym_tokens": 0.39,
+  "subset": "sheet"
+ },
+ "d011|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d011|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d011|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d012|sonnet55": {
+  "ceiling_f1": 0.484,
+  "weak": 1.0,
+  "sym_tokens": 0.51,
+  "subset": "sheet"
+ },
+ "d012|opus55": {
+  "ceiling_f1": 0.484,
+  "weak": 1.0,
+  "sym_tokens": 0.51,
+  "subset": "sheet"
+ },
+ "d012|gpt55": {
+  "ceiling_f1": 0.391,
+  "weak": 1.0,
+  "sym_tokens": 0.44,
+  "subset": "sheet"
+ },
+ "d012|gpt56": {
+  "ceiling_f1": 0.391,
+  "weak": 1.0,
+  "sym_tokens": 0.44,
+  "subset": "sheet"
+ },
+ "d012|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.96,
+  "subset": "sheet"
+ },
+ "d012|gem38": {
+  "ceiling_f1": 0.137,
+  "weak": 0.984,
+  "sym_tokens": 0.29,
+  "subset": "sheet"
+ },
+ "d012|gem38uh": {
+  "ceiling_f1": 0.328,
+  "weak": 1.0,
+  "sym_tokens": 0.42,
+  "subset": "sheet"
+ },
+ "d012|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d012|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d012|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d013|sonnet55": {
+  "ceiling_f1": 0.451,
+  "weak": 1.0,
+  "sym_tokens": 0.71,
+  "subset": "sheet"
+ },
+ "d013|opus55": {
+  "ceiling_f1": 0.451,
+  "weak": 1.0,
+  "sym_tokens": 0.71,
+  "subset": "sheet"
+ },
+ "d013|gpt55": {
+  "ceiling_f1": 0.357,
+  "weak": 1.0,
+  "sym_tokens": 0.62,
+  "subset": "sheet"
+ },
+ "d013|gpt56": {
+  "ceiling_f1": 0.357,
+  "weak": 1.0,
+  "sym_tokens": 0.62,
+  "subset": "sheet"
+ },
+ "d013|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "sheet"
+ },
+ "d013|gem38": {
+  "ceiling_f1": 0.143,
+  "weak": 1.0,
+  "sym_tokens": 0.41,
+  "subset": "sheet"
+ },
+ "d013|gem38uh": {
+  "ceiling_f1": 0.25,
+  "weak": 1.0,
+  "sym_tokens": 0.58,
+  "subset": "sheet"
+ },
+ "d013|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d013|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.37,
+  "subset": "sheet"
+ },
+ "d013|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d014|sonnet55": {
+  "ceiling_f1": 0.567,
+  "weak": 1.0,
+  "sym_tokens": 0.8,
+  "subset": "sheet"
+ },
+ "d014|opus55": {
+  "ceiling_f1": 0.567,
+  "weak": 1.0,
+  "sym_tokens": 0.8,
+  "subset": "sheet"
+ },
+ "d014|gpt55": {
+  "ceiling_f1": 0.412,
+  "weak": 1.0,
+  "sym_tokens": 0.7,
+  "subset": "sheet"
+ },
+ "d014|gpt56": {
+  "ceiling_f1": 0.412,
+  "weak": 1.0,
+  "sym_tokens": 0.7,
+  "subset": "sheet"
+ },
+ "d014|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.78,
+  "subset": "sheet"
+ },
+ "d014|gem38": {
+  "ceiling_f1": 0.196,
+  "weak": 0.998,
+  "sym_tokens": 0.46,
+  "subset": "sheet"
+ },
+ "d014|gem38uh": {
+  "ceiling_f1": 0.382,
+  "weak": 1.0,
+  "sym_tokens": 0.66,
+  "subset": "sheet"
+ },
+ "d014|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d014|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d014|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d015|sonnet55": {
+  "ceiling_f1": 0.816,
+  "weak": 1.0,
+  "sym_tokens": 0.95,
+  "subset": "sheet"
+ },
+ "d015|opus55": {
+  "ceiling_f1": 0.816,
+  "weak": 1.0,
+  "sym_tokens": 0.95,
+  "subset": "sheet"
+ },
+ "d015|gpt55": {
+  "ceiling_f1": 0.608,
+  "weak": 1.0,
+  "sym_tokens": 0.83,
+  "subset": "sheet"
+ },
+ "d015|gpt56": {
+  "ceiling_f1": 0.608,
+  "weak": 1.0,
+  "sym_tokens": 0.83,
+  "subset": "sheet"
+ },
+ "d015|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.53,
+  "subset": "sheet"
+ },
+ "d015|gem38": {
+  "ceiling_f1": 0.298,
+  "weak": 1.0,
+  "sym_tokens": 0.55,
+  "subset": "sheet"
+ },
+ "d015|gem38uh": {
+  "ceiling_f1": 0.548,
+  "weak": 1.0,
+  "sym_tokens": 0.78,
+  "subset": "sheet"
+ },
+ "d015|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d015|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d015|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d016|sonnet55": {
+  "ceiling_f1": 0.999,
+  "weak": 1.0,
+  "sym_tokens": 1.3,
+  "subset": "sheet"
+ },
+ "d016|opus55": {
+  "ceiling_f1": 0.999,
+  "weak": 1.0,
+  "sym_tokens": 1.3,
+  "subset": "sheet"
+ },
+ "d016|gpt55": {
+  "ceiling_f1": 0.957,
+  "weak": 1.0,
+  "sym_tokens": 1.14,
+  "subset": "sheet"
+ },
+ "d016|gpt56": {
+  "ceiling_f1": 0.957,
+  "weak": 1.0,
+  "sym_tokens": 1.14,
+  "subset": "sheet"
+ },
+ "d016|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.75,
+  "subset": "sheet"
+ },
+ "d016|gem38": {
+  "ceiling_f1": 0.493,
+  "weak": 1.0,
+  "sym_tokens": 0.75,
+  "subset": "sheet"
+ },
+ "d016|gem38uh": {
+  "ceiling_f1": 0.899,
+  "weak": 1.0,
+  "sym_tokens": 1.07,
+  "subset": "sheet"
+ },
+ "d016|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d016|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d016|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d018|sonnet55": {
+  "ceiling_f1": 0.125,
+  "weak": 0.985,
+  "sym_tokens": 0.37,
+  "subset": "sheet"
+ },
+ "d018|opus55": {
+  "ceiling_f1": 0.125,
+  "weak": 0.985,
+  "sym_tokens": 0.37,
+  "subset": "sheet"
+ },
+ "d018|gpt55": {
+  "ceiling_f1": 0.107,
+  "weak": 0.969,
+  "sym_tokens": 0.32,
+  "subset": "sheet"
+ },
+ "d018|gpt56": {
+  "ceiling_f1": 0.107,
+  "weak": 0.969,
+  "sym_tokens": 0.32,
+  "subset": "sheet"
+ },
+ "d018|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.33,
+  "subset": "sheet"
+ },
+ "d018|gem38": {
+  "ceiling_f1": 0.038,
+  "weak": 0.948,
+  "sym_tokens": 0.21,
+  "subset": "sheet"
+ },
+ "d018|gem38uh": {
+  "ceiling_f1": 0.071,
+  "weak": 0.973,
+  "sym_tokens": 0.3,
+  "subset": "sheet"
+ },
+ "d018|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d018|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d018|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d020|sonnet55": {
+  "ceiling_f1": 0.718,
+  "weak": 1.0,
+  "sym_tokens": 0.74,
+  "subset": "sheet"
+ },
+ "d020|opus55": {
+  "ceiling_f1": 0.718,
+  "weak": 1.0,
+  "sym_tokens": 0.74,
+  "subset": "sheet"
+ },
+ "d020|gpt55": {
+  "ceiling_f1": 0.548,
+  "weak": 1.0,
+  "sym_tokens": 0.65,
+  "subset": "sheet"
+ },
+ "d020|gpt56": {
+  "ceiling_f1": 0.548,
+  "weak": 1.0,
+  "sym_tokens": 0.65,
+  "subset": "sheet"
+ },
+ "d020|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.68,
+  "subset": "sheet"
+ },
+ "d020|gem38": {
+  "ceiling_f1": 0.242,
+  "weak": 1.0,
+  "sym_tokens": 0.43,
+  "subset": "sheet"
+ },
+ "d020|gem38uh": {
+  "ceiling_f1": 0.433,
+  "weak": 1.0,
+  "sym_tokens": 0.61,
+  "subset": "sheet"
+ },
+ "d020|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "sheet"
+ },
+ "d020|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "sheet"
+ },
+ "d020|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "sheet"
+ },
+ "d021|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.82,
+  "subset": "view"
+ },
+ "d021|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.82,
+  "subset": "view"
+ },
+ "d021|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.59,
+  "subset": "view"
+ },
+ "d021|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.59,
+  "subset": "view"
+ },
+ "d021|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.59,
+  "subset": "view"
+ },
+ "d021|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.97,
+  "subset": "view"
+ },
+ "d021|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.79,
+  "subset": "view"
+ },
+ "d021|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d021|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d021|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d022|sonnet55": {
+  "ceiling_f1": 0.771,
+  "weak": 1.0,
+  "sym_tokens": 0.87,
+  "subset": "view"
+ },
+ "d022|opus55": {
+  "ceiling_f1": 0.771,
+  "weak": 1.0,
+  "sym_tokens": 0.87,
+  "subset": "view"
+ },
+ "d022|gpt55": {
+  "ceiling_f1": 0.521,
+  "weak": 1.0,
+  "sym_tokens": 0.76,
+  "subset": "view"
+ },
+ "d022|gpt56": {
+  "ceiling_f1": 0.521,
+  "weak": 1.0,
+  "sym_tokens": 0.76,
+  "subset": "view"
+ },
+ "d022|gpt56orig": {
+  "ceiling_f1": 0.646,
+  "weak": 1.0,
+  "sym_tokens": 0.84,
+  "subset": "view"
+ },
+ "d022|gem38": {
+  "ceiling_f1": 0.188,
+  "weak": 1.0,
+  "sym_tokens": 0.5,
+  "subset": "view"
+ },
+ "d022|gem38uh": {
+  "ceiling_f1": 0.479,
+  "weak": 1.0,
+  "sym_tokens": 0.72,
+  "subset": "view"
+ },
+ "d022|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d022|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d022|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d023|sonnet55": {
+  "ceiling_f1": 0.961,
+  "weak": 1.0,
+  "sym_tokens": 1.11,
+  "subset": "view"
+ },
+ "d023|opus55": {
+  "ceiling_f1": 0.961,
+  "weak": 1.0,
+  "sym_tokens": 1.11,
+  "subset": "view"
+ },
+ "d023|gpt55": {
+  "ceiling_f1": 0.797,
+  "weak": 1.0,
+  "sym_tokens": 0.97,
+  "subset": "view"
+ },
+ "d023|gpt56": {
+  "ceiling_f1": 0.797,
+  "weak": 1.0,
+  "sym_tokens": 0.97,
+  "subset": "view"
+ },
+ "d023|gpt56orig": {
+  "ceiling_f1": 0.797,
+  "weak": 1.0,
+  "sym_tokens": 0.97,
+  "subset": "view"
+ },
+ "d023|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.7,
+  "subset": "view"
+ },
+ "d023|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.41,
+  "subset": "view"
+ },
+ "d023|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d023|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d023|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d024|sonnet55": {
+  "ceiling_f1": 0.072,
+  "weak": 1.0,
+  "sym_tokens": 0.31,
+  "subset": "view"
+ },
+ "d024|opus55": {
+  "ceiling_f1": 0.072,
+  "weak": 1.0,
+  "sym_tokens": 0.31,
+  "subset": "view"
+ },
+ "d024|gpt55": {
+  "ceiling_f1": 0.054,
+  "weak": 1.0,
+  "sym_tokens": 0.27,
+  "subset": "view"
+ },
+ "d024|gpt56": {
+  "ceiling_f1": 0.054,
+  "weak": 1.0,
+  "sym_tokens": 0.27,
+  "subset": "view"
+ },
+ "d024|gpt56orig": {
+  "ceiling_f1": 0.299,
+  "weak": 1.0,
+  "sym_tokens": 0.59,
+  "subset": "view"
+ },
+ "d024|gem38": {
+  "ceiling_f1": 0.024,
+  "weak": 1.0,
+  "sym_tokens": 0.18,
+  "subset": "view"
+ },
+ "d024|gem38uh": {
+  "ceiling_f1": 0.066,
+  "weak": 1.0,
+  "sym_tokens": 0.25,
+  "subset": "view"
+ },
+ "d024|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d024|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d024|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d025|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.21,
+  "subset": "view"
+ },
+ "d025|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.21,
+  "subset": "view"
+ },
+ "d025|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.81,
+  "subset": "view"
+ },
+ "d025|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.81,
+  "subset": "view"
+ },
+ "d025|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 4.38,
+  "subset": "view"
+ },
+ "d025|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.86,
+  "subset": "view"
+ },
+ "d025|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.64,
+  "subset": "view"
+ },
+ "d025|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d025|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d025|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d026|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.68,
+  "subset": "view"
+ },
+ "d026|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.68,
+  "subset": "view"
+ },
+ "d026|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.47,
+  "subset": "view"
+ },
+ "d026|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.47,
+  "subset": "view"
+ },
+ "d026|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.62,
+  "subset": "view"
+ },
+ "d026|gem38": {
+  "ceiling_f1": 0.981,
+  "weak": 1.0,
+  "sym_tokens": 0.97,
+  "subset": "view"
+ },
+ "d026|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d026|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d026|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d026|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d027|sonnet55": {
+  "ceiling_f1": 0.997,
+  "weak": 1.0,
+  "sym_tokens": 1.39,
+  "subset": "view"
+ },
+ "d027|opus55": {
+  "ceiling_f1": 0.997,
+  "weak": 1.0,
+  "sym_tokens": 1.39,
+  "subset": "view"
+ },
+ "d027|gpt55": {
+  "ceiling_f1": 0.953,
+  "weak": 1.0,
+  "sym_tokens": 1.22,
+  "subset": "view"
+ },
+ "d027|gpt56": {
+  "ceiling_f1": 0.953,
+  "weak": 1.0,
+  "sym_tokens": 1.22,
+  "subset": "view"
+ },
+ "d027|gpt56orig": {
+  "ceiling_f1": 0.953,
+  "weak": 1.0,
+  "sym_tokens": 1.22,
+  "subset": "view"
+ },
+ "d027|gem38": {
+  "ceiling_f1": 0.556,
+  "weak": 1.0,
+  "sym_tokens": 0.84,
+  "subset": "view"
+ },
+ "d027|gem38uh": {
+  "ceiling_f1": 0.928,
+  "weak": 1.0,
+  "sym_tokens": 1.19,
+  "subset": "view"
+ },
+ "d027|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d027|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d027|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d028|sonnet55": {
+  "ceiling_f1": 0.575,
+  "weak": 0.991,
+  "sym_tokens": 0.81,
+  "subset": "view"
+ },
+ "d028|opus55": {
+  "ceiling_f1": 0.575,
+  "weak": 0.991,
+  "sym_tokens": 0.81,
+  "subset": "view"
+ },
+ "d028|gpt55": {
+  "ceiling_f1": 0.437,
+  "weak": 0.987,
+  "sym_tokens": 0.71,
+  "subset": "view"
+ },
+ "d028|gpt56": {
+  "ceiling_f1": 0.437,
+  "weak": 0.987,
+  "sym_tokens": 0.71,
+  "subset": "view"
+ },
+ "d028|gpt56orig": {
+  "ceiling_f1": 0.527,
+  "weak": 0.989,
+  "sym_tokens": 0.78,
+  "subset": "view"
+ },
+ "d028|gem38": {
+  "ceiling_f1": 0.198,
+  "weak": 0.972,
+  "sym_tokens": 0.47,
+  "subset": "view"
+ },
+ "d028|gem38uh": {
+  "ceiling_f1": 0.395,
+  "weak": 0.985,
+  "sym_tokens": 0.66,
+  "subset": "view"
+ },
+ "d028|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d028|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.37,
+  "subset": "view"
+ },
+ "d028|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d029|sonnet55": {
+  "ceiling_f1": 0.781,
+  "weak": 1.0,
+  "sym_tokens": 1.0,
+  "subset": "view"
+ },
+ "d029|opus55": {
+  "ceiling_f1": 0.781,
+  "weak": 1.0,
+  "sym_tokens": 1.0,
+  "subset": "view"
+ },
+ "d029|gpt55": {
+  "ceiling_f1": 0.656,
+  "weak": 1.0,
+  "sym_tokens": 0.88,
+  "subset": "view"
+ },
+ "d029|gpt56": {
+  "ceiling_f1": 0.656,
+  "weak": 1.0,
+  "sym_tokens": 0.88,
+  "subset": "view"
+ },
+ "d029|gpt56orig": {
+  "ceiling_f1": 0.656,
+  "weak": 1.0,
+  "sym_tokens": 0.88,
+  "subset": "view"
+ },
+ "d029|gem38": {
+  "ceiling_f1": 0.49,
+  "weak": 1.0,
+  "sym_tokens": 0.76,
+  "subset": "view"
+ },
+ "d029|gem38uh": {
+  "ceiling_f1": 0.938,
+  "weak": 1.0,
+  "sym_tokens": 1.08,
+  "subset": "view"
+ },
+ "d029|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d029|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d029|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d030|sonnet55": {
+  "ceiling_f1": 0.746,
+  "weak": 0.998,
+  "sym_tokens": 0.86,
+  "subset": "view"
+ },
+ "d030|opus55": {
+  "ceiling_f1": 0.746,
+  "weak": 0.998,
+  "sym_tokens": 0.86,
+  "subset": "view"
+ },
+ "d030|gpt55": {
+  "ceiling_f1": 0.576,
+  "weak": 0.996,
+  "sym_tokens": 0.75,
+  "subset": "view"
+ },
+ "d030|gpt56": {
+  "ceiling_f1": 0.576,
+  "weak": 0.996,
+  "sym_tokens": 0.75,
+  "subset": "view"
+ },
+ "d030|gpt56orig": {
+  "ceiling_f1": 0.576,
+  "weak": 0.996,
+  "sym_tokens": 0.75,
+  "subset": "view"
+ },
+ "d030|gem38": {
+  "ceiling_f1": 0.303,
+  "weak": 0.992,
+  "sym_tokens": 0.54,
+  "subset": "view"
+ },
+ "d030|gem38uh": {
+  "ceiling_f1": 0.551,
+  "weak": 0.998,
+  "sym_tokens": 0.76,
+  "subset": "view"
+ },
+ "d030|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d030|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d030|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d031|sonnet55": {
+  "ceiling_f1": 0.984,
+  "weak": 1.0,
+  "sym_tokens": 1.21,
+  "subset": "view"
+ },
+ "d031|opus55": {
+  "ceiling_f1": 0.984,
+  "weak": 1.0,
+  "sym_tokens": 1.21,
+  "subset": "view"
+ },
+ "d031|gpt55": {
+  "ceiling_f1": 0.912,
+  "weak": 1.0,
+  "sym_tokens": 1.06,
+  "subset": "view"
+ },
+ "d031|gpt56": {
+  "ceiling_f1": 0.912,
+  "weak": 1.0,
+  "sym_tokens": 1.06,
+  "subset": "view"
+ },
+ "d031|gpt56orig": {
+  "ceiling_f1": 0.912,
+  "weak": 1.0,
+  "sym_tokens": 1.06,
+  "subset": "view"
+ },
+ "d031|gem38": {
+  "ceiling_f1": 0.875,
+  "weak": 1.0,
+  "sym_tokens": 1.02,
+  "subset": "view"
+ },
+ "d031|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.45,
+  "subset": "view"
+ },
+ "d031|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d031|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d031|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d032|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.79,
+  "subset": "view"
+ },
+ "d032|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.79,
+  "subset": "view"
+ },
+ "d032|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "view"
+ },
+ "d032|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "view"
+ },
+ "d032|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.56,
+  "subset": "view"
+ },
+ "d032|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.24,
+  "subset": "view"
+ },
+ "d032|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.76,
+  "subset": "view"
+ },
+ "d032|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d032|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.37,
+  "subset": "view"
+ },
+ "d032|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d033|sonnet55": {
+  "ceiling_f1": 0.698,
+  "weak": 1.0,
+  "sym_tokens": 0.93,
+  "subset": "view"
+ },
+ "d033|opus55": {
+  "ceiling_f1": 0.698,
+  "weak": 1.0,
+  "sym_tokens": 0.93,
+  "subset": "view"
+ },
+ "d033|gpt55": {
+  "ceiling_f1": 0.497,
+  "weak": 1.0,
+  "sym_tokens": 0.81,
+  "subset": "view"
+ },
+ "d033|gpt56": {
+  "ceiling_f1": 0.497,
+  "weak": 1.0,
+  "sym_tokens": 0.81,
+  "subset": "view"
+ },
+ "d033|gpt56orig": {
+  "ceiling_f1": 0.497,
+  "weak": 1.0,
+  "sym_tokens": 0.81,
+  "subset": "view"
+ },
+ "d033|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.47,
+  "subset": "view"
+ },
+ "d033|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.09,
+  "subset": "view"
+ },
+ "d033|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d033|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d033|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d034|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.0,
+  "subset": "view"
+ },
+ "d034|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.0,
+  "subset": "view"
+ },
+ "d034|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.75,
+  "subset": "view"
+ },
+ "d034|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.75,
+  "subset": "view"
+ },
+ "d034|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.75,
+  "subset": "view"
+ },
+ "d034|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.54,
+  "subset": "view"
+ },
+ "d034|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.61,
+  "subset": "view"
+ },
+ "d034|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d034|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d034|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d035|sonnet55": {
+  "ceiling_f1": 0.977,
+  "weak": 1.0,
+  "sym_tokens": 1.25,
+  "subset": "view"
+ },
+ "d035|opus55": {
+  "ceiling_f1": 0.977,
+  "weak": 1.0,
+  "sym_tokens": 1.25,
+  "subset": "view"
+ },
+ "d035|gpt55": {
+  "ceiling_f1": 0.905,
+  "weak": 1.0,
+  "sym_tokens": 1.09,
+  "subset": "view"
+ },
+ "d035|gpt56": {
+  "ceiling_f1": 0.905,
+  "weak": 1.0,
+  "sym_tokens": 1.09,
+  "subset": "view"
+ },
+ "d035|gpt56orig": {
+  "ceiling_f1": 0.905,
+  "weak": 1.0,
+  "sym_tokens": 1.09,
+  "subset": "view"
+ },
+ "d035|gem38": {
+  "ceiling_f1": 0.919,
+  "weak": 1.0,
+  "sym_tokens": 1.14,
+  "subset": "view"
+ },
+ "d035|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.62,
+  "subset": "view"
+ },
+ "d035|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d035|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d035|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d036|sonnet55": {
+  "ceiling_f1": 0.931,
+  "weak": 1.0,
+  "sym_tokens": 1.14,
+  "subset": "view"
+ },
+ "d036|opus55": {
+  "ceiling_f1": 0.931,
+  "weak": 1.0,
+  "sym_tokens": 1.14,
+  "subset": "view"
+ },
+ "d036|gpt55": {
+  "ceiling_f1": 0.805,
+  "weak": 1.0,
+  "sym_tokens": 1.0,
+  "subset": "view"
+ },
+ "d036|gpt56": {
+  "ceiling_f1": 0.805,
+  "weak": 1.0,
+  "sym_tokens": 1.0,
+  "subset": "view"
+ },
+ "d036|gpt56orig": {
+  "ceiling_f1": 0.805,
+  "weak": 1.0,
+  "sym_tokens": 1.0,
+  "subset": "view"
+ },
+ "d036|gem38": {
+  "ceiling_f1": 0.39,
+  "weak": 1.0,
+  "sym_tokens": 0.71,
+  "subset": "view"
+ },
+ "d036|gem38uh": {
+  "ceiling_f1": 0.801,
+  "weak": 1.0,
+  "sym_tokens": 1.01,
+  "subset": "view"
+ },
+ "d036|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d036|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d036|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d037|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.56,
+  "subset": "view"
+ },
+ "d037|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.56,
+  "subset": "view"
+ },
+ "d037|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.24,
+  "subset": "view"
+ },
+ "d037|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.24,
+  "subset": "view"
+ },
+ "d037|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.28,
+  "subset": "view"
+ },
+ "d037|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.48,
+  "subset": "view"
+ },
+ "d037|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.1,
+  "subset": "view"
+ },
+ "d037|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d037|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d037|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d038|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.39,
+  "subset": "view"
+ },
+ "d038|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.39,
+  "subset": "view"
+ },
+ "d038|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.09,
+  "subset": "view"
+ },
+ "d038|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.09,
+  "subset": "view"
+ },
+ "d038|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.09,
+  "subset": "view"
+ },
+ "d038|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.87,
+  "subset": "view"
+ },
+ "d038|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.65,
+  "subset": "view"
+ },
+ "d038|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d038|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d038|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d039|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.32,
+  "subset": "view"
+ },
+ "d039|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.32,
+  "subset": "view"
+ },
+ "d039|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.16,
+  "subset": "view"
+ },
+ "d039|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.16,
+  "subset": "view"
+ },
+ "d039|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.16,
+  "subset": "view"
+ },
+ "d039|gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.53,
+  "subset": "view"
+ },
+ "d039|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 3.59,
+  "subset": "view"
+ },
+ "d039|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d039|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d039|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ },
+ "d040|sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.29,
+  "subset": "view"
+ },
+ "d040|opus55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.29,
+  "subset": "view"
+ },
+ "d040|gpt55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.0,
+  "subset": "view"
+ },
+ "d040|gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.0,
+  "subset": "view"
+ },
+ "d040|gpt56orig": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.22,
+  "subset": "view"
+ },
+ "d040|gem38": {
+  "ceiling_f1": 0.998,
+  "weak": 1.0,
+  "sym_tokens": 1.32,
+  "subset": "view"
+ },
+ "d040|gem38uh": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.88,
+  "subset": "view"
+ },
+ "d040|D_sonnet55": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.57,
+  "subset": "view"
+ },
+ "d040|D_gpt56": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 1.38,
+  "subset": "view"
+ },
+ "d040|D_gem38": {
+  "ceiling_f1": 1.0,
+  "weak": 1.0,
+  "sym_tokens": 2.5,
+  "subset": "view"
+ }
+}

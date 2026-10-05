@@ -1,0 +1,9 @@
+REDP-X40 (data/redp40/redp_x40: images, templates, annotations, manifest) and the model answers in
+experiments/ are licensed under the Creative Commons Attribution-NonCommercial 4.0 International
+License (CC BY-NC 4.0): https://creativecommons.org/licenses/by-nc/4.0/
+
+The REDP-X40 images are partial screenshots of engineering drawings with project-identifying
+information removed. They are provided for research.
+
+FloorPlanCAD-derived files (data/fpc) are CC BY-NC 4.0, following FloorPlanCAD.
+FSC-147 files are not redistributed; only item lists, model answers, and scores are included.

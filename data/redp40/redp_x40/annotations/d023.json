@@ -1,0 +1,37 @@
+{
+ "id": "d023",
+ "source_index": 23,
+ "subset": "view",
+ "image": "images/d023.png",
+ "template": "templates/d023.png",
+ "width": 603,
+ "height": 485,
+ "template_size": [
+  31,
+  37
+ ],
+ "count": 4,
+ "points": [
+  [
+   108.73,
+   376.27
+  ],
+  [
+   194.0,
+   253.69
+  ],
+  [
+   312.32,
+   376.27
+  ],
+  [
+   488.2,
+   376.27
+  ]
+ ],
+ "labelstudio": {
+  "task_id": 36,
+  "annotation_id": 34,
+  "updated_at": "2026-09-11T18:22:58.976171Z"
+ }
+}

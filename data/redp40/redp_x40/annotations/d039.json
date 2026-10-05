@@ -1,0 +1,49 @@
+{
+ "id": "d039",
+ "source_index": 39,
+ "subset": "view",
+ "image": "images/d039.png",
+ "template": "templates/d039.png",
+ "width": 483,
+ "height": 210,
+ "template_size": [
+  37,
+  52
+ ],
+ "count": 7,
+ "points": [
+  [
+   48.42,
+   115.66
+  ],
+  [
+   84.36,
+   116.88
+  ],
+  [
+   150.75,
+   116.88
+  ],
+  [
+   186.07,
+   116.27
+  ],
+  [
+   280.48,
+   116.88
+  ],
+  [
+   384.02,
+   116.27
+  ],
+  [
+   441.89,
+   116.88
+  ]
+ ],
+ "labelstudio": {
+  "task_id": 52,
+  "annotation_id": 50,
+  "updated_at": "2026-09-11T19:40:50.347012Z"
+ }
+}

@@ -1,0 +1,130 @@
+[
+ {
+  "v": "gpt61",
+  "pid": "p32_0",
+  "n_pts": 48,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5141,
+   "output_tokens": 1205,
+   "actual_model": "gpt-6.1-sol",
+   "stop_reason": "stop",
+   "reasoning_effort": "low",
+   "reasoning_tokens": 512
+  }
+ },
+ {
+  "v": "gpt61",
+  "pid": "p32_1",
+  "n_pts": 49,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5115,
+   "output_tokens": 892,
+   "actual_model": "gpt-6.1-sol",
+   "stop_reason": "stop",
+   "reasoning_effort": "low",
+   "reasoning_tokens": 190
+  }
+ },
+ {
+  "v": "gpt61",
+  "pid": "p32_2",
+  "n_pts": 49,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5129,
+   "output_tokens": 948,
+   "actual_model": "gpt-6.1-sol",
+   "stop_reason": "stop",
+   "reasoning_effort": "low",
+   "reasoning_tokens": 244
+  }
+ },
+ {
+  "v": "gpt61",
+  "pid": "p32_3",
+  "n_pts": 49,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5130,
+   "output_tokens": 941,
+   "actual_model": "gpt-6.1-sol",
+   "stop_reason": "stop",
+   "reasoning_effort": "low",
+   "reasoning_tokens": 223
+  }
+ },
+ {
+  "v": "opus55",
+  "pid": "p32_0",
+  "n_pts": 48,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5092,
+   "output_tokens": 1123,
+   "actual_model": "claude-opus-5-5",
+   "stop_reason": "end_turn"
+  }
+ },
+ {
+  "v": "opus55",
+  "pid": "p32_1",
+  "n_pts": 48,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5066,
+   "output_tokens": 1117,
+   "actual_model": "claude-opus-5-5",
+   "stop_reason": "end_turn"
+  }
+ },
+ {
+  "v": "opus55",
+  "pid": "p32_2",
+  "n_pts": 48,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5080,
+   "output_tokens": 1316,
+   "actual_model": "claude-opus-5-5",
+   "stop_reason": "end_turn"
+  }
+ },
+ {
+  "v": "opus55",
+  "pid": "p32_3",
+  "n_pts": 48,
+  "hits": {
+   "px": 48,
+   "n1000": 0
+  },
+  "usage": {
+   "input_tokens": 5082,
+   "output_tokens": 1327,
+   "actual_model": "claude-opus-5-5",
+   "stop_reason": "end_turn"
+  }
+ }
+]

@@ -1,0 +1,89 @@
+cond   model      | all   sheets views
+A1     sonnet55   | 0.81  0.67  0.91   n=34
+A1     opus55     | 0.81  0.71  0.88   n=34
+A1     gpt55      | 0.55  0.28  0.74   n=34
+A1     gpt56      | 0.79  0.63  0.90   n=34
+A1     gem38      | 0.07  0.00  0.12   n=34
+A1     gem38uh    | 0.05  0.00  0.09   n=34
+A1nat  gpt56orig  | 0.70  0.37  0.92   n=34
+D      sonnet55   | 0.92  0.91  0.93   n=34
+H      sonnet55   | 0.91  0.89  0.93   n=34
+D      gpt56      | 0.85  0.78  0.91   n=34
+H      gpt56      | 0.87  0.82  0.91   n=34
+D      gem38      | 0.93  0.88  0.97   n=34
+H      gem38      | 0.87  0.85  0.89   n=34
+A1     gpt54      | 0.61  0.37  0.79   n=34
+A1     sonnet46   | 0.36  0.14  0.51   n=34
+A1     gemini25   | 0.03  0.01  0.05   n=34
+A2     gemini25   | 0.06  0.00  0.10   n=34
+D      gpt54      | 0.67  0.65  0.68   n=34
+H      gpt54      | 0.83  0.75  0.89   n=34
+D      sonnet46   | 0.61  0.59  0.62   n=34
+H      sonnet46   | 0.86  0.84  0.87   n=34
+D      gemini25   | 0.41  0.41  0.40   n=34
+H      gemini25   | 0.85  0.85  0.86   n=34
+D      gemma4     | 0.75  0.66  0.81   n=34
+H      gemma4     | 0.86  0.84  0.87   n=34
+D      qwen3vl    | 0.52  0.51  0.52   n=34
+H      qwen3vl    | 0.90  0.87  0.93   n=34
+  return (np.nanmean(v, axis=0), len(v)) if v else (None, 0)
+TM dev-thr 0.87 (0.85/0.88)  TM LOO 0.89
+
+=== G-H1 ceilings (strong, quantized observer) vs observed
+  A1     sonnet55   sheets obs 0.67 ceiling 0.68
+  A1     sonnet55   views  obs 0.91 ceiling 0.87
+  A1     opus55     sheets obs 0.71 ceiling 0.68
+  A1     opus55     views  obs 0.88 ceiling 0.87
+  A1     gpt55      sheets obs 0.28 ceiling 0.60
+  A1     gpt55      views  obs 0.74 ceiling 0.81
+  A1     gpt56      sheets obs 0.63 ceiling 0.60
+  A1     gpt56      views  obs 0.90 ceiling 0.81  <-- above
+  A1     gem38      sheets obs 0.00 ceiling 0.34
+  A1     gem38      views  obs 0.12 ceiling 0.75
+  A1     gem38uh    sheets obs 0.00 ceiling 0.55
+  A1     gem38uh    views  obs 0.09 ceiling 0.86
+  A1nat  gpt56orig  sheets obs 0.37 ceiling 1.00
+  A1nat  gpt56orig  views  obs 0.92 ceiling 0.83  <-- above
+  D      sonnet55   sheets obs 0.91 ceiling 1.00
+  D      sonnet55   views  obs 0.93 ceiling 1.00
+  D      gpt56      sheets obs 0.78 ceiling 1.00
+  D      gpt56      views  obs 0.91 ceiling 1.00
+  D      gem38      sheets obs 0.88 ceiling 1.00
+  D      gem38      views  obs 0.97 ceiling 1.00
+  violations 2/20
+
+=== G-H2 same geometry, new generation (A1, paired over 34 drawings)
+  gpt55 - gpt54: -0.06 [-0.16, +0.03]
+  gpt56 - gpt54: +0.18 [+0.08, +0.28]
+  opus55 - sonnet55 (same geometry): -0.00 [-0.05, +0.05]
+
+=== G-H3 larger budget, sheets (paired)
+  gem38(A1) - gemini25(A1): -0.01 [-0.01, +0.00]
+  gem38(A1) - gemini25(A2): -0.00 [-0.01, +0.00]
+  gem38uh(A1) - gem38(A1): +0.00 [+0.00, +0.00]
+  sonnet55(A1) - sonnet46(A1): +0.53 [+0.37, +0.68]
+
+=== G-H4 tiling still needed: D - A1 on sheets
+  sonnet55: +0.24 [+0.07, +0.43]
+  gpt56: +0.15 [-0.07, +0.38]
+  gem38: +0.88 [+0.75, +0.96]
+
+=== G-H5 capacity: GPT-5.6 native (original) vs auto whole drawing vs tiles, sheets
+  native - auto: -0.26 [-0.47, -0.02]   tiles - native: +0.40 [+0.22, +0.56]  (n=14)
+  native recall/precision on sheets: 0.36 / 0.40
+
+=== G-H6 role: propose-and-verify vs template matching; spread across 8 models
+  H sonnet55 - TM(dev thr): +0.04 [-0.02, +0.10]
+  H gpt56 - TM(dev thr): +0.00 [-0.07, +0.07]
+  H gem38 - TM(dev thr): +0.00 [-0.09, +0.09]
+  H by model: {'gpt54': np.float64(0.83), 'sonnet46': np.float64(0.86), 'gemini25': np.float64(0.85), 'gemma4': np.float64(0.86), 'qwen3vl': np.float64(0.9), 'sonnet55': np.float64(0.91), 'gpt56': np.float64(0.87), 'gem38': np.float64(0.87)}  range 0.08
+  D by model: {'gpt54': np.float64(0.67), 'sonnet46': np.float64(0.61), 'gemini25': np.float64(0.41), 'gemma4': np.float64(0.75), 'qwen3vl': np.float64(0.52), 'sonnet55': np.float64(0.92), 'gpt56': np.float64(0.85), 'gem38': np.float64(0.93)}  range 0.52
+
+=== G-H7 dose-response (A1 observed vs per-drawing ceiling)
+  sonnet55  rho +0.62 [+0.31, +0.85]
+  opus55    rho +0.53 [+0.22, +0.77]
+  gpt55     rho +0.54 [+0.24, +0.77]
+  gpt56     rho +0.51 [+0.21, +0.74]
+  bs = [spearmanr(np.array(x)[i], np.array(y)[i])[0] for i in (rng.integers(0, len(ds), len(ds)) for _ in range(2000))]
+  gem38     rho +0.46 [+0.22, +0.66]
+  gem38uh   rho +0.33 [+0.08, +0.51]

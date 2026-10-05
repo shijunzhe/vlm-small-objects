@@ -1,0 +1,45 @@
+{
+ "id": "d012",
+ "source_index": 12,
+ "subset": "sheet",
+ "image": "images/d012.png",
+ "template": "templates/d012.png",
+ "width": 8429,
+ "height": 5014,
+ "template_size": [
+  182,
+  75
+ ],
+ "count": 6,
+ "points": [
+  [
+   379.15,
+   2873.69
+  ],
+  [
+   5736.13,
+   4442.22
+  ],
+  [
+   6998.93,
+   4338.26
+  ],
+  [
+   7197.68,
+   4448.34
+  ],
+  [
+   6066.35,
+   3405.68
+  ],
+  [
+   7448.4,
+   1033.48
+  ]
+ ],
+ "labelstudio": {
+  "task_id": 23,
+  "annotation_id": 22,
+  "updated_at": "2026-07-28T23:10:26.610449Z"
+ }
+}
