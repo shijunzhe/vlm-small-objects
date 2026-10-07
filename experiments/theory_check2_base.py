@@ -114,6 +114,9 @@ def boot(rows, clus):
 
 RES = []
 def report(ds, v, rows, clusfun):
+    global rng
+    import zlib
+    rng = np.random.default_rng(zlib.crc32(f'{ds} {v}'.encode()))   # one stream per cell: rows do not depend on which other cells ran
     for cond, fam in ((True, 'Thm1'), (False, 'outside')):
         rs = [r for r in rows if r['cond'] == cond]
         if len(rs) < 5: continue

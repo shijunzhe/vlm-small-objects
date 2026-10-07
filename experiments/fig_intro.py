@@ -10,6 +10,7 @@ import numpy as np
 from PIL import Image
 import matplotlib
 matplotlib.use('Agg')
+matplotlib.rcParams['pdf.fonttype'] = 42
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 

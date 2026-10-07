@@ -11,7 +11,7 @@ All numbers in the paper can be recomputed from the shipped answers without any 
 
 ## The idea in one paragraph
 
-A vision-language model resizes an image to a token budget and cuts it into visual tokens of a fixed size. Two quantities of this interface describe every call: **S**, the number of visual tokens across one side of a target object, and **L**, the content the call must cover and enumerate. Tiling raises S and lowers L, a high-resolution mode raises S but keeps L, and a zoom tool sets both region by region. Under weak monotonicity assumptions about the model (more tokens per target does not hurt, less content does not hurt), a decomposition cannot lower expected recall when each view gives every target at least the whole image's S and the views overlap by one target margin. `tools/safe_tiles.py` implements the cheapest such decomposition.
+A vision-language model resizes an image to a token budget and cuts it into visual tokens of a fixed size. Two quantities of this interface describe every call: **S**, the number of visual tokens across one side of a target object, and **L**, the content the call must cover and enumerate. Tiling raises S and lowers L, a high-resolution mode raises S but keeps L, and a zoom tool sets both region by region. Under weak monotonicity assumptions about the model (more tokens per target does not hurt, less content does not hurt), a decomposition cannot lower expected recall when each view gives every target at least the whole image's S and the views overlap by one target margin. `tools/safe_tiles.py` implements the paper's rule for such a decomposition, whose cost approaches the lower bound as the image grows when the ideal views fit the vendor's limits.
 
 ## Quick start: safe tiling for your own images
 
@@ -61,10 +61,10 @@ All scripts live in `experiments/` and read and write paths relative to it.
 | Paper result | Scripts | Answers and scores |
 |---|---|---|
 | Measured interfaces (token side, budget, coordinate frame) | `calib_tokens.py`, `gen_calib.py`, `step1_coord_calib.py`, `step1b_gemini.py`, `ceilings.py`, `gen_ceilings.py` | `calib_tokens.json`, `gen_calib*.json`, `ceilings.json`, `gen_ceilings.json` |
-| Direct tests of the assumptions on controlled images (Table 1) | `syn_assume.py build / run <model> / score` | `syn_assume/results/`, `syn_assume/assume_scores.json` |
+| Direct tests of the assumptions on controlled images (Table 2) | `syn_assume.py build / run <model> / score` | `syn_assume/results/`, `syn_assume/assume_scores.json` |
 | False outputs and the F1 exchange rate | `theory_v8/output_form.py`, `theory_v8/f1_union.py` | `theory_v8/*.json` |
 | Bits carried per answer (capacity theorem) | `theory_v10/info_carried.py` | `theory_v10/info_carried.json` |
-| Synthetic sweeps of S, content, area, clutter, upsampling (Figure 3) | `syn.py build / run <model>`, `syn_analysis.py`, `t1_syn.py` | `syn/results/`, `syn/analysis_robust.json`, `results_x/t1_syn.json` |
+| Synthetic sweeps of S, content, area, clutter, upsampling (Figure 4) | `syn.py build / run <model>`, `syn_analysis.py`, `t1_syn.py` | `syn/results/`, `syn/analysis_robust.json`, `results_x/t1_syn.json` |
 | REDP-X40, first-generation models (whole drawing, tiles, vendor modes, masks, propose and verify) | `main_test.py`, `x_small.py`, `x3_fixedgrid.py`, `x4_vendor_highres.py`, `x4b_gemini_high.py`, `hybrid_verify.py`, `analyze_test.py` | `results_test/` |
 | REDP-X40, second-generation models | `gen_test.py`, `gen_common.py`, `analyze_gen.py` | `results_gen/` |
 | Mechanism checks on the tuning set | `phase0.py`, `mech.py`, `step2_mech.py`, `step2_score.py`, `tile_runner.py`, `score_tiles.py` | `results_mech/`, `results/` |
@@ -74,8 +74,8 @@ All scripts live in `experiments/` and read and write paths relative to it.
 | Classical and learned references | `../data/redp40/baseline_template_matching.py`, `learned_baselines.py`, `lb_modal.py`, `lb_score2.py`, `fsc_counters.py` | `../data/redp40/results/`, `results_x/learned*/` |
 | FSC-147 | `fsc_run.py` | `../data/fsc147/` |
 | Held-out drawings with library references (REDP-10; drawings not released) | `redp10_run.py`, `redp10_score.py` | `results_redp10/` (scores and answers only) |
-| Every implied ordering in the applications (Figure 2) | `law_data.py`, `theory_check.py`, `theory_check2_main.py`, `theory_check2_fsc.py`, `merge_tc.py`, `fig_theory.py` | `results_law/theory_check_final.json` |
-| The safe rule on real drawings (Table 2) | `cs_rule.py <redp\|fpc> <model> [plan]`, `cs_analyze.py` | `results_cs/` |
+| Every implied ordering in the other experiments (Figure 2) | `law_data.py`, `theory_check.py`, `theory_check2_main.py`, `theory_check2_fsc.py`, `merge_tc.py`, `fig_theory.py` | `results_law/theory_check_final.json` |
+| The safe rule on construction drawings (Table 3) | `cs_rule.py <redp\|fpc> <model> [plan]`, `cs_analyze.py` | `results_cs/` |
 | Coupling, locality, annotation audit, limits | `locality_check.py`, `annot_audit.py`, `limits_analysis.py`, `ceiling_check_dev.py` | `results_x/` |
 | All macros, tables, and figures in the paper | `paper2_numbers.py`, `paper2_numbers_x.py`, `paper2_figures.py`, `paper2_figures_x.py`, `fig_intro.py` (Figure 1) | `../paper/generated/`, `../paper/figures/` |
 
@@ -93,7 +93,7 @@ Each line of a `.jsonl` file is one model call. Common fields are:
 * `shapes`: the parsed points;
 * `usage`: billed tokens, as returned by the vendor.
 
-Tile records also carry the view geometry: `origin_z0`, `z0`, `up`, `core_px`, and, for the safe rule, `S`, `Sw`, `sigma`, `chi`. Scoring matches points one to one (Hungarian matching) within the tolerance tau, half the geometric mean of the template sides.
+Tile records also carry the view geometry: `origin_z0`, `z0`, `up`, `core_px`, and, for the safe rule, `S`, `Sw`, `sigma`, `chi`. Scoring matches points one to one by a maximum matching within the tolerance tau, half the geometric mean of the template sides.
 
 ## Rerunning model calls
 

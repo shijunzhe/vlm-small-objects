@@ -242,8 +242,8 @@ if __name__ == '__main__':
         y, p = [], []
         for d in TEST:
             c = HV.candidates(d); P = np.array([(x[0], x[1]) for x in c]); G = np.array(ANN[d]['points'], float)
-            D = np.linalg.norm(P[:, None] - G[None], axis=2); ri, ci = linear_sum_assignment(D)
-            pos = {int(i) for i, j in zip(ri, ci) if D[i, j] <= M.taus(ANN[d])[0]}
+            D = np.linalg.norm(P[:, None] - G[None], axis=2); _t = M.taus(ANN[d])[0]; ri, ci = linear_sum_assignment(np.where(D <= _t, D, 1e6))
+            pos = {int(i) for i, j in zip(ri, ci) if D[i, j] <= _t}
             for k in range(len(c)):
                 y.append(k in pos); p.append(recs.get((d, k), {}).get('match') is True)
         y, p = np.array(y), np.array(p)

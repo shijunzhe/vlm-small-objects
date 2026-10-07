@@ -124,6 +124,7 @@ def token_side(vendor, cond, W, H):
 
 
 def score():
+    SIZES = json.load(open(ROOT / 'x8_sizes.json'))   # native image sizes (images are not redistributed)
     res = {}
     for f in sorted(OUT.glob(f'*_?{SFX}.jsonl')):
         vendor, cond = f.stem[:len(f.stem) - len(SFX)].rsplit('_', 1)
@@ -137,9 +138,8 @@ def score():
             pts = sum((native_points(recs[(it['name'], k)]) for k in range(nv)), [])
             gt = [tuple(p) for p in ANN[it['name']]['points']]
             tp, n_p, n_g = M.match(pts, gt, it['m'] / 2)
-            im = Image.open(ROOT / 'images' / it['name'])
             res[(vendor, cond, it['name'])] = {'f1': 2 * tp / (n_p + n_g), 'recall': tp / n_g, 'abs_err': abs(n_p - n_g), 'rel_err': abs(n_p - n_g) / n_g,
-                                               'S': it['m'] / token_side(vendor, cond, *im.size), 'n': n_g, 'stratum': it['stratum']}
+                                               'S': it['m'] / token_side(vendor, cond, *SIZES[it['name']]), 'n': n_g, 'stratum': it['stratum']}
     json.dump({'|'.join(k): v for k, v in res.items()}, open(ROOT / f'x8_scores{SFX}.json', 'w'), indent=1)
     rng = np.random.default_rng(0)
     def boot(x):

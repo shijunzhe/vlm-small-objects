@@ -164,13 +164,15 @@ def fpc():
 
 
 # ---------------- FSC-147 (domain-neutral prompt) ----------------
-def fsc():
+def fsc(prompt='obj'):
+    """prompt='obj': the domain-neutral rerun (ds 'fsc'); prompt='draw': the first-registered drawing prompt (ds 'fsc_draw')."""
     ROOT = Path('../data/fsc147'); ITEMS = {it['name']: it for it in json.load(open(ROOT / 'x8_items.json'))}
     ANN = json.load(open(ROOT / 'x8_ann_subset.json'))
     val = set(json.load(open(ROOT / 'Train_Test_Val_FSC_147.json'))['val'])
-    sc = json.load(open(ROOT / 'x8_scores_obj.json'))
-    for f in sorted((ROOT / 'results').glob('*_?_obj.jsonl')):
-        vendor, cond = f.stem[:-4].rsplit('_', 1)
+    sc = json.load(open(ROOT / ('x8_scores_obj.json' if prompt == 'obj' else 'x8_scores.json')))
+    files = sorted((ROOT / 'results').glob('*_?_obj.jsonl')) if prompt == 'obj' else sorted((ROOT / 'results').glob('*_?.jsonl'))
+    for f in files:
+        vendor, cond = (f.stem[:-4] if prompt == 'obj' else f.stem).rsplit('_', 1)
         recs = defaultdict(dict)
         for l in open(f):
             r = json.loads(l)
@@ -183,7 +185,7 @@ def fsc():
                 w, h = r['size']; core = r['core']; s = r['scale']
                 # area shown: the view in native px (core plus margins), from sent size and scale
                 calls.append([S_of(vendor, w, h, m * s), sum(in_box(p, core) for p in pts), (w / s) * (h / s) / m ** 2])
-            RECS.append({'ds': 'fsc', 'item': name, 'model': vendor, 'config': cond, 'split': 'tune' if name in val else 'test',
+            RECS.append({'ds': 'fsc' if prompt == 'obj' else 'fsc_draw', 'item': name, 'model': vendor, 'config': cond, 'split': 'tune' if name in val else 'test',
                          'n': len(pts), 'obs': sc[key]['recall'], 'stratum': it['stratum'], 'calls': calls})
 
 
@@ -191,5 +193,5 @@ if __name__ == '__main__':
     synthetic(); print('syn', len(RECS), flush=True)
     redp(); redp_dev(); print('redp', len(RECS), flush=True)
     fpc(); print('fpc', len(RECS), flush=True)
-    fsc(); print('fsc', len(RECS), flush=True)
+    fsc(); fsc('draw'); print('fsc', len(RECS), flush=True)
     json.dump(RECS, open(OUT / 'law_data.json', 'w'))

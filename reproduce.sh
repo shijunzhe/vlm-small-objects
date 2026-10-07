@@ -10,17 +10,28 @@ find experiments data paper/generated \( -name '*.json' -o -name '*.tex' \) -typ
 
 cd "$ROOT/experiments"
 FAIL=0
-run() {
+run() {   # optional environment settings first, e.g. run REGION=block0 fpc_score.py
   printf '%-34s' "$*"
-  if python3 "$@" > "$SNAP/$(echo "$*" | tr ' /' '__').log" 2>&1; then echo ok; else echo "FAILED (log: $SNAP)"; FAIL=1; fi
+  local envs=()
+  while [[ "$1" == *=* ]]; do envs+=("$1"); shift; done
+  if env "${envs[@]}" python3 "$@" > "$SNAP/$(echo "${envs[*]} $*" | tr ' /=' '___').log" 2>&1; then echo ok; else echo "FAILED (log: $SNAP)"; FAIL=1; fi
 }
-# scores from raw answers
+# a priori ceilings (geometry only) and scores from raw answers
+run ceilings.py
+run gen_ceilings.py
+run FSC_PROMPT=symbol fsc_run.py score
+run FSC_PROMPT=object fsc_run.py score
+run FSC_PROMPT=object FSC_STRICT=1 fsc_run.py score
+run fsc_counters.py
+run lb_score.py
 run syn_analysis.py
 run t1_syn.py
 run syn_assume.py score
 run fpc_score.py
+run REGION=block0 fpc_score.py
 run fpc_sratio.py
 run x_new_score.py
+run READING=registered x_new_score.py
 run x9_score.py
 run x4q_score.py
 run t2_nested.py

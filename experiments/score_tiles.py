@@ -21,7 +21,7 @@ def f1(pred, gt, tau):
         return 0.0
     P, G = np.array(pred, float), np.array(gt, float)
     D = np.linalg.norm(P[:, None] - G[None], axis=2)
-    r, c = linear_sum_assignment(D)
+    r, c = linear_sum_assignment(np.where(D <= tau, D, 1e6))
     return 2 * int((D[r, c] <= tau).sum()) / (len(P) + len(G))
 
 

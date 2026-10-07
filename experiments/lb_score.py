@@ -63,6 +63,11 @@ def main():
         out[m] = {'threshold': th, 'f1': [s[0], sh[0], vw[0]], 'recall': s[1], 'precision': s[2], 'oracle': oracle,
                   'redp10_f1': s10[0] if s10 is not None else None, 'redp10_oracle': oracle10,
                   'per': {d: v[0].tolist() for d, v in per.items()}, 'per10': {d: v[0].tolist() for d, v in per10.items()}}
+    if not I10 and (R / 'lb_scores.json').exists():   # REDP-10 annotations are not released: keep the shipped REDP-10 scores
+        old = json.load(open(R / 'lb_scores.json'))
+        for m in out:
+            if m in old:
+                for k in ('redp10_f1', 'redp10_oracle', 'per10'): out[m][k] = old[m][k]
     json.dump(out, open(R / 'lb_scores.json', 'w'), indent=1)
 
 

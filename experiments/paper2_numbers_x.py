@@ -18,6 +18,11 @@ def nm(*parts):
 
 def f2(x, sign=False):
     if x is None or (isinstance(x, float) and np.isnan(x)): return 'n/a'
+    if abs(x) < 0.0005: return '0.00'
+    if sign and x != 0 and abs(x) < 0.005:
+        s = f'{x:+.3f}'   # a bound that rounds to zero keeps its sign visible
+        return s.replace('-', '$-$')
+    if sign and x == 0: return '0.00'
     if round(x, 2) == 0: x = 0.0
     s = f'{x:+.2f}' if sign else f'{x:.2f}'
     return s.replace('-', '$-$') if sign or x < 0 else s
@@ -342,6 +347,11 @@ if _TC.exists():
     v = [o for o in tested if o['verdict'] == 'violated'][0]
     put('XtcViolD', f2(v['diff'], True)); put('XtcViolCI', ci(v['lo'], v['hi']))
     put('XtcViolDpos', f2(-v['diff']) + ' (95\\% interval ' + f2(-v['hi']) + ' to ' + f2(-v['lo']) + ')')
+    _vv = {(o['label'], 'reasoning' in o['rule']): o for o in tc if o['label'].startswith('REDP-X40') and ('original mode' in o['rule'] or 'ultra-high' in o['rule'])}
+    for _k, _key in ((('REDP-X40 gpt54', False), 'GptFiveFour'), (('REDP-X40 gpt56', False), 'GptFiveSix'), (('REDP-X40 gpt56', True), 'GptFiveSixR'), (('REDP-X40 gem38', False), 'GemThreeEight')):
+        if _k in _vv:
+            put('XtcVend' + _key, f2(_vv[_k]['diff'], True)); put('XtcVendCI' + _key, ci(_vv[_k]['lo'], _vv[_k]['hi'])); put('XtcVendN' + _key, str(_vv[_k]['n']))
+    put('XtcViolVendor', str(sum(o['verdict'] == 'violated' for o in _vv.values())))
     for o in tc:
         if o['label'] in ('FPC-300 gpt56', 'FPC-300 sonnet55', 'FPC-300 gemma4') and o['family'] in ('Thm1', 'outside'):
             key = ('In' if o['family'] == 'Thm1' else 'Out') + o['label'].split()[1]
@@ -354,6 +364,9 @@ if _AS.exists():
     put('XasN', str(len(asd))); put('XasSup', str(sum(v['verdict'] == 'supported' for v in asd.values())))
     put('XasCons', str(sum(v['verdict'] == 'consistent' for v in asd.values()))); put('XasViol', str(sum(v['verdict'] == 'violated' for v in asd.values())))
     put('XasMin', f2(min(v['diff'] for v in asd.values()), True))
+    for _v, _n in (('gpt56', 'GptFiveSix'), ('gpt61', 'GptSixOne'), ('opus55', 'OpusFiveFive')):
+        _k = f'{_v}|M: crop - whole (same scale)'
+        if _k in asd: put('XasM' + _n, f2(asd[_k]['diff'], True))
     cols = ['M: crop - whole (same scale)', 'R: 2x crop - crop', 'I: native - degraded (same scale)', 'Prop crop: 2x crop - whole', 'Thm1: safe tiles - whole']
     NAMES = [('gpt54', 'GPT-5.4'), ('gpt56', 'GPT-5.6'), ('sonnet55', 'Claude Sonnet 5.5'), ('qwen3vl', 'Qwen3-VL'), ('gemma4', 'Gemma 4'), ('gem38', 'Gemini 3.8'),
              ('opus55', 'Claude Opus 5.5$^\\dagger$'), ('gpt61', 'GPT-6.1 Sol$^\\dagger$')]
@@ -425,7 +438,7 @@ except Exception as e:
 # ---- prereg v8: the safe rule (Cor. cor:safe) on REDP-X40 and FPC-sheets k3 ----
 try:
     _cs = json.load(open('results_cs/cs_summary.json'))
-    _NMc = {'gpt61': 'GPT-6.1 Sol', 'opus55': 'Claude Opus 5.5', 'gem38': 'Gemini 3.8', 'qwen3vl': 'Qwen3-VL'}
+    _NMc = {'gpt61': 'GPT-6.1', 'opus55': 'Claude Opus 5.5', 'gem38': 'Gemini 3.8', 'qwen3vl': 'Qwen3-VL'}
     rows = []; diffs = []; nsig = 0; nviol = 0; tokr = []
     for bench, lab in (('redp', 'REDP-X40'), ('fpc', 'FPC-sheets')):
         for v in ('gpt61', 'opus55', 'gem38', 'qwen3vl'):
@@ -436,7 +449,8 @@ try:
             if 'CS-D' in S_:
                 e = S_['CS-D']['recall']; etxt = f2(e[0], True) + '{\\scriptsize\\,' + ci(e[1], e[2]) + '}'; ttxt = f"{S_['tok_CS_over_D']:.2f}"; tokr.append(S_['tok_CS_over_D'])
             else: etxt = ttxt = 'n/a'
-            rows.append(f"{lab} & {_NMc[v]} & {f2(S_['W']['recall'])} & {f2(S_['CS']['recall'])} & {dtxt} & {etxt} & {ttxt} \\\\\n")
+            _rc = float(np.median([x['ratio_cmin'] for x in _cs[k]['rows']]))
+            rows.append(f"{lab} & {_NMc[v]} & {f2(S_['W']['recall'])} & {f2(S_['CS']['recall'])} & {dtxt} & {etxt} & {ttxt} & {_rc:.1f} \\\\\n")
     (OUT.parent / 'tab_csrule.tex').write_text(''.join(rows))
     put('XcsCells', str(len(diffs))); put('XcsSig', str(nsig)); put('XcsViol', str(nviol))
     put('XcsMax', f2(max(diffs), True)); put('XcsMin', f2(min(diffs), True))
@@ -445,15 +459,18 @@ try:
     put('XcsPthreeQ', f2(_q['P3']['recall'][0], True) + ' ' + ci(_q['P3']['recall'][1], _q['P3']['recall'][2])); put('XcsPthreeQn', str(_q['P3_n']))
     put('XcsOneViewGpt', f"{100 * _cs['fpc|gpt61']['summary']['frac_one_view']:.0f}")
     put('XcsGemRedp', f2(_cs['redp|gem38']['summary']['CS-W']['recall'][0], True))
+    put('XcsGainGptSixOneRedp', f2(_cs['redp|gpt61']['summary']['CS-W']['recall'][0], True))
     put('XcsWholeGptSixOneRedp', f2(_cs['redp|gpt61']['summary']['W']['recall'])); put('XcsWholeGptSixOneFpc', f2(_cs['fpc|gpt61']['summary']['W']['recall']))
     _ra = [x['ratio_cmin'] for k in _cs for x in _cs[k]['rows']]
+    _cellmed = [float(np.median([x['ratio_cmin'] for x in _cs[k]['rows']])) for k in _cs]
+    put('XcsRatioMinCell', f'{min(_cellmed):.1f}'); put('XcsRatioMaxCell', f'{max(_cellmed):.1f}')
     put('XcsRatioMed', f'{np.median(_ra):.1f}'); put('XcsRatioNinety', f'{np.percentile(_ra, 90):.1f}')
 except Exception as e:
     print('csrule', e)
 # ---- overall scale: model calls, tokens, images, annotated instances ----
 try:
     import hashlib as _h, glob as _gg
-    _seen = set(); _tin = 0
+    _seen = set(); _tin = 0; _nreq = [0]
     _files = [f for f in _gg.glob('**/*.jsonl', recursive=True) + _gg.glob('../data/fsc147/results/**/*.jsonl', recursive=True)
               if 'pilot' not in f and 'logs' not in f and 'k5_scp' not in f]
     for _f in sorted(_files):
@@ -463,6 +480,9 @@ try:
             _k = _h.md5(json.dumps(_r, sort_keys=True).encode()).hexdigest()
             if _k in _seen: continue          # merged shard files repeat records
             _seen.add(_k); _u = _r.get('usage') or {}
+            if '/learned' in _f: _seen.discard(_k); continue   # trained counters: no VLM request
+            if isinstance(_r.get('log'), dict) and 'turns' in _r['log']:   # a zoom-agent episode: one request per turn
+                _nreq[0] += max(int(_r['log']['turns']), 1) - 1; _tin += _r['log'].get('in') or 0; continue
             if isinstance(_u, dict): _tin += _u.get('input_tokens') or _u.get('prompt_tokens') or 0
     def _ann(d, pat='*.json'):
         fs = _gg.glob(d + '/' + pat); return len(fs), sum(json.load(open(f))['count'] for f in fs)
@@ -473,10 +493,27 @@ try:
     _R10_IMG, _R10_INST = 10, 225                                            # REDP-10 annotations are not released
     _img = _redp[0] + _R10_IMG + _fpcb[0] + _fpcs[0] + len(_fsc) + len(_syn) + len(_sa)
     _inst = _redp[1] + _R10_INST + _fpcb[1] + _fpcs[1] + sum(i['n'] for i in _fsc) + sum(len(i['points']) for i in _syn) + sum(len(i['points']) for i in _sa)
-    put('XscaleCalls', f"{round(len(_seen), -3):,}".replace(',', '{,}')); put('XscaleTokM', f"{_tin / 1e6:.0f}")
+    put('XscaleCalls', f"{round(len(_seen) + _nreq[0], -3):,}".replace(',', '{,}')); put('XscaleTokM', f"{_tin / 1e6:.0f}")
     put('XscaleImages', f"{_img:,}".replace(',', '{,}')); put('XscaleInst', f"{round(_inst, -2):,}".replace(',', '{,}'))
     put('XscaleRealImg', str(_redp[0] + _R10_IMG + _fpcb[0] + _fpcs[0])); put('XscaleFscInst', f"{sum(i['n'] for i in _fsc):,}".replace(',', '{,}'))
-    print('scale', len(_seen), _tin, _img, _inst)
+    print('scale', len(_seen) + _nreq[0], _tin, _img, _inst)
 except Exception as e:
     print('scale', e)
+OUT.write_text('% generated by stok/paper2_numbers_x.py; do not edit\n' + ''.join(f'\\newcommand{{\\{k}}}{{{v}}}\n' for k, v in sorted(MAC.items())))
+
+# ---- FPC-sheets first block: the drop with more context, restricted to sheets where the whole 3x3 sheet still gives S >= 1 ----
+try:
+    import pickle as _pk
+    _G = json.load(open('../data/fpc/geometry.json')); _P0 = _pk.load(open('results_fpc/fpc_per_block0.pkl', 'rb'))
+    _rg = np.random.default_rng(11)
+    for _v, _n in (('gpt56', 'GptFiveSix'), ('sonnet55', 'SonnetFiveFive'), ('gem38', 'GemThreeEight')):
+        _per = _P0.get(str(('sheets', 'A1', _v)), {})
+        _r = {d: float(np.nanmean([x[0] for x in rs])) for d, rs in _per.items() if rs and not np.all(np.isnan([x[0] for x in rs]))}
+        _pairs = [(_r[d[:-1] + '3'] - _r[d], _G[d[:-1] + '3'][_v]['A1']) for d in _r if d.endswith('_k1') and d[:-1] + '3' in _r]
+        _x = np.array([p[0] for p in _pairs]); _s = np.array([p[1] for p in _pairs], float); _xs = _x[_s >= 1]
+        _bs = [_xs[_rg.integers(0, len(_xs), len(_xs))].mean() for _ in range(4000)]
+        put('XfBKSone' + _n, f2(float(_xs.mean()), True)); put('XfBKSoneCI' + _n, ci(float(np.percentile(_bs, 2.5)), float(np.percentile(_bs, 97.5))))
+        put('XfBKSoneN' + _n, str(len(_xs))); put('XfBKSmed' + _n, f'{np.median(_s):.1f}'); put('XfBKSltOne' + _n, f'{100 * np.mean(_s < 1):.0f}')
+except Exception as e:
+    print('fpc block0 S>=1', e)
 OUT.write_text('% generated by stok/paper2_numbers_x.py; do not edit\n' + ''.join(f'\\newcommand{{\\{k}}}{{{v}}}\n' for k, v in sorted(MAC.items())))

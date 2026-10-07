@@ -26,12 +26,12 @@ def style(ax):
 fig, ax = plt.subplots(figsize=(3.0, 2.9))
 for key, lab, col, mk in (('gpt54', 'GPT-5.4', C1, 'o'), ('sonnet46', 'Claude Sonnet 4.6', C2, 's'), ('sonnet55', 'Claude Sonnet 5.5', C3, '^')):
     d = N['dose'][key]; xs, ys = zip(*d['points'])
-    ax.scatter(xs, ys, s=16, color=col, marker=mk, edgecolors=SURF, linewidths=0.8,
+    ax.scatter(xs, ys, s=24, color=col, marker=mk, edgecolors=SURF, linewidths=0.8,
                label=f"{lab} ($\\rho$={d['rho']:.2f})", zorder=3)
 ax.plot([0, 1], [0, 1], color=INK2, linewidth=0.8, linestyle=(0, (3, 2)), zorder=2)
 ax.set_xlim(-0.02, 1.02); ax.set_ylim(-0.02, 1.02)
 ax.set_xlabel('A priori ceiling from token geometry'); ax.set_ylabel('Observed strict F1')
-ax.legend(loc='upper center', bbox_to_anchor=(0.42, -0.17), ncol=1, fontsize=6.5, handletextpad=0.3)
+ax.legend(loc='upper center', bbox_to_anchor=(0.42, -0.17), ncol=1, fontsize=7, handletextpad=0.3)
 style(ax); fig.tight_layout(pad=0.3); fig.savefig(FIG / 'fig_dose.pdf', bbox_inches='tight'); plt.close(fig)
 
 # Figure 2: two generations x three configurations, per vendor family, template matching band

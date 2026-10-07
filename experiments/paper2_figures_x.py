@@ -54,23 +54,27 @@ def fig_syn():
 
 def fig_agent():
     X = json.load(open('results_x/x_new_scores_robust.json'))
-    fig = plt.figure(figsize=(7.0, 2.35)); gs = fig.add_gridspec(1, 2, width_ratios=[1.35, 1])
+    N = json.load(open('results_x/x9_scores.json'))
+    fig = plt.figure(figsize=(7.0, 2.45)); gs = fig.add_gridspec(1, 2, width_ratios=[1.35, 1])
     ax = fig.add_subplot(gs[0]); ax2 = fig.add_subplot(gs[1])
-    vend = [('gpt56', 'gpt56r', 'GPT-5.6'), ('sonnet55', 'sonnet55t', 'Sonnet 5.5'), ('gem38', 'gem38t', 'Gemini 3.8')]
-    conds = ['Whole', 'Whole +\nreasoning', 'Tiles', 'Agent,\noverview crops', 'Agent,\nnative zoom']
-    cols = ['#c9c8c3', '#8f8e89', '#2a78d6', '#f2b38f', '#eb6834']
+    # (a) the matched-reasoning ladder: each step changes one thing (registered decomposition)
+    vend = [('gpt56', 'GPT-5.6'), ('sonnet55', 'Claude Sonnet 5.5')]
+    steps = [('A1R', 'Whole drawing'), ('OVC', 'Agent: overview crops\n(lower $L$)'), ('OVZ', 'Agent: enlarged crops\n(higher $S$)'),
+             ('AG', 'Agent: native crops\n(new information)'), ('DR', 'Tiles (reference)')]
+    cols = ['#c9c8c3', '#f2b38f', '#eb8a55', '#c4501f', '#2a78d6']
     w = 0.16
-    for i, (v, vr, lab) in enumerate(vend):
-        x3 = X.get(f'X3|{vr}', {}); x4 = X.get(f'X4|{v}', {}); sh = X.get(f'X4bsheets|{v}', {})
-        vals = [x3.get('plain', [None, None])[1], x3.get('f1', [None, None])[1], x3.get('D', [None, None])[1],
-                sh.get('ov'), x4.get('f1', [None, None])[1]]
-        for j, val in enumerate(vals):
+    for i, (v, lab) in enumerate(vend):
+        for j, (k, nm_) in enumerate(steps):
+            val = N.get(f'{k}|{v}', {}).get('sheets')
             if val is None: continue
-            ax.bar(i + (j - 2) * w, val, w * 0.92, color=cols[j], edgecolor=SURF, linewidth=0.5, label=conds[j] if i == 0 else None)
-    ax.set_xticks(range(3)); ax.set_xticklabels([v[2] for v in vend]); ax.set_ylim(0, 1.05); ax.set_ylabel('Strict F1, 14 full sheets')
+            x = i + (j - 2) * w + (0.04 if k == 'DR' else 0)
+            ax.bar(x, val, w * 0.92, color=cols[j], edgecolor=SURF, linewidth=0.5, label=nm_ if i == 0 else None,
+                   hatch='//' if k == 'DR' else None)
+            ax.text(x, val + 0.015, f'{val:.2f}', ha='center', va='bottom', fontsize=5.6)
+    ax.set_xticks(range(2)); ax.set_xticklabels([v[1] for v in vend], fontsize=7); ax.set_ylim(0, 1.1); ax.set_ylabel('Strict F1, 14 full sheets', fontsize=7)
     ax.axhspan(X.get('TMsheets', [0.85, 0.85])[0], X.get('TMsheets', [0.85, 0.85])[1], color=GRID, zorder=0)
-    ax.legend(loc='upper center', ncol=5, bbox_to_anchor=(0.5, -0.12), fontsize=6.2, handlelength=1.2, columnspacing=0.8)
-    style(ax); ax.set_title('(a) Same model, five ways of using it', fontsize=7.5)
+    ax.legend(loc='upper center', ncol=3, bbox_to_anchor=(0.5, -0.1), fontsize=6.0, handlelength=1.2, columnspacing=0.8)
+    style(ax); ax.set_title('(a) One change at a time, reasoning matched', fontsize=7.5)
     # (b) zoom footprint of GPT-5.6 on one sheet
     import mech as M
     did = X.get('agent_example', 'd018')
@@ -81,7 +85,7 @@ def fig_agent():
         x0, y0, x1, y1 = z['overview_box']
         ax2.add_patch(matplotlib.patches.Rectangle((x0, y0), x1 - x0, y1 - y0, fill=False, edgecolor='#eb6834', linewidth=0.7))
     gx = [p[0] * s for p in ann['points']]; gy = [p[1] * s for p in ann['points']]
-    ax2.scatter(gx, gy, s=4, color='#2a78d6', linewidths=0, zorder=3)
+    ax2.scatter(gx, gy, s=14, color='#2a78d6', edgecolors='white', linewidths=0.4, zorder=3)
     ax2.set_xticks([]); ax2.set_yticks([])
     ax2.set_title(f'(b) GPT-5.6 zoom calls on one sheet ({rec["log"]["zooms_used"]} zooms)', fontsize=7.5)
     fig.tight_layout(pad=0.3); fig.savefig(FIG / 'fig_agent.pdf', bbox_inches='tight', dpi=300); plt.close(fig)

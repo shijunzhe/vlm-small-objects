@@ -230,7 +230,8 @@ def match(pred, gt, tau):
         return 0, len(pred), len(gt)
     P, G = np.asarray(pred, float), np.asarray(gt, float)
     D = np.linalg.norm(P[:, None] - G[None], axis=2)
-    r, c = linear_sum_assignment(D)
+    # maximum one-to-one matching within tau (pairs beyond tau are forbidden; ties broken by total distance)
+    r, c = linear_sum_assignment(np.where(D <= tau, D, 1e6))
     return int((D[r, c] <= tau).sum()), len(pred), len(gt)
 
 

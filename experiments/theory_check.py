@@ -34,7 +34,7 @@ def add(family, rule, label, est):
 D = json.load(open('results_law/law_data.json'))
 idx = defaultdict(dict)
 for r in D:
-    if r['split'] == 'test' and r['ds'] in ('redp', 'fpc_bench', 'fpc_sheets', 'fsc'): idx[(r['ds'], r['model'], r['item'])][r['config']] = r
+    if r['split'] == 'test' and r['ds'] in ('redp', 'fpc_bench', 'fpc_sheets', 'fsc', 'fsc_draw'): idx[(r['ds'], r['model'], r['item'])][r['config']] = r
 NAME = {'redp': 'REDP-X40', 'fpc_bench': 'FPC-300', 'fpc_sheets': 'FPC-sheets', 'fsc': 'FSC-147'}
 for ds in ('redp', 'fpc_bench', 'fpc_sheets'):
     for v in sorted({k[1] for k in idx if k[0] == ds}):
@@ -56,14 +56,17 @@ for v in ('gpt56', 'sonnet55', 'gem38'):
     if len(xs) >= 5: add('Thm1', 'tiles (S_tile >= S_whole) - whole', f'FSC-147 {v}', boot(xs))
 
 # ---------- Prop. 2(d): tiles of the upsampled image versus the whole upsampled image (M), FSC ----------
-for v in ('gpt56', 'sonnet55', 'gem38'):
-    xs = [c['T']['obs'] - c['U']['obs'] for k, c in idx.items() if k[0] == 'fsc' and k[1] == v and 'T' in c and 'U' in c]
-    add('M', 'tiles of upsampled - whole upsampled', f'FSC-147 {v}', boot(xs))
+# both prompts: the domain-neutral rerun ('fsc') and the first-registered drawing prompt ('fsc_draw')
+for dsn, lab in (('fsc', 'FSC-147'), ('fsc_draw', 'FSC-147 drawing prompt')):
+    for v in ('gpt56', 'sonnet55', 'gem38'):
+        xs = [c['T']['obs'] - c['U']['obs'] for k, c in idx.items() if k[0] == dsn and k[1] == v and 'T' in c and 'U' in c]
+        add('M', 'tiles of upsampled - whole upsampled', f'{lab} {v}', boot(xs))
 # ---------- R: upsampled whole image versus native whole image, resolution-scaled (U refines W), FSC ----------
-for v in ('gpt56', 'sonnet55'):
-    xs = [c['U']['obs'] - c['W']['obs'] for k, c in idx.items() if k[0] == 'fsc' and k[1] == v and 'U' in c and 'W' in c
-          and c['U']['calls'][0][0] > c['W']['calls'][0][0]]
-    add('R', 'upsampled - native (same pixels, higher S)', f'FSC-147 {v}', boot(xs))
+# (Gemini 3.8 has a fixed grid: upsampling does not raise its S, so the pair is not a refinement)
+    for v in ('gpt56', 'sonnet55'):
+        xs = [c['U']['obs'] - c['W']['obs'] for k, c in idx.items() if k[0] == dsn and k[1] == v and 'U' in c and 'W' in c
+              and c['U']['calls'][0][0] > c['W']['calls'][0][0]]
+        add('R', 'upsampled - native (same pixels, higher S)', f'{lab} {v}', boot(xs))
 
 # ---------- R: synthetic information-fixed upsampling (up vs its res source) where S increases ----------
 syn = {(r['model'], r['item']): r for r in D if r['ds'] == 'syn'}
@@ -120,6 +123,40 @@ for v, ar in (('gpt56', 'gpt56m'), ('sonnet55', 'sonnet55t')):
     for hi, lo, rule, fam in (('OVC', 'A1R', 'overview crop - overview (agent)', 'M'), ('OVZ', 'OVC', 'enlarged crop - crop (agent)', 'R'), ('AG', 'OVZ', 'native zoom - enlarged crop (agent)', 'I')):
         ds = [d for d in T if d in mp[hi] and d in mp[lo]]
         add(fam, rule, f'REDP-X40 {v}', boot([mp[hi][d][1] - mp[lo][d][1] for d in ds]))
+
+# ---------- R (and I): vendor high-resolution modes on whole drawings, REDP-X40 test set ----------
+# The same drawing and prompt, sent with more pixels: a native or less-downsampled copy in a vendor high-resolution mode
+# (refinement, and for a native copy also the converse of a garbling), or a larger token budget on the same image.
+import analyze_gen as G
+VEND = [('R+I', 'vendor original mode - default (same drawing, more pixels)', 'REDP-X40 gpt54', A.score_B('gpt'), A.score_whole('gpt', 'px')),
+        ('R+I', 'native, original mode - default (same drawing, more pixels)', 'REDP-X40 gpt56', X9.native('gpt56orig', [0, 1]), X.at(A.score_whole, 'gpt56', 'px')),
+        ('R+I', 'native, original mode - default, both with reasoning', 'REDP-X40 gpt56', X9.native('gpt56origm', [0]), X.at(A.score_whole, 'gpt56m', 'px')),
+        ('R', 'Gemini 3.8 budget ultra-high - default (same pixels)', 'REDP-X40 gem38', X.at(A.score_whole, 'gem38uh', 'n1000'), X.at(A.score_whole, 'gem38', 'n1000'))]
+# (Gemini 2.5's high mode was run with a different protocol, the legend placed in a band of the same image,
+#  because the mode applies only to single-image requests; it is not a refinement of the default call and is not paired.)
+# billed input tokens per drawing: a pair is a refinement only where the high-resolution call shows the drawing
+# with more tokens (on small views both modes send the same image at the same scale, so there is nothing to compare)
+import glob as _g
+def _tok(patterns):
+    t = defaultdict(list)
+    for pat in patterns:
+        for f in _g.glob(pat):
+            for l in open(f):
+                r = json.loads(l)
+                if r.get('status') != 'success': continue
+                u = r.get('usage') or {}; n = u.get('input_tokens', r.get('input_tokens'))
+                if n: t[r['did']].append(n)
+    return {d: float(np.mean(v)) for d, v in t.items()}
+TOK = {'REDP-X40 gpt54': ('results_test/B_gpt_run*.jsonl', 'results_test/A1_gpt_run*.jsonl')}
+TOKG = {'native, original mode - default (same drawing, more pixels)': ('results_gen/A1nat_gpt56orig_run*.jsonl', 'results_gen/A1_gpt56_run*.jsonl'),
+        'native, original mode - default, both with reasoning': ('results_gen/A1nat_gpt56origm_run*.jsonl', 'results_gen/A1_gpt56m_run*.jsonl'),
+        'Gemini 3.8 budget ultra-high - default (same pixels)': ('results_gen/A1_gem38uh_run*.jsonl', 'results_gen/A1_gem38_run*.jsonl')}
+for fam, rule, lab, hi, lo in VEND:
+    a, b = A.mean_per(hi), A.mean_per(lo)
+    ph, pl = TOK.get(lab) or TOKG[rule]
+    th, tl = _tok([ph]), _tok([pl])
+    ds = [d for d in T if d in a and d in b and d in th and d in tl and th[d] > 1.05 * tl[d]]
+    add(fam, rule, lab, boot([a[d][1] - b[d][1] for d in ds]))
 
 json.dump(OUT, open('results_law/theory_check.json', 'w'), indent=1)
 tested = [o for o in OUT if o['verdict'] != 'n/a']

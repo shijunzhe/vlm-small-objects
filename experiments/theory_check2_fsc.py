@@ -6,11 +6,11 @@ import theory_check2_base as TB
 import fsc_run as FR
 ROOT = Path('../data/fsc147'); ITEMS = {it['name']: it for it in json.load(open(ROOT / 'x8_items.json'))}
 val = set(json.load(open(ROOT / 'Train_Test_Val_FSC_147.json'))['val'])
-for v in ('gpt56', 'sonnet55', 'gem38'):
+for (v, suf, lab) in [(v, suf, lab) for suf, lab in (('_obj', 'FSC-147'), ('', 'FSC-147 drawing prompt')) for v in ('gpt56', 'sonnet55', 'gem38')]:
     recs = {}
     for cond in ('W', 'T'):
         g = defaultdict(dict)
-        for l in open(ROOT / 'results' / f'{v}_{cond}_obj.jsonl'):
+        for l in open(ROOT / 'results' / f'{v}_{cond}{suf}.jsonl'):
             r = json.loads(l)
             if r['status'] in ('success', 'parse_error'): g[r['name']][r['v']] = r
         recs[cond] = g
@@ -30,6 +30,6 @@ for v in ('gpt56', 'sonnet55', 'gem38'):
         s_t = min(TB.S_view(v, t['view'][2] - t['view'][0], t['view'][3] - t['view'][1], t['sent'][0], t['sent'][1], m) for t in tiles)
         pw = FR.native_points(rw); pt = sum((FR.native_points(r) for r in recs['T'][name].values()), [])
         rows.append({'item': name, 'cond': s_t >= s_w - 1e-9, 'diff': TB.hit(pt, tg, tau) - TB.hit(pw, tg, tau), 'n_targets': len(tg), 'n_all': len(a['points']), 'S_w': s_w, 'S_t': s_t})
-    TB.report('FSC-147', v, rows, lambda d: d)
+    TB.report(lab, v, rows, lambda d: d)
 old = json.load(open('results_law/theory_check_thm1.json'))
 json.dump([o for o in old if not o['label'].startswith('FSC')] + TB.RES, open('results_law/theory_check_thm1.json', 'w'), indent=1)
