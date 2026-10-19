@@ -1,3 +1,4 @@
+import os
 #!/usr/bin/env python3
 """
 S_tok mechanism experiments on REDP-X40.
@@ -159,6 +160,7 @@ def fnum(v):
         return None
 
 
+POINT_XY = os.environ.get('POINT_XY') == '1'   # default off: the registered reading keeps only cx/cy
 FORMAT_AWARE = False   # registered decoding reads numeric cx/cy only; format-aware decoding also reads list-valued points
 
 
@@ -170,6 +172,10 @@ def point_of(q):
     x, y = fnum(q.get('cx')), fnum(q.get('cy'))
     if x is not None and y is not None:
         return x, y
+    if POINT_XY:   # optional reading: also accept points written with x/y keys (Gemini 3.8 sometimes writes them)
+        x, y = fnum(q.get('cx', q.get('x'))), fnum(q.get('cy', q.get('y')))
+        if x is not None and y is not None:
+            return x, y
     if not FORMAT_AWARE:
         return None
     cx, cy = q.get('cx'), q.get('cy')

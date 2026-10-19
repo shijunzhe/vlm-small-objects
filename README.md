@@ -1,6 +1,8 @@
 # Why VLMs Miss Small Objects, and When Zooming In Is Safe
 
-Code, data, and model outputs for the paper by Junzhe Shi, Yuan Gan, and Shida Jiang (arXiv link to be added). It contains:
+[![arXiv](https://img.shields.io/badge/arXiv-2610.09313-b31b1b.svg)](https://arxiv.org/abs/2610.09313)
+
+Code, data, and model outputs for the paper by Junzhe Shi, Yuan Gan, and Shida Jiang ([arXiv:2610.09313](https://arxiv.org/abs/2610.09313)). It contains:
 
 * a stand-alone tool that plans the paper's safe decomposition for any image and model interface (`tools/safe_tiles.py`);
 * every script that sent images to a model, scored the answers, or computed a number, table, or figure in the paper (`experiments/`);
@@ -53,6 +55,10 @@ bash reproduce.sh
 ```
 
 `reproduce.sh` reruns every scoring and analysis script on the shipped answers, regenerates `paper/generated/` and `paper/figures/`, and compares the regenerated macros and tables with the shipped ones. With the pinned packages they match byte for byte. Scripts that need data that is not distributed (REDP-10 annotations) are skipped, and their shipped scores are used.
+
+### Optional reading of points written with x/y keys (paper v2)
+
+The registered reader keeps a point only if it carries the requested numeric `cx`/`cy` keys. Gemini 3.8 sometimes writes `x`/`y` instead (most often on FSC-147). `bash xy_reading.sh` rescores every experiment with those points read as well, in a temporary copy (`POINT_XY=1`; the shipped files stay untouched), and writes the values that change to `paper/generated/macros_xy.tex`, which the paper reports in Appendix E (v2). `reproduce.sh` keeps the registered reading.
 
 ## Where each result comes from
 
@@ -111,10 +117,13 @@ Copy `config.env.example` to `config.env` in the repository root and fill in the
 
 ```bibtex
 @misc{shi2026zoomin,
-  title  = {Why {VLMs} Miss Small Objects, and When Zooming In Is Safe},
-  author = {Shi, Junzhe and Gan, Yuan and Jiang, Shida},
-  year   = {2026},
-  note   = {arXiv preprint},
-  url    = {https://github.com/shijunzhe/vlm-small-objects}
+  title         = {Why {VLMs} Miss Small Objects, and When Zooming In Is Safe},
+  author        = {Shi, Junzhe and Gan, Yuan and Jiang, Shida},
+  year          = {2026},
+  eprint        = {2610.09313},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi           = {10.48550/arXiv.2610.09313},
+  url           = {https://arxiv.org/abs/2610.09313}
 }
 ```
