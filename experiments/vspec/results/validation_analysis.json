@@ -1,0 +1,66 @@
+{
+ "gpt61": {
+  "S": 1.1349504130504082,
+  "C_ref_bracket": [
+   256,
+   null
+  ],
+  "C_cons": 256.0,
+  "n_safe": 132,
+  "k": 32,
+  "R": 0.9997632575757576,
+  "P": 1.0,
+  "lb95_R": 0.9992897727272727,
+  "lb95_P": 1.0,
+  "trunc": 0,
+  "verdict": "validated with one-sided 95% support"
+ },
+ "gpt56": {
+  "S": 1.271977996457688,
+  "C_ref_bracket": [
+   182,
+   256
+  ],
+  "C_cons": 0.0,
+  "n_safe": 8,
+  "k": 32,
+  "R": 0.96875,
+  "P": 0.96875,
+  "lb95_R": 0.90625,
+  "lb95_P": 0.90625,
+  "trunc": 0,
+  "verdict": "validated with one-sided 95% support"
+ },
+ "opus55": {
+  "S": 1.2596639733767052,
+  "C_ref_bracket": [
+   128,
+   182
+  ],
+  "C_cons": 0.0,
+  "n_safe": 8,
+  "k": 32,
+  "R": 1.0,
+  "P": 0.9846153846153847,
+  "lb95_R": 1.0,
+  "lb95_P": 0.973384030418251,
+  "trunc": 0,
+  "verdict": "validated with one-sided 95% support"
+ },
+ "gem38": {
+  "S": 1.5226109221971857,
+  "C_ref_bracket": [
+   32,
+   null
+  ],
+  "C_cons": 16.0,
+  "n_safe": 12,
+  "k": 32,
+  "R": 0.984375,
+  "P": 0.9921259842519685,
+  "lb95_R": 0.96875,
+  "lb95_P": 0.9765625,
+  "trunc": 0,
+  "verdict": "validated with one-sided 95% support"
+ }
+}

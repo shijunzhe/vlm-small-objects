@@ -1,0 +1,35 @@
+\section{Where the next models should improve}
+\label{sec:future}
+
+The interface fixes, for every model, the $S$ one call can reach and the minimum cost of seeing an image at a given $S$. The model sets the rest: the $S$ it needs, how much one call can handle, whether it is monotone, and how it reports positions. Progress pays on these model parameters, and \cref{tab:limits} sorts every limit by the evidence behind it and by what the newest generation changed.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{p{2.1cm}p{5.8cm}p{2.6cm}p{3.8cm}}
+\toprule
+Limit & Statement & Support & Newest generation \\
+\midrule
+Information & Detail lost in the vendor's resize cannot be recovered; overlays and interpolated zoom add none (\cref{prop:dpi}); a native crop can add it. & Proposition; agent ablation (\cref{sec:agents}) & Unchanged; whether it binds depends on the recognizer. \\
+Recognition & Recall rises gradually with $S$; the $S$ a model needs is a model parameter. & Controlled sweeps; dose response (\cref{sec:S-evidence}) & Falls: on the same token grid Gemini 4 needs less than half the $S$ of Gemini 3.8. \\
+Minimum cost & Seeing an image at $S^\ast$ costs at least $(WH/m^2){S^\ast}^2$ tokens; every protected split and every search policy with graded recognition pays a bound of this form (\cref{prop:geometry,thm:exact,prop:frontier}). & Propositions; agent logs & Formula unchanged; its value falls with the $S$ a model needs, and a zoom agent pays it itself. \\
+Content per call & Recall falls with the content of one call: more targets, more area, more tiles per image, more blocks around a fixed block. & Controlled sweeps; packed tiles; mosaics (\cref{sec:L-evidence}) & Grows: GPT-6.1 holds at \CgenGptSixOneMax{} targets per view at $S = 1.5$; drawing content still binds. \\
+Monotonicity & (R) and (M) carry every guarantee of \cref{sec:safe}. & Controlled test; all paired calls (\cref{sec:assume}) & Hold on standard input for every model in the controlled test (Boundary one in \cref{sec:safe}). \\
+Interface & Coordinate frame, scale and format differ by vendor, mode and even answer; agents add a crop-to-overview conversion. & Probes; agent trajectories (\cref{sec:coords,sec:agents}) & Not improving; must be checked per model and mode. \\
+Verification & With per-item error rate $\varepsilon$, all $n$ items are right with probability at least $1 - n\varepsilon$, and exactly $(1-\varepsilon)^n$ for independent errors, so exact large counts need $\varepsilon \ll 1/n$; per-item locations make results checkable. & Arithmetic & Lower $\varepsilon$; locations still needed for review. \\
+Localization & A model that knows only a target's token cell places it within $\tau$ with probability at most $\pi S^2/4$ for $S \le 1$ (\cref{prop:loc}). & One-dot probe & No longer binds: newer models place a dot within about 1\,px. \\
+\bottomrule
+\end{tabular}
+\caption{Limits on finding many small objects with VLMs, the evidence behind each, and what the newest generation changed.}
+\label{tab:limits}
+\end{table*}
+
+\paragraph{Lower the $S$ a target needs, not only the budget.} By \cref{prop:geometry}(a), the $S$ of a whole-image call grows only with the square root of the budget. The coverage bound of \cref{prop:geometry}(b) scales with the square of the $S$ that recognition requires, and so does the frontier of \cref{prop:frontier} for recognition curves of a fixed shape, $f(S) = \min\{1, (S/S_0)^\gamma\}$ with $\gamma \ge 2$ (\cref{sec:proofs-search}); halving that $S$ quarters them, for tiles and agents alike. The protection minimum $\Cmin$ of \cref{thm:exact}(c) adds the overlap factor $1/(1-\sigma)^2$, which also shrinks as $S$ falls, and the cost of a concrete split follows from \cref{cor:safe}, with its overlaps, whole views and per-image overhead (\cref{sec:proofs-safe}). The newest generation shows that training moves this parameter (\cref{sec:why}); recognition at low token density is the improvement with the largest effect on cost.
+
+\paragraph{Raise what one call can handle.} Within one call, recall falls as content grows. On floor-plan mosaics, GPT-5.6's F1 on a fixed first block changes by \XfBKDAOnegptFiveSix{} when eight blocks are added around it (\cref{sec:firstblock}); on controlled images, (M) crops at equal $S$ raise its recall by \XasMGptFiveSix{} (\cref{tab:assume}). Each generation handles more well-separated targets (\cref{sec:why}). Enumerating many objects in one long answer is the weak point, and region-wise decoding, structured outputs per region and dense output heads are natural candidates, which the nested pairs of \cref{tab:assume} can test. \Cref{thm:capacity} gives the unit: each hit costs about $\log_2$ of the ratio between the area per target and the tolerance disk, in bits, so progress is measured by the bits about positions that one answer can carry.
+
+\paragraph{Be monotone by design, and test it.} A model that satisfies (R) and (M) inherits \cref{thm:safe} and \cref{cor:safe}, so callers can split it safely without tuning per model; Boundary one of \cref{sec:safe} names the input paths on which current models violate them. Developers can train for consistency across crops and scales of the same image, so that a target found in the whole image is also found in its crop and at a higher scale, and test it with nested pairs as in \cref{tab:assume}, on twelve controlled images per model.
+
+\paragraph{Make the interface explicit, and prefer native pixels.} Returning coordinates in the frame of the image sent, reporting the effective scale and token grid, and not resizing silently are interface decisions rather than research problems. They decide whether a caller can compute $S$ before a call and apply the guarantees. By \cref{prop:dpi}, an overlay drawn on the sent image and interpolated zoom add no Shannon information, while a crop cut from the native image can add information about the targets (\cref{prop:zoom}). Zoom tools should return native pixels and convert coordinates themselves, which takes the conversion that two of four agents fail at (\cref{sec:agents}) out of the model's hands.
+
+\paragraph{What to measure for a new model.} The parameters that matter are few and cheap to measure, and none needs labelled images of the target task: the budget and token size from billed tokens on blank images (\cref{sec:geometry}); the coordinate frame, scale and format from a one-dot probe and from images above the budget (\cref{sec:coords}); the $S$ recognition needs and the load one view carries from controlled images (\cref{sec:S-curves,sec:thumb}); (R) from a few pairs of calls on the same region at different token counts (\cref{sec:safe}); and, for agents, the conversion from crop to overview coordinates.

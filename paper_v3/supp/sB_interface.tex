@@ -1,0 +1,54 @@
+\section{The interface: token geometry, $S$ and coordinates}
+\label{sec:interface}
+
+\subsection{Token geometry}
+\label{sec:geometry}
+
+We sent blank white images of several sizes to every model and recorded the billed input tokens; the content of an image does not change its cost. \Cref{tab:calib} compares the measured geometry with vendor documentation~\cite{openai2026vision,anthropic2026vision,google2026mediares}, consulted in October 2026. Two behaviours were not in the documentation when we started: Gemini 2.5's \texttt{HIGH} setting is ignored when a request contains two images, so its high-setting calls place the legend crop in a band above the drawing, in one image, and GPT-5.5 and GPT-5.6 accept at least 8{,}192 patches at the default setting, where the documentation lists 2{,}500 for \texttt{high}; the current documentation states that GPT-5.6's default keeps the original size.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{p{3.0cm}p{5.5cm}p{6.2cm}}
+\toprule
+Model & Geometry (documentation) & Measured (input tokens of a blank image) \\
+\midrule
+GPT-5.4 & 32 px patches, $\times 1.2$; $\le$2{,}500 (auto), $\le$10{,}000 (original) & $2048^2$: 3{,}019; $3072^2$ original: 11{,}068 \\
+GPT-5.5, GPT-5.6 & 32 px patches, $\times 1.2$; 2{,}500 (high), $\le$30{,}000 (original); for GPT-5.6, auto keeps the original size & $2048^2$: 4{,}934; $2896^2$: 8{,}281 patches, not resized; $6000\times4000$ original: 28{,}219 \\
+GPT-6.1 & as GPT-5.6 & $3072^2$: 9{,}216 patches, not resized \\
+Claude Sonnet 4.6 & 28 px; $\le$1{,}568 tokens, long side $\le$1{,}568 & $1536^2$ and larger: 1{,}542 \\
+Claude Sonnet 5.5, Opus 5.5 & 28 px; $\le$4{,}784 tokens, long side $\le$2{,}576 & $1536^2$: 3{,}050; $1932^2$: 4{,}761; $2048^2$: 4{,}786 \\
+Gemini 2.5 Flash & fixed grid, 258 tokens (default) & 258 at every size \\
+Gemini 3.8 Flash & fixed grid, 1{,}120 (default and high), 2{,}240 (ultra-high) & 1{,}092 to 1{,}111; ultra-high 2{,}189 to 2{,}220 \\
+Gemini 4 & not listed separately & about 1{,}091 at every size \\
+Gemma 4 31B & fixed budget, 280 tokens (provider default) & 280 at every size \\
+Qwen3-VL-235B & 32 px per token (16 px patches, $2\times2$ merge); cap set by the provider & about 2{,}500 at a long side of 1{,}600 px; one provider did not resize up to about 1{,}500 px \\
+\bottomrule
+\end{tabular}
+\caption{Input geometry from documentation and from billed tokens. $\times 1.2$: billed tokens per 32 px patch for GPT; auto, high and original: OpenAI's detail settings. The per-view budgets used by the rule are 8{,}192 patches (GPT-6.1), 4{,}784 tokens (Claude Opus 5.5), about 1{,}090 (Gemini 3.8 and Gemini 4) and 2{,}500 (Qwen3-VL); \cref{sec:thumb} lists them with the targets per side they allow.}
+\label{tab:calib}
+\end{table*}
+
+\subsection{Computing $S$}
+\label{sec:computeS}
+
+For every call we compute $S = ms/t$ from the measured geometry, before any call and without looking at the answer. The effective scale $s$ is the product of the scale at which we send the image and the vendor's own resize factor. For GPT models the vendor factor fits the image to the patch budget (none within 8{,}192 patches for GPT-5.6 and GPT-6.1, 2{,}500 for GPT-5.4); for Claude it is the documented resize to the long-side cap and the token budget of the model's tier; for Qwen3-VL it is $\min\{1, \sqrt{2{,}500 \cdot 1{,}024/(w'h')}\}$ for a sent image of $w' \times h'$ px. For fixed grids the token side is the side of the padded square divided by $\sqrt N$, so $S = mg/\max(W,H)$ for a whole image and $S = mg/\ell$ for a view of longer side $\ell$ (\cref{prop:geometry}), with $N = 258$ (Gemini 2.5), 280 (Gemma 4) and about 1{,}090 (Gemini 3.8 and Gemini 4). On the $4096 \times 2048$ canvas of the area sweep (\cref{sec:L-sweeps}) the fixed-grid token side computed as $\sqrt{WH/N}$ is smaller than the padded-square side by $\sqrt 2$; the values in \cref{tab:syn} use $\sqrt{WH/N}$. For a target with a non-square box, $m = \sqrt{wh}$ is the geometric mean; a stricter criterion that uses the shorter side gives the same conclusions.
+
+\paragraph{The example of \cref{fig:intro}.} The drawing is $\CfigW \times \CfigH$ px and its target spans $m = \CfigM$ px. Sent whole within 2{,}500 patches of 32 px, the schematic interface of \cref{fig:intro} (a long side of about 1{,}930 px, the largest that fits), the target spans \CfigMsent{} px, $S = 0.40$, which is \CfigPctToken\% of a token side. The rule at $S = 1.5$ cuts \CfigViews{} views, each within the budget and about \CfigTokens{} tokens in all; the minimum cost of \cref{thm:exact}(c) is about \CfigCmin{} tokens, and the coverage bound of \cref{prop:geometry}(b) about \CfigPropB.
+
+\paragraph{The small drawing.} On a drawing of $\CsmallW \times \CsmallH$ px with $m = \CsmallM$ px, the whole-image call gives GPT-5.4 $S = \CsmallSw$, and the 44 px recipe shrinks the drawing so that its tiles give $S = \CsmallSt$: the recipe zooms out. GPT-5.4 recalls \CsmallRecWhole{} of the targets in the whole image and \CsmallRecTile{} in the tiles, in both of two runs.
+
+\subsection{Coordinates}
+\label{sec:coords}
+
+What reaches the user passes through three properties of a model's answers: the \emph{frame} (the image the coordinates refer to: as sent, or as resized by the vendor), the \emph{scale} (pixels or a 0 to 1000 normalization) and the \emph{format} (how a point is written). Each changed some of our scores by as much as a model upgrade, so every model is read in its published convention, and the reader is fixed before scoring.
+
+\paragraph{Probe.} We placed one black dot at known positions in a $1600 \times 1000$ image and asked for its centre. GPT-5.4 erred by 0 to 1.4 px; Claude Sonnet 4.6 answered in the frame of its internally resized image ($1389 \times 868$) and erred by 0.3 to 2.3 px after rescaling; Gemini 2.5 Flash erred by 24 to 203 px, about one token. GPT-5.5, GPT-5.6, Claude Sonnet 5.5 and Gemini 3.8 answered within about 1 px, both in pixels and on a 0 to 1000 scale.
+
+\paragraph{Conventions.} Gemma 4, Qwen3-VL, Gemini 2.5 and Gemini 3.8 answer on a 0 to 1000 scale even when pixels are requested, and we read them on that scale; Gemini 4 mixes the two (below). Claude Sonnet 4.6 answers in the frame of its resized image. When an input exceeds Claude Sonnet 5.5's 4{,}784-token cap, the model answers sometimes in the resized frame and sometimes in the original one; for such inputs we choose the frame per answer by a rule that uses only the image: the original frame if any point lies outside the resized frame, otherwise the frame under which more points fall on ink (a pixel darker than 128 within $m/2$), with ties going to the documented resized frame. Inputs within the cap, which include every call of the rule, need no such choice. Gemini 3.8 with thinking switches between pixel and 0 to 1000 coordinates from one image to the next.
+
+\paragraph{Gemini 4.} Asked for pixel coordinates on whole images, Gemini 4 mixes the two conventions: \CgemFourOver{} of its \CgemFourAns{} whole-image answers in \cref{tab:main} contain coordinates above 1000, which can only be pixels, and the rest are mostly normalized. Read in any single convention, its whole-image recall is low (all pixels: \CgemFourLsPx{} on LegendSpot and \CgemFourFpPx{} on floor plans; all 0 to 1000: \CgemFourLsNorm{} and \CgemFourFpNorm; per answer, pixels when a coordinate exceeds 1000: \CgemFourLsMix{} and \CgemFourFpMix), far below what it reaches when asked for 0 to 1000 coordinates (below). We therefore also ran its whole-image calls with the same prompt, changing only the two sentences on coordinates to request 0 to 1000, the convention that all Gemini tile calls use. No answer then exceeds 1000, and its whole-image recall is \CtLsGemFourRecW{} on LegendSpot and \CtFpGemFourRecW{} on floor plans; \cref{tab:main} uses these calls. With the pixel prompt the rule's gain over the whole image would be inflated by the coordinate problem, which is neither $S$ nor $L$.
+
+\paragraph{Format.} Qwen3-VL sometimes writes points as \texttt{"cx": [x, y]} lists, and Gemini 3.8 sometimes uses \texttt{x} and \texttt{y} keys instead of the requested \texttt{cx} and \texttt{cy}; our reader keeps both, and recovers points from malformed JSON with a regular expression (4 of 156 answers for Claude Sonnet 5.5 in the controlled sweeps, 20 for Qwen3-VL, 1 for Claude Sonnet 4.6, none for the others); an answer with no recoverable point counts as empty. Points on the 0 to 1000 scale refer to the image as sent, padding included, and every call uses the vendor's default sampling temperature. Reading only \texttt{cx} and \texttt{cy} keys changes results only for Gemini 3.8; \cref{sec:map} shows \cref{fig:map} under that reading.
+
+\paragraph{Agents.} An agent must convert positions seen in a zoomed crop back to the overview, a conversion that no tiled or whole-image call requires; two of our four agents fail at it (\cref{sec:agents}). Unlike recognition and the content one call can handle, the coordinate interface did not improve across generations; zoom tools that convert coordinates themselves (\cref{sec:future}) would take this conversion out of the model's hands.

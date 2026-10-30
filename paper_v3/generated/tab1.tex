@@ -1,0 +1,18 @@
+\begin{tabular}{llcccccc}
+\toprule
+Data & Model & Recall & Precision & F1 & Tokens & Recall & Cost \\
+ & & whole $\to$ rule & whole $\to$ rule & whole $\to$ rule & rule/whole & rule $-$ 44 px & $/C_{\min}$ \\
+\midrule
+LegendSpot & GPT-6.1 & 0.97 $\to$ 1.00 & 0.93 $\to$ 0.97 & 0.95 $\to$ 0.98 & 8.6 & +0.00 & 3.5 \\
+LegendSpot & Claude Opus 5.5 & 0.83 $\to$ 0.92 & 0.82 $\to$ 0.92$^{*}$ & 0.81 $\to$ 0.90 & 5.2 & $-$0.05 & 2.6 \\
+LegendSpot & Gemini 3.8 & 0.62 $\to$ 0.90$^{*}$ & 0.72 $\to$ 0.88$^{*}$ & 0.65 $\to$ 0.87$^{*}$ & 7.6 & $-$0.04 & 1.6 \\
+LegendSpot & Gemini 4 & 0.85 $\to$ 0.98$^{*}$ & 0.89 $\to$ 0.93 & 0.85 $\to$ 0.94$^{*}$ & 7.5 & +0.00 & 1.6 \\
+LegendSpot & Qwen3-VL & 0.37 $\to$ 0.56$^{*}$ & 0.75 $\to$ 0.93$^{*}$ & 0.37 $\to$ 0.56$^{*}$ & 6.1 & $-$0.07 & 2.0 \\
+\midrule
+Floor plans & GPT-6.1 & 0.63 $\to$ 0.61 & 0.80 $\to$ 0.84 & 0.63 $\to$ 0.64 & 4.4 & n/a & 3.3 \\
+Floor plans & Claude Opus 5.5 & 0.51 $\to$ 0.56 & 0.81 $\to$ 0.79 & 0.57 $\to$ 0.59 & 3.1 & n/a & 2.0 \\
+Floor plans & Gemini 3.8 & 0.25 $\to$ 0.43$^{*}$ & 0.58 $\to$ 0.78$^{*}$ & 0.32 $\to$ 0.50$^{*}$ & 6.8 & $-$0.13$^{*}$ & 1.6 \\
+Floor plans & Gemini 4 & 0.50 $\to$ 0.57 & 0.70 $\to$ 0.83$^{*}$ & 0.56 $\to$ 0.63$^{*}$ & 6.7 & $-$0.01 & 1.6 \\
+Floor plans & Qwen3-VL & 0.05 $\to$ 0.12$^{*}$ & 0.28 $\to$ 0.46$^{*}$ & 0.06 $\to$ 0.15$^{*}$ & 3.5 & $-$0.11$^{*}$ & 2.0 \\
+\bottomrule
+\end{tabular}

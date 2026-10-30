@@ -1,0 +1,14 @@
+\section{Code, data and reproducibility}
+\label{sec:repro}
+
+The repository at \url{https://github.com/shijunzhe/vlm-small-objects} contains:
+the LegendSpot images, legend crops and centre annotations;
+the scripts that build the floor-plan blocks and mosaics from the public FloorPlanCAD test split and select the FSC-147 images;
+the generators of all controlled images, with their seeds;
+the code that sends every call, with the prompts of \cref{sec:prompts} and the per-model geometry of \cref{tab:calib};
+the readers of \cref{sec:coords} and the scoring, statistics and figure scripts;
+the model answers behind every table and figure;
+and the planning tool for safe splitting, which takes an image size, a target box and an interface and returns $\Sw$, the views of \cref{alg:rule}, their tokens and $\Cmin$.
+One command rescores every experiment from the stored answers and regenerates all numbers of this paper, which enter the text as generated macros, and all tables and figures, without any model call. The Library-10 drawings are used for evaluation only and are not included.
+
+\paragraph{Societal impact.} The rule and the theory make VLM calls on large images more accurate and their cost predictable, which helps wherever many small objects must be found, from documents and screens to drawings and maps. Two kinds of harm deserve mention. First, counts and positions from VLM calls can enter consequential estimates, such as quantities taken off a drawing for a bid, and a missed or invented object then carries a cost; the guarantee is relative: a protected split detects in expectation at least what the whole-image call detects, not every object. We therefore report precision with recall, give the paired-call check of \cref{sec:safe} for new input paths, and recommend human review of counts that feed decisions. Second, better small-object search in high-resolution imagery can serve surveillance as well as inspection, and its use should follow the rules that govern the imagery itself.

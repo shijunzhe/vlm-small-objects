@@ -1,0 +1,44 @@
+\section{Splits that zoom out}
+\label{sec:zoomout}
+
+The 44 px recipe is defined in pixels: it rescales the image so that the reference spans 44 px and then tiles. For a resolution-scaled model with 32 px tokens its tiles give $S$ of about 1.4 whatever the image (44/32 = 1.375 across the reference's shorter side), so it zooms out whenever the whole-image call already gives a larger $S$, which happens on small images with large targets. Which items these are depends on the image's size and on the model, so it is hard to see without computing $S$ (\cref{sec:computeS}). \Cref{tab:zoomout} lists every model and data cell in which the recipe zooms out on some items, the case that \cref{thm:exact}(b) and \cref{prop:tight}(a) leave unprotected. The point estimate is negative in \XtcOutNegPoint{} of the \XtcOutN{} cells and the interval lies below zero in \XtcOutNeg; the two non-negative cells are the newest models on LegendSpot, which find nearly every target in both calls. The data show that this protection is needed. \Cref{fig:map}(b) shows the same contrast for all models and data together, binned by $S$ and targets: every cell there is negative.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{\begin{tabular}{llccc}
+\toprule
+Data & Model & Items & Recall change & 95\% interval \\
+\midrule
+\inputrows{generated/tabG_zoomout.tex}
+\bottomrule
+\end{tabular}}
+\caption{Hit recall, tiles of the 44 px recipe minus the whole image, over targets interior to both, on the items where some tile has a smaller $S$ than the whole image. Bold: interval below zero. Items: drawing and class items (mosaics: items at all three areas).}
+\label{tab:zoomout}
+\end{table}
+
+\paragraph{Where the recipe zooms out and where it does not.} On floor-plan blocks, whose $1{,}000^2$ rasters give a large $S$ in the whole-image call, the recipe lowers $S$ by more than 5\% on \XfSrFracDowngptFiveSix\% of the items for the resolution-scaled models. On the same data, GPT-5.6 gains \XtcIngptFiveSix{} \XtcCIIngptFiveSix{} on the items where no tile zooms out and changes by \XtcOutgptFiveSix{} \XtcCIOutgptFiveSix{} on the others; Claude Sonnet 5.5 gains \XtcInsonnetFiveFive{} \XtcCIInsonnetFiveFive{} and changes by \XtcOutsonnetFiveFive{} \XtcCIOutsonnetFiveFive. The rule never zooms out, because it chooses $S = \max(S^\ast, \Sw)$.
+
+\subsection{Common recipes under the condition}
+\label{sec:recipes}
+
+The condition of \cref{thm:exact} can be checked for any splitting recipe from geometry alone, before any call. \Cref{tab:recipes} applies it to two families on our images: slicing at native resolution with a fixed overlap ratio, as SAHI does~\cite{akyon2022sahi}, and splitting into a regular grid of cells without overlap, the first steps of quadrant splitting and quadrant search~\cite{wang2025dc2,wu2024vstar,shen2024zoomeye}. Each view is sent without further resizing by the caller (SAHI) or as standard input (cells), and its $S$ follows from the interface (\cref{sec:computeS}).
+
+Neither family zooms out on any image: a native-resolution slice is never shown at a smaller scale than the whole image, and a cell of the image is never shown at a smaller scale than the image itself. The condition fails in the other two ways. Native-resolution slices keep each target at its native pixel size, so with 32 px tokens a target narrower than about 48 px stays below $S^\ast = 1.5$ however the image is split: this holds for 38\% of the LegendSpot drawings. Splits without overlap leave every target that a cut crosses in no view's interior, 9 to 19\% of the targets for a $2 \times 2$ split and 29 to 49\% for a $4 \times 4$ split, and \cref{thm:exact}(b) shows that nothing then protects them; a fixed overlap ratio leaves up to 15\% of the targets of the floor-plan mosaics cut with 512 px slices, where it is smaller than the targets plus their margins. On fixed-grid models, small native-resolution slices also cost many times the rule's tokens, since every slice pays the full grid. The rule avoids all three by choosing the scale from $S$ and the overlap from the target.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llccccc}
+\toprule
+Data & Recipe & Zoom-out: & Reaches $S^\ast$? & Protection criterion: & Tokens / rule & Tokens / rule \\
+ & & images & images below 1.5 & targets unprotected & (GPT-6.1) & (Gemini) \\
+\midrule
+\inputrows{generated/tabG_recipes.tex}
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{Common splitting recipes checked against the condition of \cref{thm:exact} from geometry alone (no model call). SAHI: square slices at native resolution with an overlap of 20\% of the slice side. Cells: a regular grid without overlap, each cell sent as standard input. Zoom-out: maximum over the four interfaces of \cref{tab:thumb-budget} (GPT-6.1, Claude Opus 5.5, Qwen3-VL, Gemini); below $S^\ast$: GPT-6.1's interface; protection criterion: share of the targets interior to the whole image that lie in no qualified view's interior (\cref{thm:exact}), the same for every interface; tokens: median over images of the recipe's image tokens over the rule's.}
+\label{tab:recipes}
+\end{table*}

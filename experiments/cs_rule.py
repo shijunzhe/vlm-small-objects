@@ -14,7 +14,7 @@ import gen_test  # noqa: E402  dispatch for second-round vendors, TILE_IFACE
 import main_test as T  # noqa: E402
 
 S_STAR = 1.5
-GEO = {'gpt61': ('res', 32, 8192, None), 'opus55': ('res', 28, 4784, 2576), 'qwen3vl': ('res', 32, 2500, None), 'gem38': ('grid', None, 1090, None)}
+GEO = {'gpt61': ('res', 32, 8192, None), 'opus55': ('res', 28, 4784, 2576), 'qwen3vl': ('res', 32, 2500, None), 'gem38': ('grid', None, 1090, None), 'gem4': ('grid', None, 1090, None)}
 OUT = Path(f'results_cs/{BENCH_ARG}'); OUT.mkdir(parents=True, exist_ok=True)
 
 
@@ -30,7 +30,7 @@ def items():
 def s_whole(v, W, H, m):
     """Tokens per symbol side of the A1 whole-image call (long side <= 1600), from the measured interfaces."""
     s = min(1.0, 1600 / max(W, H)); w, h = round(W * s), round(H * s)
-    if v == 'gem38': return m * s / (max(w, h) / math.sqrt(1090))
+    if v in ('gem38', 'gem4'): return m * s / (max(w, h) / math.sqrt(1090))
     if v == 'gpt61': return m * s * K.gpt_fit(w, h, 8192) / 32
     if v == 'qwen3vl': return m * s * min(1.0, math.sqrt(2500 * 1024 / (w * h))) / 32
     if v == 'opus55': rw, rh = M.claude_resized(w, h, 2576, 4784); return m * s * rw / w / 28

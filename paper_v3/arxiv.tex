@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+\usepackage[preprint]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{bm}
+\usepackage{adjustbox}
+\input{preamble}
+\input{generated/macros_x}
+\input{generated/macros_r1}
+\input{generated/macros_main}
+\input{generated/macros_step3}
+\input{generated/macros_agentcheck}
+\input{generated/macros_ls}
+\input{generated/macros_gain}
+\input{generated/macros_rulechecks}
+\usepackage[capitalize,nameinlink]{cleveref}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}
+\newcommand{\restatename}{}
+\newtheorem*{restatedthm}{\restatename}
+\newenvironment{restate}[3]{\renewcommand{\restatename}{#1~\ref*{#2}}\begin{restatedthm}[#3]}{\end{restatedthm}}
+\theoremstyle{definition}
+\newtheorem*{restateddef}{\restatename}
+\newenvironment{restatedef}[3]{\renewcommand{\restatename}{#1~\ref*{#2}}\begin{restateddef}[#3]}{\end{restateddef}}
+\theoremstyle{plain}
+\newcommand{\main}[1]{\ref*{#1}}
+\newcommand{\cw}{c_{\mathrm{w}}}
+\newcommand{\Jw}{J_{c_{\mathrm{w}}}}
+\newcommand{\etal}{et al.}
+\makeatletter\newcommand{\inputrows}[1]{\@@input #1 }\makeatother
+\crefname{assumption}{Assumption}{Assumptions}
+\crefname{lemma}{Lemma}{Lemmas}
+\hypersetup{pdftitle={Why VLMs Miss Small Objects, and When Zooming In Is Safe},pdfauthor={Junzhe Shi, Yuan Gan, Shida Jiang}}
+
+\title{Why VLMs Miss Small Objects,\\and When Zooming In Is Safe}
+
+\author{Junzhe Shi\thanks{Corresponding author.} \\
+  Systems Engineering \\
+  University of California, Berkeley \\
+  Berkeley, CA, USA \\
+  \texttt{junzhe@berkeley.edu} \\\And
+  Yuan Gan \\
+  Department of AI \\
+  Quotr AI \\
+  Emeryville, CA, USA \\
+  \texttt{yuan@quotr.ai} \\\And
+  Shida Jiang \\
+  Systems Engineering \\
+  University of California, Berkeley \\
+  Berkeley, CA, USA \\
+  \texttt{shida\_jiang@berkeley.edu}}
+
+\begin{document}
+\maketitle
+\input{sec/0_abstract}
+\input{sec/1_intro}
+\input{sec/2_related}
+\input{sec/3_protocol}
+\input{sec/4_why}
+\input{sec/5_safe}
+\input{sec/6_practice}
+\input{sec/6b_future}
+\input{sec/7_conclusion}
+
+\bibliography{main}
+\bibliographystyle{acl_natbib}
+
+\appendix
+\input{supp/sA_proofs}
+\input{supp/sB_interface}
+\input{supp/sC_protocol}
+\input{supp/sD_S}
+\input{supp/sE_L}
+\input{supp/sF_assumptions}
+\input{supp/sG_zoomout}
+\input{supp/sH_map}
+\input{supp/sI_rule}
+\input{supp/sJ_agents}
+\input{supp/sK_repro}
+\input{supp/sL_thumb}
+\input{supp/sM_more}
+\end{document}

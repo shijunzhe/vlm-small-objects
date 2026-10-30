@@ -1,0 +1,130 @@
+\section{The rule and other methods: full results}
+\label{sec:rule-full}
+
+\subsection{The rule}
+
+\Cref{tab:rule-full} gives \cref{tab:main} with intervals. Recall and precision use the one-to-one matching of \cref{sec:stats}; points in the overlaps are not merged, so a target reported twice adds an unmatched point. Precision is averaged over the images where both calls returned at least one point; the count of such images is listed, and Qwen3-VL returned no point on many images in its whole-image call. The cost ratio to $\Cmin$ is largest where the image is only one or two views wide, as \cref{cor:safe} predicts; \CtOneViewGpt{} of GPT-6.1's 60 floor-plan mosaics need a single view.
+
+\begin{table*}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{\begin{tabular}{llcccccccc}
+\toprule
+Data & Model & Images & Recall, rule $-$ whole & Precision, rule $-$ whole & F1, rule $-$ whole & Images with points & Recall, rule $-$ 44 px & Tokens, rule / 44 px & Cost $/\Cmin$ \\
+\midrule
+\inputrows{generated/tabI_rule.tex}
+\bottomrule
+\end{tabular}}
+\caption{The rule ($S^\ast = 1.5$, steps 1 and 2 of \cref{alg:rule}) against the whole-image call and the 44 px recipe, with 95\% paired bootstrap intervals over images; bold: interval excludes 0. n/a: recipe not run. Cost: median over images of the rule's tokens over $\Cmin$.}
+\label{tab:rule-full}
+\end{table*}
+
+\subsection{The cost of the optional step 3}
+\label{sec:step3}
+
+Step 3 of \cref{alg:rule} splits a view further at the same scale into $q \times q$ sub-views, again overlapping by one target. Its cost follows from the geometry alone (\cref{prop:geometry}c). Let $r_q$ be the image tokens of the sub-views over those of the view. For a resolution-scaled model, splitting a full square view of $\sqrt N \times \sqrt N$ patches at $S = 1.5$ adds only the overlaps and the rounding to whole patches, so $r_q$ is close to 1; a fixed-grid model pays $g^2$ per view, so $r_q = q^2$, while each smaller view also gains a factor $q$ in $S$. Step 3 has two forms (\cref{sec:step3-proof}). In the \emph{appending} form, which a subdivision triggered by a view's content or answers must use, the view is sent first and the sub-views are sent as an additional batch whose points are added to the view's, at $1 + r_q$ times its tokens in all. In the \emph{replacing} form, for a subdivision fixed in advance, the sub-views are sent instead of the view, at $r_q$ times its tokens. \Cref{tab:step3} gives both. Each extra call also repeats the prompt and the reference image, a few hundred tokens per call for our prompts.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{\begin{tabular}{lccccccc}
+\toprule
+ & & \multicolumn{2}{c}{$q = 2$} & \multicolumn{2}{c}{$q = 3$} & \multicolumn{2}{c}{$q = 4$} \\
+Model & $N$ per view & $r_q$ & $1 + r_q$ & $r_q$ & $1 + r_q$ & $r_q$ & $1 + r_q$ \\
+\midrule
+\inputrows{generated/tabI_step3.tex}
+\bottomrule
+\end{tabular}}
+\caption{Image tokens of step 3, splitting one full view into $q \times q$ sub-views at the same $S = 1.5$ with one target of overlap. $r_q$: the batch of sub-views over the parent view (replacing form); $1 + r_q$: the view and its sub-views together (appending form). Prompts and reference images excluded.}
+\label{tab:step3}
+\end{table}
+
+\subsection{Other data and methods}
+\label{sec:rule-more}
+
+\paragraph{Library-10.} On the ten drawings whose references come from a symbol library we applied the configurations computed from \cref{prop:geometry} without change (\cref{tab:redp10}; intervals clustered by drawing). The drawings are small (about 1{,}500 by 1{,}700 px), so geometry predicts that a whole-image call already resolves the targets for GPT-5.6 (median $S = \XrdSgptFiveSix$) and Claude Sonnet 5.5 (\XrdSsonnetFiveFive) but less so for Gemini 3.8 (\XrdSgemThreeEight, against 2.5 in its tiles). Tiles change F1 by \XrdDDgptFiveSixAOnegptFiveSix{} \XrdDClDgptFiveSixAOnegptFiveSix{} for GPT-5.6, \XrdDDsonnetFiveFiveAOnesonnetFiveFive{} \XrdDClDsonnetFiveFiveAOnesonnetFiveFive{} for Claude Sonnet 5.5 and \XrdDDgemThreeEightAOnegemThreeEight{} \XrdDClDgemThreeEightAOnegemThreeEight{} for Gemini 3.8: the largest change is Gemini 3.8's, whose whole-image $S$ is lowest. Template matching with the threshold from LegendSpot collapses to \XrdFTM{} (\XrdFTMoracle{} even with the best threshold chosen on Library-10 itself), because library symbols differ in scale and stroke from the drawn ones, and every VLM configuration scores above it.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lccc}
+\toprule
+ & GPT-5.6 & Sonnet 5.5 & Gemini 3.8 \\
+\midrule
+Whole image & \XrdFAOnegptFiveSix & \XrdFAOnesonnetFiveFive & \XrdFAOnegemThreeEight \\
+Tiles & \XrdFDgptFiveSix & \XrdFDsonnetFiveFive & \textbf{\XrdFDgemThreeEight} \\
+Propose + verify & \XrdFHgptFiveSix & \XrdFHsonnetFiveFive & \XrdFHgemThreeEight \\
+Zoom agent & \textbf{\XrdFAGgptFiveSix} & \XrdFAGsonnetFiveFive & n/a \\
+\midrule
+TM, LegendSpot threshold & \multicolumn{3}{c}{\XrdFTM} \\
+TM, oracle threshold & \multicolumn{3}{c}{\XrdFTMoracle} \\
+CountGD / GeCo2 & \multicolumn{3}{c}{\XlbRdcountgd{} / \XlbRdgecoTwo} \\
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{Library-10: 23 drawing and class items with 225 instances, references from a shared symbol library. F1; nothing was tuned on these drawings except the oracle threshold, chosen on Library-10 as an upper bound for template matching (TM). Point estimates.}
+\label{tab:redp10}
+\end{table}
+
+\paragraph{Floor-plan blocks.} With the LegendSpot configurations and prompts unchanged (\cref{tab:fpc300}), tiles raised F1 for the two models whose whole-image $S$ is about one (Gemini 2.5 \XfDmAgemini{} \XfDmACIgemini, Gemma 4 \XfDmAgemmaFour{} \XfDmACIgemmaFour) and for Gemini 3.8 (\XfDmAgemThreeEight{} \XfDmACIgemThreeEight), whose tiles raise $S$, and lowered it for GPT-5.4 (\XfDmAgpt{} \XfDmACIgpt), Claude Sonnet 4.6 (\XfDmAclaude{} \XfDmACIclaude), GPT-5.6 (\XfDmAgptFiveSix{} \XfDmACIgptFiveSix) and Claude Sonnet 5.5 (\XfDmAsonnetFiveFive{} \XfDmACIsonnetFiveFive), for which the 44 px recipe zooms out on many of these $1{,}000^2$ blocks (\cref{sec:zoomout}). The zoom agents, which choose their own enlargement, score highest for both models whose agents ran on these blocks.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lccc}
+\toprule
+Model & Whole & Tiles & Agent \\
+\midrule
+GPT-5.4 & \XfBenchAgpt & \XfBenchDgpt & \\
+Claude Sonnet 4.6 & \XfBenchAclaude & \XfBenchDclaude & \\
+Gemini 2.5 Flash & \XfBenchAgemini & \XfBenchDgemini & \\
+Gemma 4 31B & \XfBenchAgemmaFour & \XfBenchDgemmaFour & \\
+Qwen3-VL & \XfBenchAqwenThreevl & \XfBenchDqwenThreevl & \\
+GPT-5.6 & \XfBenchAgptFiveSix & \XfBenchDgptFiveSix & \XfBenchAGgptFiveSix \\
+Claude Sonnet 5.5 & \XfBenchAsonnetFiveFive & \XfBenchDsonnetFiveFive & \XfBenchAGsonnetFiveFive \\
+Gemini 3.8 Flash & \XfBenchAgemThreeEight & \XfBenchDgemThreeEight & \\
+\midrule
+Template matching & \multicolumn{3}{c}{\XfBenchAtm} \\
+CountGD / GeCo2 & \multicolumn{3}{c}{\XlbTwofpccountgdimgOne{} / \XlbTwofpcgecoTwoimgOne} \\
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{Floor-plan blocks (339 test items, 21 classes), F1 with the block-edge band ignored. Thresholds of template matching and the counters are set on the 30 remaining items. Point estimates.}
+\label{tab:fpc300}
+\end{table}
+
+\paragraph{Natural images.} \Cref{tab:fsc} reports FSC-147 under both prompts. Upsampling (more tokens, no new information) helps the resolution-scaled models on small objects and adds little on large ones, where F1 is already about 0.9; same-scale $2 \times 2$ tiles, which keep $S$ and divide the content per call by about four for these models, add a further \XfscODgptFiveSixsmallTU{} \XfscODCIgptFiveSixsmallTU{} for GPT-5.6 and \XfscODsonnetFiveFivesmallTU{} \XfscODCIsonnetFiveFivesmallTU{} for Claude Sonnet 5.5 on small, crowded images. Some answers on these images are truncated at the output cap; without them the tile gains are \CfscNoTruncGptFiveSix{} (\CfscNoTruncNGptFiveSix{} images) and \CfscNoTruncSonnetFiveFive{} (\CfscNoTruncNSonnetFiveFive). Gemini 3.8, whose fixed grid gives an upsampled image no more tokens, gains from tiles on small and medium objects; on its grid tiles both raise $S$ and lower the content per call. Claude Sonnet 5.5 omits the closing bracket of the list in \XfscParsesonnetFiveFive\% of its answers, which our reader recovers.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llcccccc}
+\toprule
+Model & Stratum & $S$ (W) & F1 W & F1 U & F1 T & U $-$ W & T $-$ U \\
+\midrule
+\inputrows{generated_x/tab_fsc.tex}
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{FSC-147, 150 images in three strata of exemplar size. W: whole image; U: upsampled to a long side of 1{,}536 px; T: $2 \times 2$ tiles at the scale of U. $S$: median tokens per object side in W. Intervals: 95\% bootstrap over images. Neutral prompt: the prompt of \cref{sec:prompts}; drawing prompt: the first, drawing-specific wording.}
+\label{tab:fsc}
+\end{table*}
+
+\paragraph{Template matching and trained counters.} Template matching reaches \FTMdevAll{} F1 on the 34 LegendSpot drawings. Propose and verify, in which the VLM only judges candidates found by template matching at many tokens per candidate, places every model between \FHgptFiveFourAll{} and \FHqwenThreevlAll, none significantly different from template matching (differences \CHMinusTMdevgptFiveFour{} to \CHMinusTMdevqwenThreevl); by \cref{prop:hybrid} the remaining loss lies in the verifier, since the candidates contain a true instance for a ceiling of \HybBound. CountGD and GeCo2, class-agnostic exemplar counters, reach \XctrFsccountgd{} and \XctrFscgecoTwo{} F1 on our FSC-147 images; on LegendSpot, with the legend crop as exemplar on the same tiles as the VLMs, they reach \XlbFcountgd{} and \XlbFgecoTwo{} (OWLv2 \XlbFowlvTwo), and at most \XlbOraclegecoTwo{} even with the best threshold chosen per drawing; on Library-10 they reach \XlbRdcountgd{} and \XlbRdgecoTwo. Instances in drawings are thin line figures among look-alike symbols, unlike the textured objects these counters were trained on.
+
+\paragraph{Calls and tokens.} \Cref{tab:cost} lists the calls and input tokens per LegendSpot drawing for the pipelines of the earlier experiments.
+
+\begin{table}[t]
+\centering
+\footnotesize
+\resizebox{\columnwidth}{!}{\begin{tabular}{llcc}
+\toprule
+Model & Condition & calls & input tokens \\
+\midrule
+\inputrows{generated_x/tab_cost.tex}
+\bottomrule
+\end{tabular}}
+\caption{Calls and input tokens per LegendSpot test drawing (one run). Template matching runs locally in seconds.}
+\label{tab:cost}
+\end{table}

@@ -1,0 +1,340 @@
+\section{Proofs}
+\label{sec:proofs}
+
+This appendix states every result of the main text in full and proves it. Statements in the main text are short forms of the ones below; where they differ, the full form here is the one proved.
+
+\subsection{Setting and definitions}
+\label{sec:defs}
+
+\paragraph{Images, targets and tokens.} An image $X = [0,W) \times [0,H)$ has $W \times H$ native pixels and contains $n$ instances of a target whose box is $w \times h$ pixels; $m = \sqrt{wh}$ is the target scale and $\tau = m/2$ the matching tolerance. A \emph{call} sends the model one image derived from $X$. Its \emph{effective scale} $s$ is the number of pixels the model receives per native pixel, after every resampling by the caller and by the vendor. The model divides the image it receives into tokens of $t \times t$ pixels, with $t$ fixed for each interface, and accepts at most $N$ tokens per image. Resolution-scaled interfaces (GPT, Claude, Qwen) resize an image when it exceeds $N$ tokens or a long-side cap; fixed-grid interfaces (Gemini, Gemma) pad an image to a square and resize it so that its side spans $g$ tokens, whatever its pixel size. A target therefore spans $S = ms/t$ tokens per side (\cref{eq:S}).
+
+\paragraph{Calls, views and cores.} A call $c$ consists of a source image, a rectangular region $V_c$ of it (the \emph{view}), an effective scale $s_c$, a kept core $K_c \subseteq V_c$ (a rectangle, or a finite union of rectangles), a blank padding $P_c$, and a protocol $\pi_c$: the prompt and any marking of the core. Views and cores are half-open like $X$. The source is a fixed image derived from $X$ without reference to the targets: the native image, a lower-resolution copy such as an overview, or a composite such as several regions packed into one image; it is blank outside $X$. The input of $c$ is the region $V_c$ of the source resampled to scale $s_c$ and surrounded by $P_c$; we treat the order of cropping and resampling as immaterial, which ignores differences within one resampling kernel of the region's border. A \emph{model} is any map from calls, each together with the image it is derived from, to probability laws of returned point sets: a family $P_X(\cdot \mid c)$ of response laws, which may depend on the image $X$ and on the call. Points outside $K_c$ are discarded and the rest are mapped to native coordinates.
+
+\paragraph{Detection and interior targets.} For a target centred at $x$, let $H_c(x) = 1$ if $c$ returns a kept point within $\tau$ of $x$ and $0$ otherwise, and let $p_c(x)$ be the probability that $H_c(x) = 1$. A set of calls \emph{detects} $x$ if one of its calls returns such a point, and its \emph{hit recall} is the fraction of targets detected. When target centres are more than $2\tau$ apart, each returned point lies within $\tau$ of at most one target, and hit recall equals recall under a maximum one-to-one matching. A target is \emph{interior} to $c$ if its box lies inside $V_c$ and its centre lies at least $\tau$ inside $K_c$. Because every target has the same box, this depends only on the centre, and $J_c$ denotes the set of centres interior to $c$. We write $B_0 = [-w/2, w/2] \times [-h/2, h/2]$, so the box of a target centred at $x$ is $x + B_0$, and $K \oplus B_0$ is the core enlarged by half a target box on each side; $X \ominus B_0$ is the set of centres whose box lies in $X$.
+
+\paragraph{Averages over images.} Let $\mathcal{D}$ be any distribution of images: the images of an application, a benchmark, or a single image. Calls, and the regions on which we compare them, are specified by rules that may depend on the image's size but not on its targets. Thus $V_c$, $K_c$, $J_c$, and a \emph{region} $U$ (a measurable set of centres) are functions of the image's size; unions, intersections and differences of regions are regions. A split may use a number of calls that depends on the image's size. Let $Y(X)$ be the set of target centres of $X$ and $n(X) = |Y(X)|$. A \emph{weight} is a function $a(X) \ge 0$ of the image alone, with $\mathbb{E}[a(X)\,n(X)] < \infty$. For a region $U$,
+\[
+\nu_c(U) = \mathbb{E}\Big[a(X) \sum_{x \in Y(X) \cap U \cap J_c} H_c(x)\Big],
+\]
+the expectation taken over $\mathcal{D}$ and the model's randomness. With $a = 1$, $\nu_c(U)$ is the expected number of targets with centres in $U \cap J_c$ that $c$ detects; with $a = 1/n(X)$ (and $a = 0$ when $n(X) = 0$), $\nu_c(J_c)$ is the mean per-image fraction of targets that are interior to $c$ and detected, which is the mean recall per image when every target is interior. $\nu_c$ is additive over disjoint regions, and $\mu(U) = \mathbb{E}[a(X)\,|Y(X) \cap U|]$. All calls of one comparison share $Y(X)$ and $a$. The proofs below use only additivity, the assumptions for the same $a$, and constructions that hold target by target, so every result holds for every weight; we write $\nu$ without the weight.
+
+\paragraph{Three relations between calls.} Call $c'$ is a \emph{crop} of $c$ if it shows a sub-region $V_{c'} \subseteq V_c$ of a source that agrees with the source of $c$ on $V_{c'}$, at scale $s_{c'} \ge s_c$, with the protocol $\pi_{\mathrm{crop}}$ with which we show crops; padding may differ. Any part of a view outside $X$ is blank and counts as padding, and $V_{c'}$ and $K_{c'}$ are then taken intersected with $X$. For packed tiles, agreement is up to the translation that places a tile in the composite. Call $c'$ \emph{refines} $c$ if both show the same region of the same source with the same core and protocol and $s_{c'} \ge s_c$; padding may differ. Call $c$ is a \emph{garbling} of $c'$ if both show the same region with the same core, padding, protocol and scale, and the source of $c$ is a fixed degradation of the source of $c'$ that does not depend on the targets, such as a lower-resolution copy.
+
+\paragraph{Interface assumption.} The vendor does not resize an image again if its pixel size, after blank padding to a multiple of $t$, equals the size to which the vendor resized an earlier image (for fixed grids, the resize to $g$ tokens is the only one applied). A call can then be shown at any effective scale up to the budget by choosing its padding.
+
+\begin{restatedef}{Assumption}{ass:mono}{Monotonicity, full form}
+For a distribution $\mathcal{D}$ and a weight $a$, for all calls $c, c'$ and every region $U \subseteq J_c \cap J_{c'}$:
+(R) if $c'$ refines $c$, then $\nu_{c'}(U) \ge \nu_c(U)$;
+(M) if $c'$ is a crop of $c$ at the same effective scale, then $\nu_{c'}(U) \ge \nu_c(U)$.
+\end{restatedef}
+
+\begin{assumption}[Information]
+\label{ass:info}
+(I) If $c$ is a garbling of $c'$, then $\nu_{c'}(U) \ge \nu_c(U)$ for every region $U \subseteq J_c \cap J_{c'}$.
+\end{assumption}
+
+$\mathcal{M}_{R,M}$ is the class of models that satisfy (R) and (M) for the given $\mathcal{D}$ and $a$; a model that satisfies them target by target lies in $\mathcal{M}_{R,M}$ for every $\mathcal{D}$ and $a$, and the necessity results below exhibit such models. (I) is needed only for zoom tools (\cref{prop:zoom}). When $\mathcal{D}$ is a single image whose targets have distinct centres, taking $U$ to be a single centre, and conversely summing over the finitely many targets in $U$, shows that \cref{ass:mono} is equivalent to $p_{c'}(x) \ge p_c(x)$ for every target interior to both calls. For a general $\mathcal{D}$ it is weaker: it asks for the inequality only on average over the images and over the targets in each region, which is the quantity an experiment estimates, and it allows individual targets and images to go the other way. Every result below holds for whichever $\mathcal{D}$ the assumption is made for. (I) is the behavioural counterpart of \cref{prop:dpi}(b): when the input of $c$ is a function of the input of $c'$, the Bayes risk of $c'$ is at most that of $c$ for every fixed loss; for a VLM it is an assumption.
+
+\subsection{The interface: Propositions~\main{prop:geometry} and~\main{prop:dpi}}
+\label{sec:proofs-interface}
+
+\begin{restate}{Proposition}{prop:geometry}{Interface ceiling and price of seeing, full form}
+(a) A resolution-scaled call that shows the whole image gives $S \le m\sqrt{N/(WH)}$; a fixed-grid call gives $S = mg/\max(W,H)$ at every caller scale.
+(b) Suppose every view's kept core has area at most $\kappa^2$ times the view's, $0 < \kappa \le 1$. Covering the image with kept cores of views shown at $S \ge S^\ast$ then requires at least $WH{S^\ast}^2/(\kappa^2 m^2)$ tokens, hence at least $WH{S^\ast}^2/(\kappa^2 m^2 N)$ calls (with $N = g^2$ for fixed grids).
+(c) A fixed-grid view whose longer side spans $\ell$ native pixels gives $S = mg/\ell$, and $k$ views cost $kg^2$ tokens. For a resolution-scaled model, let views of native sizes $a_i \times b_i$, $i = 1, \dots, k$, each within the budget, be shown at a common scale $s$, with union $R$. Excluding a fixed overhead of $\omega$ tokens per image, they cost at most
+\[
+\Big(\frac{s}{t}\Big)^2\big(|R| + O\big) + \frac{s}{t}\sum_i (a_i + b_i) + k
+\]
+tokens, where $O = \sum_i a_ib_i - |R| \ge 0$ is the area counted more than once. For a grid of $k_x \times k_y$ views over an $A_x \times A_y$ region, overlapping by $e_x$ and $e_y$, $O \le (k_x - 1)e_xA_y + (k_y - 1)e_yA_x + (k - 1)e_xe_y$ and $\sum_i (a_i + b_i) \le k_yA_x + k_xA_y + k(e_x + e_y)$, so every term beyond the tokens of the region itself grows at most linearly in $k = k_xk_y$.
+\end{restate}
+
+\begin{proof}
+A target of scale $m$ spans $ms$ sent pixels, that is, $S = ms/t$ tokens. Equivalently, a native region of area $A$ shown at $S$ tokens per target side covers $AS^2/m^2$ tokens, because one native pixel covers $(s/t)^2 = S^2/m^2$ tokens; rounding patch counts up only increases the count.
+(a) A resolution-scaled whole-image call satisfies $\lceil Ws/t\rceil\lceil Hs/t\rceil \le N$, hence $WH(s/t)^2 \le N$, $s/t \le \sqrt{N/(WH)}$, and $S \le m\sqrt{N/(WH)}$ for any aspect ratio. A fixed grid resizes the padded square so that its side spans $g$ tokens, so $s = gt/\max(W,H)$ whatever the caller sent, and $S = mg/\max(W,H)$.
+(b) A view whose kept core has area $A_{\mathrm{core}}$ has area at least $A_{\mathrm{core}}/\kappa^2$ and costs at least $A_{\mathrm{core}}{S^\ast}^2/(\kappa^2m^2)$ tokens at $S \ge S^\ast$; for a fixed grid the view, padded to a square of side $a \ge \sqrt{|V|}$, costs $g^2 = a^2 S_V^2/m^2 \ge |V| S_V^2/m^2$ tokens by (c). The cores must cover area $WH$ and overlaps only add cost, so the total is at least $WH{S^\ast}^2/(\kappa^2 m^2)$ tokens; at most $N$ fit in one call.
+(c) A $g \times g$ grid over a view of side $\ell$ native pixels has $s/t = g/\ell$, so $S = mg/\ell$, and every view costs $g^2$. For a resolution-scaled model, a view of $a_i \times b_i$ native pixels at scale $s$ within the budget costs $\lceil a_is/t\rceil\lceil b_is/t\rceil \le (a_is/t + 1)(b_is/t + 1) = (s/t)^2a_ib_i + (s/t)(a_i + b_i) + 1$ tokens. Summing over the views and writing $\sum_i a_ib_i = |R| + O$ gives the bound. For the grid, the views in one row have widths summing to $A_x + (k_x - 1)e_x$ and the rows have heights summing to $A_y + (k_y - 1)e_y$, so $\sum_i a_ib_i = (A_x + (k_x-1)e_x)(A_y + (k_y-1)e_y)$, and $O$ is this minus $A_xA_y$, which equals $(k_x-1)e_xA_y + (k_y-1)e_yA_x$ plus the product $(k_x-1)(k_y-1)e_xe_y \le (k-1)e_xe_y$ of the corner overlaps. The sums of widths and heights over all views are $k_y(A_x + (k_x-1)e_x)$ and $k_x(A_y + (k_y-1)e_y)$, which gives the second bound.
+\end{proof}
+
+Splitting a view at a fixed scale therefore changes the tokens of a resolution-scaled model only through the overlaps, the rounding to whole patches and the per-image overhead, each at most linear in the number of views; a fixed-grid model pays $g^2$ per view but gains $S$ as views shrink. Raising $S$ by a factor $a$ multiplies every term of (b) by $a^2$.
+
+\begin{restate}{Proposition}{prop:dpi}{Information, full form}
+Let $Y$ be the target set and $R_s$ the interface's deterministic preprocessing at scale $s$. (a) For any transform $\gamma$ of the native image that is deterministic or randomized independently of $Y$ given $X$, $I(Y; R_s(\gamma(X))) \le I(Y; X)$. (b) For any transform $\eta$ of the model input that is deterministic or uses randomness independent of $(X, Y)$, for example upsampling or an overlay drawn on the sent image, $I(Y; \eta(R_s(X))) \le I(Y; R_s(X))$; moreover $\eta(R_s(X))$ is a garbling of $R_s(X)$, so for every loss its Bayes risk is at least that of $R_s(X)$. (c) If $R_s$ is linear and $\Lambda$ is a fixed additive overlay, $I(Y; R_s(X + \Lambda)) = I(Y; R_s(X))$.
+\end{restate}
+
+\begin{proof}
+(a) Because $\gamma$ is deterministic or randomized independently of $Y$ given $X$, and $R_s$ is deterministic, $Y \to X \to \gamma(X) \to R_s(\gamma(X))$ is a Markov chain, and the data-processing inequality~\cite{cover2006elements} gives the claim. (b) Because $\eta$ acts on $R_s(X)$ alone, with any randomness independent of $(X,Y)$, $Y \to R_s(X) \to \eta(R_s(X))$ is a Markov chain. For the Bayes risk, any decision rule $d$ applied to $\eta(R_s(X))$ defines the randomized rule $z \mapsto d(\eta(z))$ applied to $R_s(X)$, with the same risk for every loss, so the best rule given $R_s(X)$ is at least as good; this is the elementary direction of Blackwell's comparison of experiments~\cite{blackwell1953equivalent}. (c) If $R_s$ is linear, $R_s(X+\Lambda) = R_s(X) + R_s(\Lambda)$. Because $\Lambda$ is fixed, $R_s(\Lambda)$ is a constant and $z \mapsto z + R_s(\Lambda)$ is a bijection, which preserves mutual information.
+\end{proof}
+
+Real interfaces clip, quantize and compress, so (c) is exact only up to those operations, and an overlay that occludes the image, $X \odot (1-M) + \Lambda$, is covered by (a) and (b) but not by (c). If the vendor does not resample or recompress the sent image, every overlay whose content depends on the image only through the sent image is of type (b): grids, numbered lines, labelled dots and interpolated zoom can change only how a model uses its input. An overlay computed from the native image, such as marks at candidates found on native pixels, and a crop cut from the native image and sent at a larger scale are bounded only by (a); the crop can carry detail that $R_s(X)$ discards. For a computationally bounded predictor, \emph{usable} information can still grow under deterministic processing~\cite{xu2020usable}: enlarging an input raises $S$ without adding Shannon information, and can therefore help when the binding constraint is the model's token geometry, but not when the pixels do not resolve the target.
+
+\subsection{Safe splitting: Theorems~\main{thm:safe} and~\main{thm:exact}, Proposition~\main{prop:tight}, Corollary~\main{cor:safe}}
+\label{sec:proofs-safe}
+
+Throughout, $\cw$ is the whole-image call: it shows the whole native image, with the whole image as its core, at effective scale $s_{\mathrm{w}}$, so $\Sw = ms_{\mathrm{w}}/t$; $\Jw$ is the image shrunk by $e_x/2$ and $e_y/2$, where $e_x = \max(w, 2\tau)$ and $e_y = \max(h, 2\tau)$, of area $|\Jw| = (W - e_x)(H - e_y)$ when $W > e_x$ and $H > e_y$.
+
+\begin{lemma}[Crop dominance]
+\label{lem:crop}
+Under (R) and (M), if $c'$ is a crop of $c$, then $\nu_{c'}(U) \ge \nu_c(U)$ for every region $U \subseteq J_c \cap J_{c'}$.
+\end{lemma}
+
+\begin{proof}
+Let $\tilde c$ be the call that shows the same source region as $c'$ at the scale $s_c$ of $c$, with core $K_{c'}$ and protocol $\pi_{\mathrm{crop}}$, and with a padding chosen so that the vendor applies no further resizing, which the interface assumption allows: for a fixed grid, a blank canvas of the size of the padded image of $c$, and for an interface that enlarges small images, a canvas large enough to avoid it. Then $\tilde c$ is a crop of $c$ at the same effective scale, and $J_{\tilde c} = J_{c'}$ because $\tilde c$ and $c'$ have the same region and core, so $U \subseteq J_c \cap J_{\tilde c}$ and (M) gives $\nu_{\tilde c}(U) \ge \nu_c(U)$. The call $c'$ shows the same region of the same source with the same core and protocol at scale $s_{c'} \ge s_c$, with possibly different padding, so it refines $\tilde c$, and (R) gives $\nu_{c'}(U) \ge \nu_{\tilde c}(U)$. The rules that define $\tilde c$ do not depend on the targets, as \cref{ass:mono} requires. The intermediate call need not be one that anyone makes: the assumptions are statements about the model's response to any admissible call, and the argument only chains them.
+\end{proof}
+
+\begin{restate}{Theorem}{thm:safe}{Safe splitting, full form}
+Let $c_1, \dots, c_k$ be crops of $\cw$, so that $S_i \ge \Sw$ for every $i$. Under (R) and (M), for every region $U \subseteq \Jw \cap \bigcup_i J_{c_i}$, the expected number of targets with centres in $U$ that $c_1, \dots, c_k$ detect is at least $\nu_{\cw}(U)$. If the cores shrunk by $\tau$ cover the image shrunk by $\tau$, and every view $V_i$ contains $(K_i \oplus B_0) \cap X$, then $\Jw \subseteq \bigcup_i J_{c_i}$, so the split detects in expectation at least as many of the targets interior to $\cw$ as $\cw$ does.
+\end{restate}
+
+\begin{proof}
+Set $J_{c_i} = \emptyset$ for indices beyond the number of calls the rule uses on an image, so that the argument below holds image by image; expected counts are then exchanged with the countable sum by monotone convergence. Let $U \subseteq \Jw \cap \bigcup_i J_{c_i}$ and split it into the disjoint sets $U_i = (U \cap J_{c_i}) \setminus \bigcup_{j<i} J_{c_j}$. A target with centre in $U_i$ is detected by the split whenever $c_i$ detects it, and possibly also through another call, so the expected number of targets in $U$ that the split detects is at least $\sum_i \nu_{c_i}(U_i)$. Each $c_i$ is a crop of $\cw$ and $U_i \subseteq \Jw \cap J_{c_i}$, so \cref{lem:crop} gives $\nu_{c_i}(U_i) \ge \nu_{\cw}(U_i)$, and $\sum_i \nu_{\cw}(U_i) = \nu_{\cw}(U)$ because the $U_i$ partition $U$. For the second claim, let $x$ be interior to $\cw$, so its centre lies in the image shrunk by $\tau$ and its box inside the image. Because the cores shrunk by $\tau$ cover the image shrunk by $\tau$, $x$ lies at least $\tau$ inside some core $K_i$. The box of $x$ is $x + B_0$ with $x \in K_i$, and it lies inside the image, hence inside $(K_i \oplus B_0) \cap X$, which $V_i$ contains. So $x \in J_{c_i}$. Hence $\Jw \subseteq \bigcup_i J_{c_i}$, and the first claim with $U = \Jw$ gives the second.
+\end{proof}
+
+\begin{restate}{Proposition}{prop:tight}{Each part is necessary, full form}
+Suppose target centres are more than $2\tau$ apart. (a) For any split and any target whose centre lies in the kept core of no view with $S_i \ge \Sw$, there is a model satisfying (R), (M) and (I) under which $\cw$ detects every target interior to it with probability one and the split never detects that target. (b) There are models satisfying (M) and (I) but not (R) under which a split with $S_i > \Sw$ for all $i$ detects nothing, and models satisfying (R) and (I) but not (M) under which any split into views that are not the whole image detects nothing, while in both cases $\cw$ detects every target interior to it.
+\end{restate}
+
+\begin{proof}
+All models below return, when they return anything, exactly the centres of the targets whose boxes lie in the view, so a returned point lies within $\tau$ of a target only if it is that target's centre. (a) Let the model return these centres if $S_c \ge \Sw$ and nothing otherwise. A target interior to a call is then detected with probability one if $S_c \ge \Sw$ and zero otherwise. (M) and (I) compare calls with equal $S_c$ and the same interior target, so they hold with equality; (R) holds because raising $s_c$ can only move $S_c$ above $\Sw$. The whole-image call has $S_c = \Sw$ and detects every target interior to it. A target whose centre lies in no kept core of a view with $S_i \ge \Sw$ is never detected: views with $S_i < \Sw$ return nothing, and any other view that returns its centre discards it, because the centre is outside that view's core. (b) Let the model return the centres if $S_c \le \Sw$ and nothing otherwise. (M) and (I) hold with equality as before, (R) fails, $\cw$ detects every interior target, and a split with $S_i > \Sw$ detects nothing. Let instead the model return the centres only when its view is the whole image. (R) and (I) compare calls with the same view and hold with equality, (M) fails, and a split into views that are not the whole image detects nothing. Each model satisfies the stated assumptions target by target, so it satisfies them for every $\mathcal{D}$.
+\end{proof}
+
+The models in this proof satisfy the assumptions for every target, hence for every $\mathcal{D}$, so the condition is necessary whichever form of \cref{ass:mono} is assumed. A common recipe rescales every image so that the target spans a fixed number of pixels and then tiles. When the targets are already large in the whole-image call, this lowers $S$, \cref{thm:safe} gives no guarantee, and part (a) shows that none is possible from the assumptions.
+
+With $\lambda = S^2/m^2$ the tokens per native pixel at $S$ and $\sigma = \sqrt{\lambda e_xe_y/N}$, the fraction of a view's side that one margin takes at the budget $N$:
+
+\begin{restate}{Theorem}{thm:exact}{Exact condition and minimum cost, full form}
+Let $\mathrm{d}$ be any finite set of calls. (a) If every centre in $\Jw$ is interior to some call in $\mathrm{d}$ that is a crop or a refinement of $\cw$, then under (R) and (M) $\mathrm{d}$ detects in expectation at least as many of the targets interior to $\cw$ as $\cw$ does, for every $\mathcal{D}$. (b) If target centres are more than $2\tau$ apart and some $x \in \Jw$ is interior to no such call, there is a model satisfying (R) and (M) for every target under which $\cw$ detects every target interior to it and $\mathrm{d}$ never detects a target centred at $x$. (c) Suppose every centre in $\Jw$ is interior to a call of $\mathrm{d}$ that is a crop or a refinement of $\cw$ with $S_c \ge S$, where $S \ge \Sw$ and $\sigma < 1$. Then these calls use at least
+\[
+\Cmin = \frac{|\Jw|\,\lambda}{(1 - \sigma)^2}
+\]
+tokens, whatever the shapes, sizes, cores and overlaps of their views; for a fixed grid the same holds with $N = g^2$.
+\end{restate}
+
+\begin{proof}
+Here $\mathrm{d}$ is a rule fixed before any call, depending on the image's size but not on targets or responses, so whether a call is a crop or a refinement of $\cw$ is fixed by the rule.
+(a) Calls of $\mathrm{d}$ that are neither crops nor refinements of $\cw$ can only add detections. Order the others as $c_1, \dots, c_k$ and set $U_i = (\Jw \cap J_{c_i}) \setminus \bigcup_{j<i} J_{c_j}$, which partition $\Jw$. For a crop, \cref{lem:crop} gives $\nu_{c_i}(U_i) \ge \nu_{\cw}(U_i)$; for a refinement, $J_{c_i} = \Jw$ and (R) gives the same. Summing as in the proof of \cref{thm:safe} gives the claim.
+
+(b) Let $\mathcal{C}$ be the set of calls $c$ with $s_c \ge s_{\mathrm{w}}$ whose source agrees with the native image on $V_c$ up to a single translation and whose protocol is $\pi_{\mathrm{crop}}$, together with the calls that refine $\cw$ (source the native image, $V_c = K_c$ the whole image, the protocol of $\cw$, $s_c \ge s_{\mathrm{w}}$). Let the model return, for $c \in \mathcal{C}$, the centres of the targets with centres in $J_c$, and nothing for $c \notin \mathcal{C}$. (R): if $c \in \mathcal{C}$ and $c'$ refines $c$, then $c'$ has the same source, region, core and protocol at a scale at least $s_c$, so $c' \in \mathcal{C}$ (refinement is transitive) and $J_{c'} = J_c$, and equality holds; if $c \notin \mathcal{C}$, $\nu_c = 0$. (M): if $c \in \mathcal{C}$ and $c'$ is a crop of $c$ at the same scale, the source of $c'$ agrees with that of $c$, hence with the native image, on $V_{c'} \subseteq V_c$ (this covers crops of refinements of $\cw$), its protocol is $\pi_{\mathrm{crop}}$ and its scale is $s_c \ge s_{\mathrm{w}}$, so $c' \in \mathcal{C}$ and both calls detect every target in $J_c \cap J_{c'}$; if $c \notin \mathcal{C}$, $\nu_c = 0$. Both hold target by target, hence for every $\mathcal{D}$. The call $\cw$ is in $\mathcal{C}$ and detects every target interior to it. A call in $\mathcal{C}$ with protocol $\pi_{\mathrm{crop}}$ shows a sub-region of the image from a source that agrees with the native image there, at a scale at least $s_{\mathrm{w}}$, so it is a crop of $\cw$; the other calls in $\mathcal{C}$ are refinements of $\cw$ by definition. Hence every call of $\mathrm{d}$ that returns anything returns only centres in its interior set, which excludes $x$, and centres of other targets, which are more than $2\tau$ from $x$; so no returned point lies within $\tau$ of $x$.
+
+(c) Let $c$ be one of these calls, let $V \cap X$, its view intersected with the image, have size $a_x \times a_y$, and let $\lambda_c = S_c^2/m^2$. A centre in $J_c$ has its box $x + B_0$ inside $V$ and lies at least $\tau$ inside $K_c \subseteq V$, so it lies at least $e_x/2$ from the left and right sides of $V$ and $e_y/2$ from the top and bottom: $J_c \cap \Jw$ lies in a rectangle of area $(a_x - e_x)_+(a_y - e_y)_+$. If this is zero there is nothing to show. Otherwise, with $\bar e = \sqrt{e_xe_y}$, $u = e_x/a_x$ and $v = e_y/a_y$, $(1-u)(1-v) = 1 - u - v + uv \le 1 - 2\sqrt{uv} + uv = (1-\sqrt{uv})^2$ and $\sqrt{uv} = \bar e/\sqrt{a_xa_y}$, so
+\[
+|J_c \cap \Jw| \le a_x a_y\Big(1 - \frac{\bar e}{\sqrt{a_x a_y}}\Big)^2,
+\]
+where $a_xa_y > \bar e^2$. The call costs $T_c \ge \lambda_c a_xa_y$ tokens and at most $N$, so $a_xa_y \le N/\lambda_c$ and $a_xa_y \le T_c/\lambda_c$; hence $|J_c \cap \Jw| \le (T_c/\lambda_c)(1 - \bar e\sqrt{\lambda_c/N})^2$, that is, $T_c \ge |J_c \cap \Jw|\,\lambda_c/(1 - \bar e\sqrt{\lambda_c/N})^2$. The function $z \mapsto z/(1 - \bar e\sqrt{z/N})^2$ increases for $0 < z < N/\bar e^2$, and $\lambda_c \ge \lambda$, so $T_c \ge |J_c \cap \Jw|\,\lambda/(1-\sigma)^2$. Summing over the calls, whose sets $J_c \cap \Jw$ cover $\Jw$, gives the bound. For a fixed grid, let $A$ be the longer side of the padded image in native pixels, so that $S_c = mg/A$, $a_x, a_y \le A$, and the call costs $g^2$; its set has area at most $(A - e_x)(A - e_y) \le (A - \bar e)^2$, because $e_x + e_y \ge 2\bar e$, and $A \le mg/S$ gives $g^2 \ge |J_c \cap \Jw|\,g^2/(mg/S - \bar e)^2 = |J_c \cap \Jw|\,\lambda/(1 - \bar eS/(mg))^2$, the same bound with $\sqrt N = g$.
+\end{proof}
+
+Parts (a) and (b) say that protection is decided target by target: a location is protected exactly when some crop or refinement of the whole-image call has it in its interior, and the covering hypothesis of \cref{thm:safe} is one way to ensure this everywhere. Part (c) uses no assumption about the model; it bounds what any split that protects every location with calls at $S_c \ge S$ must spend. $\Cmin$ is a lower bound, which \cref{cor:safe} approaches; every such call protects area at most $(N/\lambda)(1-\sigma)^2$, so any such split also needs at least $\Cmin/N$ calls.
+
+\begin{restate}{Corollary}{cor:safe}{A safe split near the minimum, full form}
+For a protection point $S^\ast$, let $S = \max(S^\ast, \Sw)$, with $\sigma < 1$, $W > e_x$ and $H > e_y$. Tile the image, from a corner, with views of native size $a_x \times a_y$ shown at $S$ (for a fixed grid, squares of side $mg/S$), whose kept cores are the whole views, at pitches $p_x = a_x - e_x > 0$ and $p_y = a_y - e_y > 0$, each view within the vendor's limits so that it is not resized, and let $T$ be the tokens of one view. Under (R) and (M) this split detects in expectation at least as many of the targets interior to $\cw$ as the whole-image call, and it attains $S^\ast$. Excluding per-image overhead it uses at most $\Gamma\,\Cmin$ tokens, with
+\[
+\Gamma = \chi\Big(1+\frac{p_x}{W-e_x}\Big)\Big(1+\frac{p_y}{H-e_y}\Big),
+\]
+where $\chi = T(1-\sigma)^2/(\lambda\, p_x p_y) \ge 1$, and $\chi = 1$ for the views $a_x = e_x/\sigma$, $a_y = e_y/\sigma$ when their sides are whole numbers of patches.
+\end{restate}
+
+\begin{proof}
+Each view shows a region of size $a_x \times a_y$ at $S$ within the budget and the vendor's size limits, so no resizing occurs, its effective scale is $s = St/m \ge s_{\mathrm{w}}$, and, intersected with the image, it is a crop of $\cw$. With the core equal to the view, a centre is interior exactly when its box lies in the view and it lies at least $\tau$ inside the view, that is, when it lies in the view shrunk by $e_x/2$ horizontally and $e_y/2$ vertically; this is a half-open rectangle of size $p_x \times p_y$. With the first view at a corner, the first such rectangle starts at $(e_x/2, e_y/2)$, the corner of $\Jw$, and $\lceil (W-e_x)/p_x\rceil\lceil (H-e_y)/p_y\rceil$ of them, laid at pitches $p_x$ and $p_y$, tile a region containing $\Jw$; views that extend beyond the image show blank padding there. Every centre in $\Jw$ is therefore interior to a crop of $\cw$, and \cref{thm:exact}(a) gives the recall claim. For the cost, with $\lceil z \rceil \le z + 1$,
+\begin{align*}
+&\frac{\lceil (W-e_x)/p_x\rceil\lceil (H-e_y)/p_y\rceil\,T}{\Cmin}\\
+&\quad\le \Big(1+\frac{p_x}{W-e_x}\Big)\Big(1+\frac{p_y}{H-e_y}\Big)\frac{T(1-\sigma)^2}{\lambda\,p_xp_y}.
+\end{align*}
+The per-call bound in the proof of \cref{thm:exact}(c), applied to one view whose interior has area $p_xp_y$, gives $T \ge \lambda\,p_xp_y/(1-\sigma)^2$, so $\chi \ge 1$. For $a_x = e_x/\sigma$ and $a_y = e_y/\sigma$, $T = \lambda\,a_xa_y = \lambda\,e_xe_y/\sigma^2 = N$ when the sides are whole numbers of patches, and $p_xp_y = e_xe_y(1/\sigma - 1)^2 = N(1-\sigma)^2/\lambda$, so $\chi = 1$. A fixed overhead of $\omega$ tokens per image adds $\omega$ per view. With $T$ tokens per view, the rule then uses at most $\Gamma\,\Cmin(1 + \omega/T)$ tokens, while the calls of \cref{thm:exact}(c) number at least $\Cmin/N$, since each uses at most $N$ tokens, and so use at least $\Cmin(1 + \omega/N)$; the ratio bound becomes $\Gamma\,(1 + \omega/T)/(1 + \omega/N)$, between $\Gamma$ and $\Gamma\,N/T$, and equal to $\Gamma$ when $T = N$, as for ideal views and fixed grids. For a fixed grid, a square view of side $a = mg/S$ has $S_V = S$ by \cref{prop:geometry}(c) and costs $g^2$; the same tiling argument applies, and for square targets $\lambda p^2 = (S^2/m^2)(mg/S - m)^2 = g^2(1 - S/g)^2 = g^2(1-\sigma)^2$, so $\chi = 1$.
+\end{proof}
+
+\paragraph{The rule as a recipe.} Choose $S = \max(S^\ast, \Sw)$, cut the image into views that overlap by one target, each as large as the budget allows at $S$ (about $\sqrt N \times \sqrt N$ tokens for square targets), and send each view without further resizing. The ideal views have aspect ratio $e_x/e_y$ and cost exactly $N$ tokens; when they exist within the vendor's limits, the ratio of the rule's cost to $\Cmin$ tends to $\chi$ as the image grows relative to the views. For square targets the ideal views are $\sqrt N \times \sqrt N$ patches whatever $S$, for example $50 \times 50$ at $N = 2{,}500$, where $\sigma = 0.03$ at $S = 1.5$. Keeping the whole view as the core removes the second margin of the covering construction of \cref{thm:safe}. Points near a view's edge, where a target may be cut, are kept, so the rule can add false points there, and targets in the overlaps of adjacent views can be reported twice; both are unmatched points priced by \cref{prop:f1}. The rule does not merge them; a merging step, where one is used, is the step whose loss $\zeta$ enters \cref{thm:robust}. Step 3 is treated next.
+
+\paragraph{Step 3 in two forms.}\label{sec:step3-proof} Step 3 of \cref{alg:rule} splits a view $c$ of the rule into $q \times q$ sub-views $c_1, \dots, c_{q^2}$ at the same scale, each its own core, overlapping by $e_x$ and $e_y$, so that the sub-views' interiors, each the sub-view shrunk by $e_x/2$ and $e_y/2$, tile the interior of $c$. Let $r_q$ be their image tokens over those of $c$ (\cref{tab:step3}).
+\emph{Replacing.} If the sub-views are sent instead of $c$, each is a sub-region of the same pixels at a scale at least $s_{\mathrm{w}}$, hence a crop of $\cw$, and every centre of $\Jw$ interior to $c$ is interior to some $c_j$. The split with $c$ replaced therefore still satisfies the hypothesis of \cref{thm:exact}(a), and under (R) and (M) it detects in expectation at least as much as $\cw$; the view costs $r_q$ times its tokens. This argument needs the replaced views to be fixed by the image's size, as all calls in \cref{sec:defs} are; a subdivision chosen from a view's content or answers changes which calls are compared and is covered by the appending form.
+\emph{Appending.} If $c$ is sent and the sub-views are sent as an additional batch, the returned set $O$ of $c$ becomes $O' = O \uplus O_{\mathrm{new}}$, the points of $c$ together with those of the sub-views. On every image and every run, a target with a point of $O$ within $\tau$ has one in $O'$, so the hits cannot fall, and a maximum one-to-one matching of $O$ to the targets within $\tau$ remains a matching for $O'$, so the matched true positives cannot fall either. No assumption on the model is used, so the views to subdivide may be chosen from their content or answers. The unmatched points may grow; \cref{prop:f1} prices them. The view costs $1 + r_q$ times its tokens.
+
+\paragraph{Which form of the assumption is needed.} In \cref{cor:safe}, $J_{c_i} \cap \Jw$ is the half-open view shrunk by $e_x/2$ and $e_y/2$, a rectangle of size $p_x \times p_y$, intersected with $\Jw$, and these rectangles tile a region containing $\Jw$; in \cref{thm:assign} below, $J_{c_i} \cap \Jw = K_i \cap (X \ominus B_0)$ and the cores partition the image. In both, the sets $U_i = J_{c_i} \cap \Jw$ partition $\Jw$, and the proofs apply (M) to $\cw$ and the intermediate call $\tilde c_i$ on $U_i = J_{\tilde c_i} \cap \Jw$, and (R) to $\tilde c_i$ and $c_i$ on $U_i = J_{c_i} \cap J_{\tilde c_i} \cap \Jw$, using $J_{\tilde c_i} = J_{c_i}$. No other region enters. These conclusions therefore hold under the much weaker assumption that, for the pairs of calls the proof compares, the expected number of targets interior to both calls and to the whole image that are detected does not decrease. The controlled test (\cref{sec:assume-direct}) estimates quantities of exactly this form.
+
+\subsection{Sign, robustness and F1}
+\label{sec:proofs-robust}
+
+\begin{restate}{Proposition}{prop:nonid}{Attainable recall gains, full form}
+Suppose target centres are more than $2\tau$ apart, the weighted expected number $\mathbb{E}[a\,n_{\mathrm{w}}]$ of targets interior to $\cw$ is positive and finite, and $F(z) = \mathbb{E}[a\,n_{\mathrm{w}}(z)]/\mathbb{E}[a\,n_{\mathrm{w}}]$ is continuous, where $n_{\mathrm{w}}(z)$ counts the targets interior to $\cw$ whose first coordinate is at most $z$. Let $c_1, \dots, c_k$ satisfy the hypotheses of \cref{thm:safe}, including its covering condition, none of them showing the whole image at scale $s_{\mathrm{w}}$. For any $0 \le r_{\mathrm{w}} \le r_{\mathrm{d}} \le 1$ there is a model satisfying (R), (M) and (I) for every target under which the weighted expected number of targets interior to $\cw$ that $\cw$ detects is $r_{\mathrm{w}}\mathbb{E}[a\,n_{\mathrm{w}}]$, and that $c_1, \dots, c_k$ detect is $r_{\mathrm{d}}\mathbb{E}[a\,n_{\mathrm{w}}]$.
+\end{restate}
+
+\begin{proof}
+Let $u(x) = F(x_1)$ for a centre $x$. Let $\theta(c) = r_{\mathrm{w}}$ if $s_c \le s_{\mathrm{w}}$ and the region $V_c$ covers the image's whole extent in the source's own placement (from whatever source, a lower-resolution copy included, and up to the translation that places it in a composite), and $\theta(c) = r_{\mathrm{d}}$ otherwise. The model returns, for a call $c$, the centres of the targets with centres in $J_c$ and $u(x) < \theta(c)$, and nothing else. Detection is deterministic, and $p_c(x) = \mathbb{1}[u(x) < \theta(c)]$ for $x \in J_c$. (R): if $c'$ refines $c$, the views agree and $s_{c'} \ge s_c$, so $\theta(c') \ge \theta(c)$. (M): let $c'$ be a crop of $c$ at the same scale. If $\theta(c') = r_{\mathrm{w}}$, then $V_{c'}$ contains the whole image at $s_{c'} = s_c \le s_{\mathrm{w}}$, and $V_c \supseteq V_{c'}$ with a source that agrees on $V_{c'}$, so $\theta(c) = r_{\mathrm{w}}$; hence $\theta(c') \ge \theta(c)$ in every case. (I): the calls compared have the same view and scale, so $\theta$ is equal. All three hold target by target, hence for every $\mathcal{D}$. The whole-image call detects the targets in $\Jw$ with $u < r_{\mathrm{w}}$. No $c_i$ shows the whole image at scale $s_{\mathrm{w}}$, and a crop of $\cw$ has $s_{c_i} \ge s_{\mathrm{w}}$, so $\theta(c_i) = r_{\mathrm{d}}$; under the covering hypothesis every centre in $\Jw$ lies in some $J_{c_i}$, so the split detects exactly the targets in $\Jw$ with $u < r_{\mathrm{d}}$. Returned points match only their own targets because centres are more than $2\tau$ apart. By the probability integral transform applied to the weighted intensity measure, $\mathbb{E}[a\,\#\{x \in \Jw : u(x) < r\}] = \mathbb{E}[a\,n_{\mathrm{w}}(F^{-1}(r))] = r\,\mathbb{E}[a\,n_{\mathrm{w}}]$ for continuous $F$. This construction, like those of \cref{prop:tight}, \cref{thm:exact}(b) and \cref{thm:assign}, uses a model that is given the image with each call, as the definition of a model allows.
+\end{proof}
+
+Monotonicity therefore fixes the sign of the gain, and any gain between zero and the whole-image call's miss rate is attainable; its size is a property of the model, which the experiments measure.
+
+\begin{theorem}[Splitting with approximate monotonicity]
+\label{thm:robust}
+Let $\cw$ and crops $c_1, \dots, c_k$ be as in \cref{thm:safe}, let $U_1, \dots, U_k$ be disjoint regions with $U_i \subseteq J_{c_i} \cap \Jw$, let $U_0 = \Jw \setminus \bigcup_i U_i$, and let $\tilde c_i$ show the region of $c_i$ at the scale of $\cw$, as in the proof of \cref{lem:crop}. Suppose that, for each $i$,
+\begin{align*}
+\nu_{\tilde c_i}(U_i) &\ge \nu_{\cw}(U_i) - \epsilon_{M,i}\,\mu(U_i),\\
+\nu_{c_i}(U_i) &\ge \nu_{\tilde c_i}(U_i) - \epsilon_{R,i}\,\mu(U_i),
+\end{align*}
+and that a final merging step removes in expectation at most $\zeta\,\mu(\Jw)$ hits. Then, with $\mathcal{R}$ the expected number of detected targets interior to $\cw$ divided by $\mu(\Jw)$ (a ratio of expected counts),
+\[
+\mathcal{R}_{\mathrm{d}} \ge \mathcal{R}_{\mathrm{w}} - \psi - \bar\epsilon - \zeta,
+\]
+where $\psi = \mu(U_0)/\mu(\Jw)$ is the uncovered share and $\bar\epsilon = \sum_i (\epsilon_{M,i} + \epsilon_{R,i})\,\mu(U_i)/\mu(\Jw)$; with uniform defects $\epsilon_M, \epsilon_R$, $\mathcal{R}_{\mathrm{d}} \ge \mathcal{R}_{\mathrm{w}} - \psi - (1-\psi)(\epsilon_M + \epsilon_R) - \zeta$. No term grows with the number of views. If centres are more than $2\tau$ apart, the calls $\cw, \tilde c_i, c_i$ are distinct, and $0 \le \epsilon_{M,i}, \epsilon_{R,i}$ with $\epsilon_{M,i} + \epsilon_{R,i} \le 1$, the bound with $\zeta = 0$ is attained by some model.
+\end{theorem}
+
+\begin{proof}
+A target with centre in $U_i$ is detected by the split whenever $c_i$ detects it, so before merging the split detects in expectation at least
+\begin{align*}
+&\sum_{i} \nu_{c_i}(U_i)\\
+&\quad\ge \sum_i \big(\nu_{\cw}(U_i) - (\epsilon_{M,i} + \epsilon_{R,i})\mu(U_i)\big)\\
+&\quad= \nu_{\cw}(\Jw) - \nu_{\cw}(U_0) - \bar\epsilon\,\mu(\Jw)
+\end{align*}
+targets interior to $\cw$, by the two defect inequalities and additivity over the disjoint $U_0, U_1, \dots, U_k$. Merging removes at most $\zeta\,\mu(\Jw)$; dividing by $\mu(\Jw)$ and using $\nu_{\cw}(U_0) \le \mu(U_0)$ gives the bound, and $\sum_{i \ge 1}\mu(U_i) = (1-\psi)\mu(\Jw)$ gives the uniform form. No independence is used. For attainment with $\zeta = 0$, let $\cw$ return the centre of every target in $\Jw$; let $\tilde c_i$ return each centre in $U_i$ independently with probability $1 - \epsilon_{M,i}$ and $c_i$ with probability $1 - \epsilon_{M,i} - \epsilon_{R,i}$; let no call other than $\cw$ return a centre in $U_0$, no $c_i$ return a centre outside $U_i$, and merging remove nothing. Because the calls are distinct, these laws define a model; because centres are more than $2\tau$ apart, a returned centre detects only its own target. Then $\mathcal{R}_{\mathrm{w}} = 1$, both defect inequalities hold with equality, and $\mathcal{R}_{\mathrm{d}} = 1 - \psi - \bar\epsilon$.
+\end{proof}
+
+The defects are quantities of the kind the controlled test estimates. With the defects set to the worst values within the 95\% intervals of the (M) and (R) columns of \cref{tab:assume} (two intervals measured on other pairs of calls), and $\psi = \zeta = 0$ as for \cref{cor:safe}, the guarantee weakens by at most \XrobMax{} (for \XrobMaxModel), and not at all for \XrobZero{} models. A large defect makes the guarantee nearly vacuous: for GPT-5.4 given images that the vendor resizes, the measured loss in (R) is \XtcViolDpos{} in recall (\cref{sec:violations}).
+
+\cref{ass:mono} concerns detection and says nothing about points that match no target. Their effect on F1 has an exact price.
+
+\begin{proposition}[F1 of a split]
+\label{prop:f1}
+On an image with $n$ targets, let a set of calls return the kept points $O$, let $\mathrm{TP}$ be the size of a maximum one-to-one matching of points to targets within $\tau$, and let $\mathrm{FP} = |O| - \mathrm{TP}$, so that $F_1 = 2\mathrm{TP}/(n + \mathrm{TP} + \mathrm{FP})$. For two sets of calls $\mathrm{d}$ and $\mathrm{w}$ with $\mathrm{TP}_{\mathrm{w}} > 0$,
+\[
+F_{1,\mathrm{d}} \ge F_{1,\mathrm{w}} \iff \Delta\mathrm{FP} \le \rho_{\mathrm{w}}\,\Delta\mathrm{TP},
+\]
+\[
+\rho_{\mathrm{w}} = \frac{n + \mathrm{FP}_{\mathrm{w}}}{\mathrm{TP}_{\mathrm{w}}} \ge \frac{1}{\mathrm{Rec}_{\mathrm{w}}},
+\]
+where $\Delta\mathrm{FP} = \mathrm{FP}_{\mathrm{d}} - \mathrm{FP}_{\mathrm{w}}$, $\Delta\mathrm{TP} = \mathrm{TP}_{\mathrm{d}} - \mathrm{TP}_{\mathrm{w}}$ and $\mathrm{Rec}_{\mathrm{w}} = \mathrm{TP}_{\mathrm{w}}/n$. Since $\mathrm{TP}_{\mathrm{d}} \le n$, no set of calls that adds more than $(n + \mathrm{FP}_{\mathrm{w}})(1/\mathrm{Rec}_{\mathrm{w}} - 1)$ unmatched points can keep F1 at least that of $\mathrm{w}$. The same holds with $n$, $\mathrm{TP}$ and $\mathrm{FP}$ replaced by their expectations over $\mathcal{D}$ and the model. If target centres are more than $2\tau$ apart and every target is interior to $\cw$, then under (R) and (M) a split satisfying the hypotheses of \cref{thm:safe} or of \cref{thm:exact}(a) has $\mathbb{E}\,\mathrm{TP}_{\mathrm{d}} \ge \mathbb{E}\,\mathrm{TP}_{\mathrm{w}}$, so its F1 computed from expected counts is at least that of $\cw$ whenever it adds no more unmatched points than hits.
+\end{proposition}
+
+\begin{proof}
+With $|O| = \mathrm{TP} + \mathrm{FP}$, $F_1 = 2\mathrm{TP}/(n + |O|)$. For $\mathrm{TP}_{\mathrm{w}} > 0$, $F_{1,\mathrm{d}} \ge F_{1,\mathrm{w}}$ holds if and only if $\mathrm{TP}_{\mathrm{d}}(n + \mathrm{TP}_{\mathrm{w}} + \mathrm{FP}_{\mathrm{w}}) \ge \mathrm{TP}_{\mathrm{w}}(n + \mathrm{TP}_{\mathrm{d}} + \mathrm{FP}_{\mathrm{d}})$, that is, $(\mathrm{TP}_{\mathrm{d}} - \mathrm{TP}_{\mathrm{w}})(n + \mathrm{FP}_{\mathrm{w}}) \ge \mathrm{TP}_{\mathrm{w}}(\mathrm{FP}_{\mathrm{d}} - \mathrm{FP}_{\mathrm{w}})$; dividing by $\mathrm{TP}_{\mathrm{w}}$ gives the condition, and $\rho_{\mathrm{w}} \ge n/\mathrm{TP}_{\mathrm{w}} = 1/\mathrm{Rec}_{\mathrm{w}}$. With $\Delta\mathrm{TP} \le n - \mathrm{TP}_{\mathrm{w}}$, the condition implies $\Delta\mathrm{FP} \le \rho_{\mathrm{w}}(n - \mathrm{TP}_{\mathrm{w}}) = (n + \mathrm{FP}_{\mathrm{w}})(1/\mathrm{Rec}_{\mathrm{w}} - 1)$. The argument uses only the counts, so it holds equally for their expectations. If centres are more than $2\tau$ apart, the disks of radius $\tau$ around them are disjoint, so a maximum matching within $\tau$ matches exactly one point to each detected target and $\mathrm{TP}$ equals the number of detected targets; \cref{thm:safe} then gives $\mathbb{E}\,\mathrm{TP}_{\mathrm{d}} \ge \mathbb{E}\,\mathrm{TP}_{\mathrm{w}}$, and if $\mathbb{E}\,\Delta\mathrm{FP} \le \mathbb{E}\,\Delta\mathrm{TP}$ the condition holds because $\rho_{\mathrm{w}} \ge 1$.
+\end{proof}
+
+The rate $\rho_{\mathrm{w}}$ is large whenever the whole-image call has low recall: a split can then add many unmatched points per additional hit and still raise F1, whereas when the whole image already yields most targets it can afford few. Duplicates in overlaps are unmatched points and are priced at the same rate.
+
+\subsection{Information: \cref{thm:capacity}}
+\label{sec:proofs-bits}
+
+\begin{restate}{Theorem}{thm:capacity}{What a hit costs, full form}
+Let a call, or any procedure, return a finite set $\hat Y$ of $R$ points for a region of area $A$ containing the centres $Y$ of $n$ targets, with $n$ and $A$ fixed and $Y$ a labelled tuple whose labels are exchangeable, and let $\mathrm{TP}$ be the size of a maximum one-to-one matching of points to centres within $\tau$. Let $p_k$ be the largest probability, over $k$ distinct labelled centres and $k$ disks of radius $\tau$, that each of these centres lies in its disk, and $(n)_k = n!/(n-k)!$. Then
+\[
+\mathbb{E}\big[-\log_2 p_{\mathrm{TP}} - \log_2 (n)_{\mathrm{TP}}\big] \le I(Y; \hat Y) + o,
+\]
+where $o = \mathbb{E}\log_2\binom{R}{\mathrm{TP}} + \log_2(n+1)$. If the centres are independent and uniform on the region, then with $\Lbit = n\log_2\big(A/(n\pi\tau^2)\big)$ and the matched recall $\mathrm{Rec} = \mathrm{TP}/n$, $\mathbb{E}[\mathrm{Rec}] \cdot \Lbit \le I(Y; \hat Y) + o$. Consequently, for independent uniform centres and $\Lbit > 0$: (a) a call whose answer carries at most $C$ bits about the target positions has expected recall at most $(C + o)/\Lbit$; (b) any policy whose report depends on the image only through the model's responses reaches expected recall $\mathbb{E}[\mathrm{Rec}]$ only if its transcript carries at least $\mathbb{E}[\mathrm{Rec}]\,\Lbit - o$ bits about the target positions, with $\Lbit$ computed for the whole image.
+\end{restate}
+
+\begin{proof}
+Fix a deterministic rule that picks a maximum matching $M$ for each pair $(Y, \hat Y)$, with $\hat Y$ listed in a fixed order; $M$ records $\mathrm{TP}$, which labelled centres and which points are matched, and how. Then $I(Y; \hat Y) = I(Y; \hat Y, M) - I(Y; M \mid \hat Y) \ge I(Y; \hat Y, M) - H(M \mid \hat Y)$. Given $(\hat Y, M)$ with $\mathrm{TP} = k$, $Y$ lies in the set $\Sigma$ of configurations in which the $k$ matched labelled centres lie in the disks of radius $\tau$ around their matched points, and $P_Y(\Sigma) \le p_k$. Since the conditional law of $Y$ is supported on $\Sigma$, $D(P_{Y \mid \hat Y, M} \,\|\, P_Y) \ge -\log_2 P_Y(\Sigma) \ge -\log_2 p_k$, so $I(Y; \hat Y, M) \ge \mathbb{E}[-\log_2 p_{\mathrm{TP}}]$. Given $\hat Y$, $M$ is determined by $\mathrm{TP}$ (at most $n+1$ values), the matched labels and points, and their pairing, at most $(n)_k\binom{R}{k}$ choices for $\mathrm{TP} = k$; so $H(M \mid \hat Y) \le \log_2(n+1) + \mathbb{E}[\log_2 (n)_{\mathrm{TP}} + \log_2 \binom{R}{\mathrm{TP}}]$. Combining gives the first inequality. For independent uniform centres, a disk of radius $\tau$ meets the region in area at most $\pi\tau^2$, so $p_k \le (\pi\tau^2/A)^k$, and $(n)_k \le n^k$; hence the left side is at least $\mathbb{E}[\mathrm{TP}]\log_2(A/(n\pi\tau^2)) = \mathbb{E}[\mathrm{Rec}]\,\Lbit$. (a) follows directly. (b): the report is a function of the transcript $T$, which includes the policy's randomness, so $Y \to T \to \hat Y$ and $I(Y; \hat Y) \le I(Y; T)$, which equals the information the responses carry about $Y$ given the policy's randomness, because that randomness is independent of $Y$.
+\end{proof}
+
+\paragraph{Tightness near full recall.} Let the region be a rectangle whose sides are multiples of $\sqrt2\tau$, cut into $N_{\mathrm{cell}} = A/(2\tau^2)$ cells of side $\sqrt2\tau$, and let $n \le N_{\mathrm{cell}}$. The centre of a cell lies within $\tau$ of every point of the cell. Report the centre of every cell that contains a target centre. Each reported point lies within $\tau$ of a target in its own cell and distinct cells give distinct targets, so $\mathrm{TP} = R$ is the number of occupied cells and $o = \log_2(n+1)$. Two independent uniform centres share a cell with probability $1/N_{\mathrm{cell}}$, so $\mathbb{E}[\mathrm{Rec}] \ge 1 - (n-1)/(2N_{\mathrm{cell}})$. The report is a set of at most $n$ cells, so $I(Y; \hat Y) \le \log_2 \sum_{j \le n} \binom{N_{\mathrm{cell}}}{j} \le n\log_2(eN_{\mathrm{cell}}/n) = \Lbit + n\log_2(e\pi/2)$: about 2.1 bits per target more than $\Lbit$. The term $o$ charges reports that match nothing: an answer that lists every cell of a grid finds every target while saying nothing about where they are. Doubling both the targets and the area of a call doubles $\Lbit$; doubling the targets at a fixed area doubles it less one bit per target; packing $k$ views of equal density into one image adds their contents.
+
+\subsection{Search strategies: \cref{prop:frontier}, adaptive zooming and zoom tools}
+\label{sec:proofs-search}
+
+\begin{assumption}[Graded recognition]
+\label{ass:graded}
+Each image's pixels depend on the image $X$ only within its view, and the model's response to a call depends only on the call's images and text and on the history of responses. There is a non-decreasing $f: [0,\infty) \to [0,1]$ such that, for any two images that differ only by one target with box $B$ and for any history of earlier responses, the laws of the model's response to a call under the two images differ in total variation by at most $\sum_I f(S_I)$, the sum over the images $I$ of the call whose views meet $B$.
+\end{assumption}
+
+$f(S)$ is at least the probability that a view at $S$ detects a target it shows minus the probability that it reports one where there is none. Because $f$ bounds the change in the whole response, a measured detection curve gives a lower bound on $f$.
+
+\begin{restate}{Proposition}{prop:frontier}{Recall-cost frontier, full form}
+Under \cref{ass:graded}, let $X_0$ be an image and $\Omega$ a measurable set of centres, $0 < |\Omega| < \infty$, such that for every $x \in \Omega$ the image $X_x$, $X_0$ with one target of box $B_x = x + B_0$ added at $x$, is valid and $x$ is more than $2\tau$ from every target of $X_0$. Consider any policy, possibly adaptive and randomized, whose calls and final report depend on the image only through the model's responses, with randomness independent of the image, and which makes at most $K$ calls almost surely, for some $K$. Let $\bar R$ be the probability, averaged over $x \in \Omega$, that its report on $X_x$ contains a point within $\tau$ of $x$, and $\overline{\mathrm{FP}}_0$ the expected number of reported points on $X_0$ farther than $\tau$ from every target. Then its expected token cost on $X_0$, counting all images of every call, is at least
+\[
+\frac{\bar R\, |\Omega| - \pi\tau^2\, \overline{\mathrm{FP}}_0}{\beta\, \kappa_f\, m^2}, \qquad \kappa_f = \sup_{S > 0} \frac{f(S)}{S^2},
+\]
+where $\beta \ge 1$ bounds $(1 + w/a_x)(1 + h/a_y)$ over the $a_x \times a_y$ views it uses.
+\end{restate}
+
+\begin{proof}
+Fix $x \in \Omega$ and write $\Pr_0, \Pr_x$ for laws under $X_0$ and $X_x$. Let the transcript be the sequence of calls and responses, together with the policy's randomness. For $j = 0, \dots, K$, let $H_j$ be the law of the transcript when the first $j$ responses are drawn under $X_0$ and the rest under $X_x$, the policy choosing calls from the history as always; $H_K$ and $H_0$ are the laws under $X_0$ and $X_x$. $H_j$ and $H_{j-1}$ share the law of the first $j-1$ steps and use the same kernels after step $j$, so by the data-processing inequality for total variation, $\mathrm{TV}(H_j, H_{j-1})$ is at most the expected total variation of the $j$-th response law given the history, under $X_0$, which by \cref{ass:graded} is at most $\mathbb{E}_0 \sum_{I \in \text{call } j,\, V_I \cap B_x \ne \emptyset} f(S_I)$. By the triangle inequality, $\mathrm{TV}(\Pr_0, \Pr_x) \le \mathbb{E}_0 \sum_{j}\sum_{I \in \text{call } j} f(S_I)\,\mathbb{1}[V_I \cap B_x \ne \emptyset]$. The report is a function of the transcript and of independent randomness, so for the event $F_x$ that it contains a point within $\tau$ of $x$, $\Pr_x(F_x) \le \Pr_0(F_x) + \mathrm{TV}(\Pr_0, \Pr_x)$. Integrate over $x \in \Omega$. The left side gives $\bar R|\Omega|$. For the first term on the right, every reported point within $\tau$ of some $x \in \Omega$ is farther than $\tau$ from every target of $X_0$, because $x$ is more than $2\tau$ from them, and it covers at most $\pi\tau^2$ of $\Omega$; so $\int_\Omega \Pr_0(F_x)\,dx \le \pi\tau^2\,\overline{\mathrm{FP}}_0$. For the second, $\{x : V_I \cap (x + B_0) \ne \emptyset\} = V_I \oplus B_0$ has area $(a_x + w)(a_y + h) \le \beta |V_I|$, and an image costs at least $|V_I| S_I^2/m^2$ tokens, so $f(S_I)|V_I| \le \kappa_f m^2\,\mathrm{tokens}(I)$. Summing over images and calls bounds the integral by $\beta\kappa_f m^2$ times the expected token cost on $X_0$, and rearranging gives the claim.
+\end{proof}
+
+If $f(S) = \min\{1, (S/S_0)^\gamma\}$ with $\gamma \ge 2$, then $f(S)/S^2 = S^{\gamma-2}/S_0^\gamma \le 1/S_0^2$ for $S \le S_0$ and $1/S^2 \le 1/S_0^2$ above, so $\kappa_f = 1/S_0^2$: every search pays the coverage cost of \cref{prop:geometry}(b) at $S^\ast = S_0$ and $\kappa = 1$, up to the factors $\bar R$, $\beta$ and $|\Omega|/(WH)$, less the price of its false points. For $\gamma < 2$ the ratio is unbounded as $S \to 0$ and the bound is vacuous: spreading tokens thinly over the whole image could then pay. Which case holds is a property of the model, and lowering $S_0$ lowers the frontier quadratically. The frontier covers tiles, high-resolution calls, model-based propose-and-verify and zoom agents, with imperfect recall and false points charged at an explicit rate.
+
+\paragraph{A sharp threshold.} Under a hard recognition threshold, an always-correct adaptive policy must pay the coverage cost exactly.
+
+\begin{assumption}[Recognition threshold]
+\label{ass:threshold}
+There is an $S_{\mathrm{rec}} > 0$ such that, for any two images that differ only by one target with box $B$ and for any history of earlier views and responses, the model's response to a view $V$ has the same conditional distribution under both images unless $V$ shows targets at $S_V \ge S_{\mathrm{rec}}$ and $B$ lies in $V$.
+\end{assumption}
+
+\begin{proposition}[Adaptive zooming pays the coverage cost]
+\label{prop:adaptive}
+Under \cref{ass:threshold}, let $\mathcal{F}$ be a family of images, $X_0 \in \mathcal{F}$, and $D$ the set of centres $x$ such that $X_0$ with one target added at $x$ lies in $\mathcal{F}$. Consider any policy, possibly adaptive and randomized, whose views and final report depend on the image only through the model's responses, that takes views and then reports a target set, and suppose that on every image in $\mathcal{F}$ the report is correct (a one-to-one matching within $\tau$ covers every instance and leaves no report unmatched) with probability at least $1-\delta$, $\delta < \tfrac12$. Then on $X_0$ its expected token cost is at least $(1-2\delta)\,|D|\,S_{\mathrm{rec}}^2/m^2$.
+\end{proposition}
+
+\begin{proof}
+Write $X_x$ for $X_0$ with one target, box $B_x$, added at centre $x \in D$. Let $Z$ be the union of all views the policy takes at $S_V \ge S_{\mathrm{rec}}$. Each such view costs at least $|V|S_V^2/m^2 \ge |V|\,S_{\mathrm{rec}}^2/m^2$ tokens and $\sum_V |V| \ge |Z|$, so the cost is at least $|Z|\,S_{\mathrm{rec}}^2/m^2$; it suffices to show $\mathbb{E}_0|Z| \ge (1-2\delta)|D|$. Fix $x \in D$ and let $E_x$ be the event that no view with $S_V \ge S_{\mathrm{rec}}$ contains $B_x$. By \cref{ass:threshold} and induction over views, the transcripts under $X_0$ and $X_x$ have the same law up to the first view at $S_V \ge S_{\mathrm{rec}}$ that contains $B_x$. Hence $\Pr_0(A \cap E_x) = \Pr_x(A \cap E_x)$ for every event $A$ of the report. No report is correct for both images, because a correct report has as many points as instances, which differ by one. Therefore
+\begin{align*}
+&\Pr_0(\mathrm{err}) + \Pr_x(\mathrm{err})\\
+&\quad\ge \Pr_0(\hat Y \ne Y_0,\, E_x) + \Pr_x(\hat Y \ne Y_x,\, E_x)\\
+&\quad= \Pr_0(\hat Y \ne Y_0,\, E_x) + \Pr_0(\hat Y \ne Y_x,\, E_x)\\
+&\quad\ge \Pr_0(E_x),
+\end{align*}
+and correctness at least $1-\delta$ on both images gives $\Pr_0(E_x) \le 2\delta$. Since $x \in B_x$, the event $x \notin Z$ implies $E_x$, so $\Pr_0(x \notin Z) \le 2\delta$, and by Fubini $\mathbb{E}_0|D \setminus Z| \le 2\delta|D|$, hence $\mathbb{E}_0|Z| \ge (1-2\delta)|D|$.
+\end{proof}
+
+If each view with $S_V < S_{\mathrm{rec}}$ or not containing $B_x$ may change the response law by at most $\epsilon$ in total variation, and the policy takes at most $k$ views, the same argument on the stopped transcript gives $(1 - 2\delta - k\epsilon)|D|S_{\mathrm{rec}}^2/m^2$. Area excluded a priori, such as title blocks and margins, is not in $D$. Agents that crop and zoom therefore do not escape splitting; they perform it, and an overview shown at $S \ge S_{\mathrm{rec}}$ is itself a covering view whose tokens count. Our data show recognition rising gradually rather than at a threshold (\cref{sec:S-curves}), which is why the main text uses the graded frontier.
+
+\paragraph{Zoom tools.} The three steps of the zoom-agent ablation (\cref{sec:agents}) are ordered by the assumptions at the level of single calls.
+
+\begin{proposition}[Zoom tools]
+\label{prop:zoom}
+Let an overview call $c_{\mathrm{o}}$ show the whole image from a lower-resolution copy at scale $s_{\mathrm{o}}$, with its own core. Fix a region and three calls on it with a common core and the protocol $\pi_{\mathrm{crop}}$, $c_2$ and $c_3$ with the same padding: $c_1$, the region cut from the overview at scale $s_{\mathrm{o}}$; $c_2$, the same cut enlarged to a scale $s' > s_{\mathrm{o}}$; and $c_3$, native pixels of the region at scale $s'$. Let $U$ be a set of centres interior to all four calls. Under (R), (M) and (I), in expected number of targets detected in $U$, $c_1$ is no worse than $c_{\mathrm{o}}$ (M), $c_2$ is no worse than $c_1$ (R), and $c_3$ is no worse than $c_2$, which is a garbling of it (I).
+\end{proposition}
+
+\begin{proof}
+$c_1$ shows a sub-region of the source of $c_{\mathrm{o}}$ at scale $s_{\mathrm{o}}$, so it is a crop of $c_{\mathrm{o}}$ at the same effective scale (M). $c_2$ shows the same region of the same source as $c_1$ with the same core at a larger scale, so it refines $c_1$ (R). $c_3$ and $c_2$ show the same region with the same core and scale; the source of $c_2$ is the lower-resolution copy, a fixed degradation of the native image, so $c_2$ is a garbling of $c_3$ (I).
+\end{proof}
+
+\cref{lem:crop} also orders two other designs we test. When several tiles are packed into one image, each single tile is a crop of the packed image if sent at no smaller scale (up to the separator lines drawn in the tile margins, outside the cores). When content is added around a fixed region, the region alone is a crop of the larger image if that image is sent at no larger scale.
+
+\subsection{Every local task with one position and one answer per object}
+\label{sec:proofs-local}
+
+Nothing above depends on what a target is. An \emph{item} has an anchor point $x$; a support box, centred at $x$, inside the $w \times h$ box centred at $x$, and containing the pixels needed to answer the item; and a correct answer, such as a class, a mask, a transcription or a value. An item is interior to a call if the $w \times h$ box centred at its anchor lies inside $V_c$ and its anchor lies at least $\tau$ inside $K_c$.
+
+\paragraph{Enumeration tasks.} A call returns located answers, and an item is detected if a kept answer lies within $\tau$ of its anchor and equals its correct answer. Detection of one or several classes, instance segmentation scored by an answer per anchor, text spotting, keypoint and landmark localization, cell detection and classification, and listing the interactive elements of a screenshot are enumeration tasks. With $p_c(x)$ and $\nu_c(U)$ defined by this event, \cref{ass:mono} is stated as before, and \cref{lem:crop}, \cref{thm:safe}, \cref{prop:tight}, \cref{thm:exact}, \cref{cor:safe}, \cref{thm:robust}, \cref{prop:nonid}, \cref{prop:f1} and \cref{prop:zoom} hold as stated, where a matching pairs only answers and items with equal answers. The proofs of \cref{lem:crop}, \cref{thm:safe}, \cref{thm:exact}(a) and (c), \cref{cor:safe}, \cref{thm:robust} and \cref{prop:zoom} use the detection event only through $\nu_c$ and the sets $J_c$, which depend only on anchors. The proofs of \cref{prop:tight}, \cref{thm:exact}(b) and \cref{prop:nonid}, and the attainment in \cref{thm:robust}, use models that return anchors with their correct answers; with anchors of items with equal answers more than $2\tau$ apart, a returned answer matches an item only if it is that item's anchor and answer.
+
+\paragraph{Assignment tasks.} The items are given and each needs an answer: classify each listed region, read each field of a form, label each pixel or each cell of a grid (semantic segmentation). Calls and regions may depend on the image's size and on the given items, but not on their correct answers. A call answers the items whose anchors lie in its kept core; an item is interior to the call if the $w \times h$ box centred at its anchor lies in the view and its anchor in the core, with no margin $\tau$. $\nu_c(U)$ counts correct answers to the items anchored in $U \cap J_c$. A split answers each item by the call whose core contains its anchor, so no tolerance and no overlap of cores is needed.
+
+\begin{theorem}[Safe splitting for assignment tasks]
+\label{thm:assign}
+Let $\cw$ show the whole native image $X$, with $X$ as its core, at effective scale $s_{\mathrm{w}}$ and answer every item, and let $c_1, \dots, c_k$ be crops of $\cw$ whose cores, taken half-open and intersected with $X$, partition it, each view $V_i$ containing $(K_i \oplus B_0) \cap X$. Under (R) and (M), over the items whose $w \times h$ boxes centred at their anchors lie in the image, the expected number of correct answers of the split is at least that of $\cw$.
+\end{theorem}
+
+\begin{proof}
+Let $A$ be the set of anchors of items whose boxes lie in $X$; it depends on the given items, not on their answers. An item with anchor $x \in A \cap K_i$ has its box $x + B_0$ inside $X$, hence inside $(K_i \oplus B_0) \cap X \subseteq V_i$, and its anchor in $K_i$, so it is interior to $c_i$; it is interior to $\cw$, whose view and core are the image. The split answers it by $c_i$, so its expected number of correct answers over these items is $\sum_i \nu_{c_i}(A \cap K_i)$. The proof of \cref{lem:crop} uses only (R), (M) and the interior sets, so it applies to the event of a correct answer and gives $\nu_{c_i}(A \cap K_i) \ge \nu_{\cw}(A \cap K_i)$; summing over the partition gives $\nu_{\cw}(A)$.
+\end{proof}
+
+Every item receives exactly one answer, and a wrong answer on a background pixel or an empty field counts like a missed object, so \cref{thm:assign} bounds both kinds of error at once. \cref{thm:exact}(c) and \cref{cor:safe} carry over with $e_x = w$ and $e_y = h$, taking as cores the half-open $p_x \times p_y$ interiors of the views, with the outermost extended to the image's edge, so that the cores partition the image, and \cref{prop:tight}(a) holds with the model that answers correctly when $S_c \ge \Sw$ and incorrectly otherwise.
+
+\subsection{Two reference lines}
+\label{sec:proofs-ref}
+
+\begin{assumption}[Token-quantized position]
+\label{ass:quant}
+The model knows only which token cell contains a target centre, and within the cell the centre is uniform.
+\end{assumption}
+
+\begin{proposition}[Quantized-observer ceiling]
+\label{prop:loc}
+Under \cref{ass:quant}, any reported point $\hat{x}$ satisfies $P(\lVert \hat{x} - x \rVert \le \tau) \le \varphi(S/2)$, where $\varphi(z)$ is the area of the part of the unit square within distance $z$ of its centre, with equality when $\hat{x}$ is the cell centre. In closed form the bound is $\pi S^2/4$ for $S \le 1$ and $1$ for $S \ge \sqrt{2}$.
+\end{proposition}
+
+\begin{proof}
+Conditioned on its cell $Q$ (side $t$ sent pixels), the centre $x$ is uniform on $Q$. Measured in sent pixels the tolerance is $\tau s$, so $P(\lVert \hat x - x\rVert \le \tau) = \lvert \mathcal{B}(\hat x, \tau s) \cap Q\rvert / t^2$. As a function of $\hat x$ this is the convolution of the indicators of two centrally symmetric convex sets, which by Anderson's theorem~\cite{anderson1955integral} is maximized at the centre of $Q$. Rescaling by $t$ gives $\varphi(\tau s/t) = \varphi(S/2)$. The disk of radius $z$ centred in the unit square lies inside it for $z \le \tfrac12$ (area $\pi z^2$), covers it for $z \ge \tfrac{\sqrt2}{2}$, and in between loses four circular segments, giving $\varphi(z) = \pi z^2 - 4\big(z^2\arccos\tfrac{1}{2z} - \tfrac12\sqrt{z^2 - \tfrac14}\big)$.
+\end{proof}
+
+In a one-dot probe every probed model except Gemini 2.5 placed an isolated dot within about 2 px, far below the token size (\cref{sec:coords}), so this observer describes Gemini 2.5, and the newer models localize far more finely than it.
+
+\begin{proposition}[Propose and verify]
+\label{prop:hybrid}
+Fix a maximum one-to-one matching within $\tau$ between candidates and the $n$ instances. Let $u$ candidates be matched and $v$ unmatched, and let $\alpha_1$ and $\alpha_0$ be the fractions of matched and of unmatched candidates that a verifier accepts. Then
+\[
+\frac{2\alpha_1 u}{\alpha_1 u + \alpha_0 v + n} \;\le\; F_1 \;\le\; \frac{2q}{1+q}, \qquad q = u/n,
+\]
+and both bounds equal $2q/(1+q)$ when $\alpha_1 = 1$ and $\alpha_0 = 0$.
+\end{proposition}
+
+\begin{proof}
+The verifier keeps $\alpha_1 u + \alpha_0 v$ candidates. The $\alpha_1 u$ accepted matched candidates keep their partners in the fixed matching, so a maximum matching of the accepted set has at least $\alpha_1 u$ hits, and $F_1 \ge 2\alpha_1 u/(\alpha_1 u + \alpha_0 v + n)$. Any subset of candidates has at most $u$ hits, and a set with $\mathrm{TP}$ hits has at least $\mathrm{TP}$ elements, so $F_1 \le 2\,\mathrm{TP}/(\mathrm{TP} + n) \le 2u/(u + n)$.
+\end{proof}

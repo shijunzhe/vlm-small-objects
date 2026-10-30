@@ -1,6 +1,6 @@
-# REDP-X40: finding every instance of a legend symbol in real engineering drawings
+# LegendSpot (internal name REDP-X40): finding every instance of a legend symbol in engineering drawings
 
-40 real engineering-drawing images (screenshots without project information), each
+40 engineering-drawing images (screenshots without project information), each
 with ONE target symbol defined by a crop from the drawing's own legend, and a point
 annotation at the center of every instance of that symbol. Other symbols in the
 drawing are not annotated.

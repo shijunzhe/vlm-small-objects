@@ -34,6 +34,8 @@ VENDORS = {
     'gpt56origm': ('openai', 'gpt-5.6-sol', {'detail': 'original', 'effort': 'medium'}),
     # T1 within-model token budget at fixed pixels (Gemini 3.8 media resolution)
     'gem38lo': ('gemini', 'gemini-3.8-flash', {'part_res': 'MEDIA_RESOLUTION_LOW'}),
+    # Table of the rule (2026-10-27, rerun 2026-10-28): Gemini 4 at its lowest thinking level, output cap 16,384
+    'gem4': ('gemini', 'gemini-4-argon', {'think': {'thinking_level': 'low'}, 'max_out': 16384}),
 }
 MAX_TOKENS = 8192
 _lock = threading.Lock(); _clients = {}
@@ -95,7 +97,7 @@ def call(vendor, images, system, user):
     else:
         parts = [types.Part.from_bytes(data=_png(im), mime_type='image/png') for im in images] + [user]
     th = opt.get('think', REASONING.get(model, {'thinking_budget': 0}))
-    cfg = dict(system_instruction=system, max_output_tokens=MAX_TOKENS if 'think' not in opt else 65536, thinking_config=types.ThinkingConfig(**th))
+    cfg = dict(system_instruction=system, max_output_tokens=opt.get('max_out', MAX_TOKENS if 'think' not in opt else 65536), thinking_config=types.ThinkingConfig(**th))
     r = _client(kind).models.generate_content(model=model, contents=parts, config=types.GenerateContentConfig(**cfg))
     raw = ''.join(p.text for p in r.candidates[0].content.parts if getattr(p, 'text', None)) if r.candidates and r.candidates[0].content else ''
     um = r.usage_metadata

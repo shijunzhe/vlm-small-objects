@@ -1,0 +1,104 @@
+\section{Data and protocol}
+\label{sec:protocol-full}
+
+\subsection{Data}
+\label{sec:data}
+
+\paragraph{LegendSpot.} 40 partial screenshots of architectural drawings from different projects and sources, with no project-identifying information. Each image comes with one target symbol cropped from its legend, and every instance of that symbol is annotated with a centre point: 1{,}028 instances, 3 to 116 per image. Twenty images are large sheet regions (long side 2{,}947 to 11{,}484 px; \emph{full sheets}) and twenty are small drawings (483 to 3{,}520 px). Six sheets were used only to write the prompt and to choose the settings; the other 34 images (14 full sheets and 20 views, 660 instances) are the test set used for every result except the map of \cref{fig:map}, which pools all drawings (\cref{sec:map}).
+
+\paragraph{Library-10.} Ten further architectural drawings, annotated by one of the authors before this study: 23 drawing and class items with 225 instances. Their reference symbols come from a shared symbol library rather than from each drawing's legend, so they differ from the drawn instances in scale and stroke. They are used for evaluation only.
+
+\paragraph{Floor plans.} The test split of FloorPlanCAD~\cite{fan2021floorplancad} has $1{,}000 \times 1{,}000$ px rasters of 20\,m blocks. \emph{Floor-plan blocks}: 369 block and class items (21 countable object classes, 3 to 48 instances), 30 of which set thresholds and 339 form the test set, with the median-size instance as the reference. \emph{Floor-plan mosaics}: the first nine blocks of each of 60 source drawings tiled into a $3{,}000^2$ mosaic, whose top-left $2{,}000^2$ and first $1{,}000^2$ block are nested subsets, so the same symbols and reference appear at three areas; each mosaic counts one class (the class with most instances, at least 6, and at least one in the first block). \Cref{tab:main} uses the 60 full $3{,}000^2$ mosaics. FloorPlanCAD blocks are cut from larger drawings, so instances crossing a block edge are truncated and the remainder is unlabelled; we ignore predicted and annotated points within $m/2$ of any block edge.
+
+\paragraph{Natural images.} 150 images of FSC-147~\cite{ranjan2021fsc147} (its 384 px versions), 50 in each of three strata of exemplar size, scored against the annotated dots within $m/2$ of the exemplar scale.
+
+\paragraph{Controlled images.} \CscaleCtrl{} images built from LegendSpot legend templates. Each places $n$ copies of one template (the target) and $n$ copies drawn from three other templates (distractors) on a white canvas, on a jittered grid with spacing at least $1.6m$, after drawing thin grey horizontal and vertical segments (40 per megapixel unless varied). Templates are rescaled so that $m = \sqrt{wh}$ takes the stated value, and the reference image is the native-size target template; seeds are fixed per image. They serve four purposes. \emph{Sweeps} (156 images, six per level): resolution, $m \in \{8, 12, 16, 24, 32, 48, 64\}$ px with $n = 8$ on $1024^2$; target count, $m = 40$ and $n \in \{2, 4, 8, 16, 32, 64, 96\}$ on $1024^2$; area, $m = 40$ and $n = 16$ on canvases of $1024^2$, $1448^2$, $2048^2$, $2896^2$ and $4096 \times 2048$; clutter, $m = 16$ and $n = 8$ with 0 to 640 segments per megapixel; and upsampling, the resolution images with $m \le 16$ enlarged twofold by Lanczos interpolation. \emph{Controlled test}: twelve $2048^2$ images with 48 targets and 48 distractors each, at $m$ of 12, 20 or 32 px (\cref{sec:assume-direct}). \emph{Newest generation}: the recognition measurements of \cref{sec:newest}. \emph{Load at $S = 1.5$}: the sweep of \cref{sec:thumb}.
+
+\paragraph{Scale.} In all we sent about \CscaleCalls{} requests to \CscaleModels{} models on \CscaleImages{} images with about \CscaleInst{} annotated instances.
+
+\begin{table*}[t]
+\centering
+\footnotesize
+\begin{tabular}{p{3.0cm}p{3.2cm}p{4.4cm}>{\raggedright\arraybackslash}p{3.1cm}}
+\toprule
+Experiment & Data & Models & Where \\
+\midrule
+Recognition, load, area, clutter, upsampling sweeps & controlled sweeps (156) & GPT-5.4, GPT-5.6, Claude Sonnet 4.6 and 5.5, Gemini 2.5 and 3.8, Gemma 4, Qwen3-VL & \cref{fig:curves}, \cref{sec:S-curves,sec:L-sweeps} \\
+Budget at fixed pixels & controlled resolution sweep; floor-plan mosaics & Gemini 3.8 at three budgets & \cref{sec:why}, \cref{sec:budget} \\
+Newest generation & controlled & GPT-5.6, GPT-6.1, Claude Opus 5.5, Gemini 3.8, Gemini 4 & \cref{sec:why}, \cref{sec:newest} \\
+Controlled test & 12 controlled $2048^2$ images & GPT-5.4, GPT-5.6, GPT-6.1, Claude Sonnet 5.5, Claude Opus 5.5, Gemini 3.8, Gemma 4, Qwen3-VL & \cref{sec:safe}, \cref{sec:assume-direct} \\
+Whole image, tiles, high resolution, propose and verify & LegendSpot (34) & the eight sweep models, and GPT-5.5 and Claude Opus 5.5 for the whole image & \cref{fig:map}, \cref{sec:generations,sec:assume-orderings,sec:errors,sec:more} \\
+Packed tiles & LegendSpot full sheets (14) & GPT-5.6, Claude Sonnet 5.5 & \cref{sec:why}, \cref{sec:packing} \\
+Tiles against whole image & floor-plan blocks (339), mosaics (60 at three areas) & the eight sweep models & \cref{fig:map}, \cref{sec:firstblock,sec:rule-more} \\
+Rule against whole image and 44 px recipe & LegendSpot (34), mosaics (60) & GPT-6.1, Claude Opus 5.5, Gemini 3.8, Gemini 4, Qwen3-VL & \cref{tab:main}, \cref{sec:rule-full} \\
+Same-scale tiles on natural images & FSC-147 (150) & GPT-5.6, Claude Sonnet 5.5, Gemini 3.8 & \cref{sec:practice}, \cref{sec:rule-more} \\
+Zoom agents and their ablation & LegendSpot (34), Library-10, mosaics & GPT-5.6, Claude Sonnet 5.5, Gemini 3.8, Qwen3-VL & \cref{sec:practice}, \cref{sec:agents} \\
+Template matching, trained counters & LegendSpot, Library-10, floor plans, FSC-147 & none (local) & \cref{sec:practice}, \cref{sec:rule-more} \\
+Load at $S = 1.5$ & controlled & GPT-5.6, GPT-6.1, Claude Opus 5.5, Gemini 3.8, Gemini 4, Qwen3-VL & \cref{tab:thumb}, \cref{sec:thumb} \\
+\bottomrule
+\end{tabular}
+\caption{Which images and models each experiment uses.}
+\label{tab:experiments}
+\end{table*}
+
+\subsection{Models and settings}
+\label{sec:models}
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{p{3.3cm}p{3.0cm}p{8.4cm}}
+\toprule
+Model & Access & Reasoning setting in our calls \\
+\midrule
+GPT-5.4 & OpenAI API & none \\
+GPT-5.5 & OpenAI API & none \\
+GPT-5.6 Sol & OpenAI API & none; medium effort in the agent comparisons (agent, tiles, whole image); high effort in one further whole-image comparison \\
+GPT-6.1 Sol & OpenAI API & lowest accepted effort (\texttt{low}); vendor default for the newest-generation measurement \\
+Claude Sonnet 4.6 & Anthropic API & none \\
+Claude Sonnet 5.5 & Anthropic API & the API's default adaptive thinking in every call; reasoning arm adds an explicit high effort \\
+Claude Opus 5.5 & Anthropic API & the API's default adaptive thinking \\
+Gemini 2.5 Flash & Google API & none \\
+Gemini 3.8 Flash & Google API & minimal thinking budget; dynamic thinking in the agent and reasoning comparisons; vendor default for the newest-generation measurement \\
+Gemini 4 & Google API & lowest thinking level (\texttt{low}); vendor default for the newest-generation measurement \\
+Gemma 4 31B & hosted, pinned provider & none \\
+Qwen3-VL-235B-A22B Instruct & hosted, pinned provider (a second provider for \cref{sec:newest}, a third for \cref{sec:thumb}) & none (the instruct model has no reasoning mode) \\
+\bottomrule
+\end{tabular}
+\caption{The \CscaleModels{} models. We write GPT-5.6 and GPT-6.1 for the Sol models and Gemini 2.5 and Gemini 3.8 for the Flash models. Versions are those available in September and October 2026. The output cap was 8{,}192 tokens in the controlled sweeps and 16{,}384 for Gemini 4, the newest-generation measurement and the load sweep.}
+\label{tab:models}
+\end{table*}
+
+\paragraph{Standard input.} Our standard input is input that we resize ourselves so that the vendor need not resize it again: whole-image calls with a long side of at most 1{,}600 px (drawings, floor plans; at most 2{,}048 px in the controlled test), and views within the per-view budgets of \cref{tab:calib}. We checked every experiment against this definition from the measured geometry: the OpenAI models keep all these inputs at their sent size, and the Gemini and Gemma grids apply their single resize. Two kinds of input lie outside it: native-resolution drawings sent through OpenAI's \texttt{detail=original} mode or Gemini's ultra-high setting, and controlled images enlarged to 2{,}048 px for GPT-5.4, whose 2{,}500-patch budget makes the vendor shrink them again. All four violations of the assumptions that we found lie there (\cref{sec:violations}); every pair of calls on standard input is consistent with them.
+
+\subsection{Conditions}
+\label{sec:conditions}
+
+Every condition on drawings, floor plans and controlled images uses the same task: find every instance of the reference symbol and return its centre as JSON.
+\emph{Whole image}: the image, long side at most 1{,}600 px, in one call.
+\emph{High resolution}: the same call with OpenAI's \texttt{detail=original}, which accepts far more pixels, or Gemini's higher media-resolution settings.
+\emph{Tiles}: the image cut into views with a margin; a blue frame marks each view's core, and only centres inside it are kept and mapped back. The \emph{44 px recipe} rescales the image so that the reference spans 44 px and cuts 1{,}024 px tiles, so it is defined in pixels; for fixed-grid models its counterpart chooses the field of view by \cref{prop:geometry}(c) so that the target spans 1.5 tokens (Gemma 4) or 2.5 tokens (Gemini).
+\emph{The rule}: steps 1 and 2 of \cref{alg:rule} at $S^\ast = 1.5$ with the per-view budgets of \cref{tab:calib}, cores equal to views. $\Sw$ is the $S$ of the whole-image call of standard input (long side at most 1{,}600 px), and the target box $w \times h$ is the size of the reference image (the legend crop; for floor plans, the median-size instance). Each view is cut from the native image, resized with Lanczos interpolation to the scale $s = St/m$, and placed at the top left of a white canvas of whole tokens; for fixed-grid models a view is a square of side $mg/S$ native pixels, which we send without resizing. The reference image is resized by the same factor, a blue frame marks the view's border, and the prompt is that of tiles. All points are kept, so a target in an overlap can be reported twice, and such duplicates count against precision.
+\emph{Packed tiles}: $k$ tiles of the 44 px recipe packed into one image, separated by grey lines in the tile margins.
+\emph{Zoom agent}: the legend crop and an overview (long side 1{,}600 px) plus a \texttt{zoom} tool that returns any rectangle cut from the native image (long side at most 1{,}024 px, at most twice native), up to 20 calls; two variants of the tool return the rectangle cut from the overview at the overview's scale, or the same crop enlarged to the native crop's size (\cref{sec:agents}).
+\emph{Propose and verify}: template matching proposes candidates, and the model accepts or rejects each one, shown as a crop at the reference's scale.
+\emph{Template matching}: multi-scale, four-rotation normalized cross-correlation with non-maximum suppression, threshold chosen on the six prompt-writing sheets.
+\emph{Trained counters}: CountGD~\cite{amininaieni2024countgd}, GeCo2~\cite{pelhan2026geco2} and the open-vocabulary detector OWLv2 in image-guided mode~\cite{minderer2023owlv2}.
+
+\subsection{Prompts}
+\label{sec:prompts}
+
+\paragraph{Whole image.} \textit{You are a precise engineering drawing analysis assistant. You will be shown a reference image of ONE target symbol, followed by a full engineering drawing. Your task is to count every instance of that target symbol in the drawing. The drawing image is $W \times H$ pixels. All coordinates you output must be in this image's pixel space, where (0,0) is the top-left corner.} This is followed by a JSON schema with a \texttt{count} and a list \texttt{shapes} of centres \texttt{cx}, \texttt{cy}, and: \textit{The ``count'' must equal the length of ``shapes''. Count only symbols matching the reference image; do NOT count other symbols, text labels, or drawing linework.} The 0 to 1000 variant replaces the two sentences on coordinates by a request for coordinates normalized to 0 to 1000.
+
+\paragraph{Tiles and views.} \textit{You will be shown a reference image of ONE target symbol, followed by one tile of a larger engineering drawing. Your task is to find every instance of that target symbol whose center lies inside the blue rectangle drawn on the tile. The area outside the blue rectangle is context only.} This is followed by the coordinate convention (pixels of the tile, or 0 to 1000) and the same schema. Views of the rule keep their whole view as the core.
+
+\paragraph{Natural images.} \textit{You will be shown an exemplar crop of ONE object, followed by an image. Find every object in the image that is of the same kind as the exemplar (the exemplar itself is one of them).} The same schema follows, with \textit{Give the centre of each object.} A first, drawing-specific wording led GPT-5.6 to report single objects on natural images; \cref{tab:fsc} reports both.
+
+\paragraph{Verification.} \textit{Image 1 is a reference crop of ONE target symbol taken from the drawing's legend. Image 2 is a small crop of the drawing, shown at the same scale as the reference, with a thin red square marking ONE candidate location. Decide whether the red square contains an instance of the reference symbol.} The answer is \texttt{\{"match": true or false, "confidence": 0-100\}}.
+
+\subsection{Metrics, statistics and labels}
+\label{sec:stats}
+
+Predicted and annotated centres are matched one to one by a maximum matching within $\tau = m/2$, with $\mathrm{TP}$ matched pairs; matched recall is $\mathrm{TP}/n$, precision is $\mathrm{TP}$ over the returned points, and F1 is their harmonic mean. Tests of the theory use hit recall, under which a target counts as detected if any returned point lies within $\tau$. Hit recall is at least matched recall, with equality when targets are more than $2\tau$ apart, because each returned point then lies within $\tau$ of at most one target. Mean recall per image is the weighted measure of \cref{sec:defs} with $a(X) = 1/n(X)$, so the theorems apply to it. Runs are averaged per image, and every comparison is a paired bootstrap over images (4{,}000 resamples, percentile intervals), clustered by source drawing for the mosaics and for the orderings of \cref{sec:assume-orderings}; Holm's method~\cite{holm1979simple} corrects within the family of agent comparisons, and other intervals are unadjusted. A tolerance based on the template's ink box, or twice the primary tolerance, leaves the conclusions unchanged; \cref{tab:sens} lists the one comparison of two models that changes order.
+
+\paragraph{Label audit.} After all runs we pooled the detections of template matching and six model configurations on the LegendSpot test set and flagged every location where at least three methods agreed on an instance absent from the labels (60 locations), and every label that no method found (none). The annotator judged each flagged location from a crop shown next to the legend symbol; all 60 were judged not to be instances, so the audit found no missing labels (one-sided 95\% upper bound: 5\% of such locations).

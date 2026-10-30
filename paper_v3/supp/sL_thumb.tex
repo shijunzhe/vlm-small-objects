@@ -1,0 +1,47 @@
+\section{Reference data for the rule of thumb}
+\label{sec:thumb}
+
+\Cref{tab:thumb} gives approximate values for one image content. This section lists the data behind them, keeping three things apart: the vendor's limits, the per-view budget the rule uses, and what we measured.
+
+\paragraph{Per-view budgets.} \Cref{tab:thumb-budget} gives the budgets. At $S = 1.5$ a square view of $\sqrt N \times \sqrt N$ patches holds about $\sqrt N/1.5$ targets per side. For a resolution-scaled model the target must also span about 1.5 tokens in the sent image, about 48 px for GPT and Qwen (32 px tokens) and 42 px for Claude (28 px tokens); a caller can enlarge the image to reach this, which raises $S$ but cannot restore detail that the native pixels lack. A near-square view then has a side of at most about $m\sqrt N/S$ native pixels with $S = \max(1.5, \Sw)$, plus the rounding to whole patches and the overlap. For fixed-grid models only the geometry matters: a view of longer side $\ell$ gives $S = mg/\ell$.
+
+\begin{table*}[t]
+\centering
+\footnotesize
+\begin{tabular}{p{2.7cm}p{4.6cm}p{3.4cm}p{1.8cm}p{1.4cm}}
+\toprule
+Model & Vendor documentation (October 2026) & Our billing & Budget used & Per side \\
+\midrule
+GPT-6.1, GPT-5.6 & 32 px patches; the default setting keeps the original size; requests above 30{,}000 patches are refused & $2896^2$: 8{,}281 patches (GPT-5.6), $3072^2$: 9{,}216 (GPT-6.1), not resized & 8{,}192 patches & about 60 \\
+GPT-5.4 & 2{,}500 patches, long side $\le$2{,}048 px; original: 10{,}000 & 2{,}500 patches (3{,}019 input tokens) at $2048^2$ & 2{,}500 & about 33 \\
+Claude Opus 5.5, Sonnet 5.5 & 28 px; long side $\le$2{,}576 px, $\le$4{,}784 tokens & $1932^2$: 4{,}761 & 4{,}784 & about 46 \\
+Claude Sonnet 4.6 & long side $\le$1{,}568 px, $\le$1{,}568 tokens & 1{,}542 at $1536^2$ and above & 1{,}568 & about 26 \\
+Gemini 3.8, Gemini 4 & Gemini 3.x: 1{,}120 per image (default), 2{,}240 (ultra-high); Gemini 4 not listed separately & about 1{,}090 at every size & about 1{,}090 & about 22 \\
+Gemini 2.5, Gemma 4 & 258 and 280 per image & 258 and 280 & 258, 280 & about 11 \\
+Qwen3-VL & 32 px per token; cap set by the provider & about 2{,}500 at 1{,}600 px & 2{,}500 & about 33 \\
+\bottomrule
+\end{tabular}
+\caption{Per-view budgets. Per side: targets along the side of a full square view at $S = 1.5$, $\sqrt N/1.5$.}
+\label{tab:thumb-budget}
+\end{table*}
+
+\paragraph{Load at $S = 1.5$.} To see how many targets one view can carry, we rendered controlled images at $S = 1.5$ for every model, each with $n$ targets (the load) of one legend symbol and $n$ distractors of three look-alike symbols on a lattice of pitch 1.6 target sides, about half the lattice cells occupied, with grey linework. The layout of image $i$ at load $n$ is fixed in target units and shared by all models; light strokes are kept as grey (each pixel takes the darker of the canvas and the reduced symbol). Views are capped by the per-view budgets of \cref{tab:thumb-budget}: 2{,}896 px for GPT ($91 \times 91 = 8{,}281$ patches, which the vendor does not resize), 1{,}932 px for Claude, 1{,}600 px for Qwen3-VL and the fixed 1{,}024 px canvas for Gemini. Each load has 12 images, the calls use the reasoning settings of \cref{tab:models} with an output cap of 16{,}384 tokens, and answers are read in each model's convention with the lenient recovery of \cref{sec:coords} (\cref{tab:thumb-load}; 384 calls, all answers in the released package). We give both the pooled recall, the quantity the guarantees protect, and the number of images on which recall and precision both reach 0.9. The largest load tested is the number of targets the layout fits in the budget: 324 for GPT, 196 for Claude and 42 for Gemini.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lccccccl}
+\toprule
+Model & 8 & 16 & 32 & 64 & 128 & 256 & Largest load tested \\
+\midrule
+\inputrows{generated/tabL_load.tex}
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{Controlled images at $S = 1.5$, by number of targets per view: pooled recall; images (of 12) with recall and precision both at least 0.9; empty: answers with no point.}
+\label{tab:thumb-load}
+\end{table*}
+
+GPT-6.1 and Gemini 4 keep pooled recall at \lsv{gpt61}{324}{R} and at least \lsv{gem4}{42}{R} at every load tested, and Claude Opus 5.5 at least \lsv{opus55}{8}{R} up to 128 targets. At 196 targets Claude Opus 5.5 finds every target on 10 of the 12 images and returns an empty list on the other \lsv{opus55}{196}{empty}, so its pooled recall is \lsv{opus55}{196}{R}: at this load it fails all or nothing. Per image, Claude Opus 5.5 at small loads and GPT-6.1 at some loads miss the joint criterion by reporting extra points. GPT-5.6 misses a few targets with 8, holds from 16 to 128 targets (\lsv{gpt56}{128}{R} at 128), and falls at 256 and 324 targets (\lsv{gpt56}{256}{R} and \lsv{gpt56}{324}{R}), where \lsv{gpt56}{256}{empty} and \lsv{gpt56}{324}{empty} of its 12 answers are empty. Gemini 3.8 drops below 0.9 at 32 targets by missing targets (\lsv{gem38}{32}{R}); at 42 it lists 27 to 29 points on 11 of the 12 images. Qwen3-VL, run here through a third provider (\cref{tab:models}), recalls \lsv{qwen3vl}{8}{R} and \lsv{qwen3vl}{16}{R} of 8 and 16 targets, but its answers often have malformed lists and extra points, so few images meet the joint criterion; it falls at 32 (\lsv{qwen3vl}{32}{R}) and 64 targets (\lsv{qwen3vl}{64}{R}). With the vendor's default reasoning, in a load stage run with the protocol of \cref{sec:newest}, GPT-5.6 recalls 0.92 of about 256 targets at $S \approx 1.27$.
+
+\paragraph{Time.} Only the runs of \cref{sec:newest} and that load stage recorded wall-clock time (12 concurrent requests, vendor default reasoning, queueing included). The median time of one call grows with the number of targets it must report, because it is set mainly by the length of the answer: for 8 targets from about 3\,s (Claude Opus 5.5) to 18\,s (Qwen3-VL), and for 64 to 128 targets from about 13\,s to 57\,s. Views of a split are independent, so with enough concurrency a split takes about as long as its slowest view.

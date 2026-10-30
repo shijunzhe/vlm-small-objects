@@ -161,7 +161,7 @@ def fnum(v):
 
 
 POINT_XY = os.environ.get('POINT_XY') == '1'   # default off: the registered reading keeps only cx/cy
-FORMAT_AWARE = False   # registered decoding reads numeric cx/cy only; format-aware decoding also reads list-valued points
+FORMAT_AWARE = True   # UNIFIED RERUN (v3): format-aware everywhere; was registered decoding reads numeric cx/cy only; format-aware decoding also reads list-valued points
 
 
 def point_of(q):

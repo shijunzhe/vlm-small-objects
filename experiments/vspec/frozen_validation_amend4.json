@@ -1,0 +1,50 @@
+{
+ "gpt61": {
+  "S": 1.1349504130504082,
+  "C_ref_bracket": [
+   512,
+   null
+  ],
+  "C_cons": 512.0,
+  "n_safe": 260,
+  "k": 32,
+  "changed": true
+ },
+ "gpt56": {
+  "S": 1.271977996457688,
+  "C_ref_bracket": [
+   182,
+   256
+  ],
+  "C_cons": 0.0,
+  "n_safe": 8,
+  "k": 32,
+  "changed": false
+ },
+ "opus55": {
+  "S": 1.2596639733767052,
+  "C_ref_bracket": [
+   128,
+   182
+  ],
+  "C_cons": 128.0,
+  "n_safe": 68,
+  "k": 32,
+  "changed": true
+ },
+ "gem38": {
+  "S": 1.5226109221971857,
+  "C_ref_bracket": [
+   32,
+   null
+  ],
+  "C_cons": 16.0,
+  "n_safe": 12,
+  "k": 32,
+  "changed": false
+ },
+ "qwen3vl": {
+  "status": "not testable: x = 2 geometrically unreachable at n0",
+  "S": 5.6
+ }
+}

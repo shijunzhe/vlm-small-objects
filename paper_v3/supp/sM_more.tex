@@ -1,0 +1,31 @@
+\section{Further comparisons on LegendSpot}
+\label{sec:more}
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{\begin{tabular}{lccccc}
+\toprule
+ & Whole & Vendor & \multicolumn{2}{c}{Tiles} & Prop.\,+ \\
+\cmidrule(lr){4-5}
+Model & image & hi-res & 44 px & counterpart & verify \\
+\midrule
+GPT-5.4 & \FATwogptFiveFourAll & \FBgptFiveFourAll & \multicolumn{2}{c}{\FDgptFiveFourAll} & \FHgptFiveFourAll \\
+Claude Sonnet 4.6 & \FATwosonnetFourSixAll & n/a & \multicolumn{2}{c}{\FDsonnetFourSixAll} & \FHsonnetFourSixAll \\
+Gemini 2.5 Flash & \FATwogeminiTwoFiveAll & \FBgeminiTwoFiveAll & \FCgeminiTwoFiveAll & \FDgeminiTwoFiveAll & \FHgeminiTwoFiveAll \\
+Gemma 4 31B & \FATwogemmaFourAll & n/a & \FCgemmaFourAll & \FDgemmaFourAll & \FHgemmaFourAll \\
+Qwen3-VL & \FATwoqwenThreevlAll & n/a & \multicolumn{2}{c}{\FDqwenThreevlAll} & \FHqwenThreevlAll \\
+\midrule
+Template matching & \multicolumn{5}{c}{\FTMdevAll{} (threshold from the prompt-writing sheets), \FTMlooAll{} (leave-one-out)} \\
+\bottomrule
+\end{tabular}}
+\caption{Older-generation models on the 34 LegendSpot test drawings, F1. Whole image read in each model's published convention. Tiles: the 44 px recipe for every model, and its fixed-grid counterpart, whose field of view is set by \cref{prop:geometry}(c) (for resolution-scaled models the two coincide). Point estimates.}
+\label{tab:round1}
+\end{table}
+
+\paragraph{Tiles, the whole image and vendor high-resolution modes.} With tiles, every older-generation model except GPT-5.4 beats its whole-image call (\cref{tab:round1}): by \CDMinusATwosonnetFourSix{} \CDMinusATwosonnetFourSixCI{} F1 for Claude Sonnet 4.6, \CDMinusATwogeminiTwoFive{} \CDMinusATwogeminiTwoFiveCI{} for Gemini 2.5, \CDMinusATwogemmaFour{} \CDMinusATwogemmaFourCI{} for Gemma 4 and \CDMinusATwoqwenThreevl{} \CDMinusATwoqwenThreevlCI{} for Qwen3-VL; GPT-5.4 changes by \CDMinusATwogptFiveFour{} \CDMinusATwogptFiveFourCI. Gemma 4, fourth with the whole image, is first with tiles. Vendors' high-resolution modes do not replace splitting: GPT-5.4 with \texttt{detail=original} sees each symbol at about 1.3 tokens and scores \CBMinusDgptFiveFour{} \CBMinusDgptFiveFourCI{} F1 against its tiles, and Gemini 2.5's high setting \CBMinusDgeminiTwoFive{} \CBMinusDgeminiTwoFiveCI{} against its fixed-grid counterpart. On the 14 full sheets, tiles beat the whole image for Claude Sonnet 5.5 (\CDMinusATwosheetssonnetFiveFive{} \CDMinusATwosheetssonnetFiveFiveCI) and Gemini 3.8 (\CDMinusATwosheetsgemThreeEight{} \CDMinusATwosheetsgemThreeEightCI); GPT-5.6 changes by \CDMinusATwosheetsgptFiveSix{} \CDMinusATwosheetsgptFiveSixCI.
+
+\paragraph{Reasoning.} Reasoning helps where recognition, not resolution, limits. Over the 34 drawings, GPT-5.6's whole-image F1 rises from \XplainFgptFiveSixrAll{} to \XrsnFgptFiveSixrAll{} with high-effort reasoning, and on full sheets its tiles gain \XnDRDgptFiveSix{} \XnDRDgptFiveSixCI{} at medium effort. Claude Sonnet 5.5 runs with adaptive thinking in every call, so its reasoning arm adds only an explicit high effort and a larger output cap (tiles: \XnDRDsonnetFiveFive{} \XnDRDsonnetFiveFiveCI). Gemini 3.8's thinking changes full-sheet F1 with tiles by \XnDRDgemThreeEight{} \XnDRDgemThreeEightCI, and with the whole image lowers it from \XplainFgemThreeEighttAll{} to \XrsnFgemThreeEighttAll, partly because its thinking switches between pixel and 0 to 1000 coordinates (\cref{sec:coords}). On full sheets, the whole image with reasoning still scores below tiles without reasoning for Claude Sonnet 5.5 (\XrsnMinusDsonnetFiveFivetSheets{} \XrsnMinusDCIsonnetFiveFivetSheets, whole minus tiles) and Gemini 3.8 (\XrsnMinusDgemThreeEighttSheets{} \XrsnMinusDCIgemThreeEighttSheets); for GPT-5.6 with high-effort reasoning the difference is \XrsnMinusDgptFiveSixrSheets{} \XrsnMinusDCIgptFiveSixrSheets.
+
+\paragraph{Earlier names.} Versions 1 and 2 of this paper called LegendSpot REDP-X40, Library-10 REDP-10, the floor-plan blocks FPC-300 and the floor-plan mosaics FPC-sheets; the code keeps these internal names, and its README maps them. Version 3 reads every answer with one reader, which keeps points written with \texttt{x} and \texttt{y} keys and points written as lists (\cref{sec:coords}); a few numbers therefore differ slightly from version 2.

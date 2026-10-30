@@ -1,0 +1,416 @@
+{
+ "LegendSpot": {
+  "GPT-6.1": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.375,
+    "mean_share_targets_unprotected": 0.06611529933608813,
+    "median_views": 40,
+    "median_tokens_over_rule": 0.5689591307568835
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.375,
+    "mean_share_targets_unprotected": 0.00405564263322884,
+    "median_views": 10,
+    "median_tokens_over_rule": 0.6324110671936759
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.525,
+    "mean_share_targets_unprotected": 0.13063013811432633,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.24703557312252963
+   },
+   "4x4 cells, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.4,
+    "mean_share_targets_unprotected": 0.32630318948660314,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.41106719367588934
+   }
+  },
+  "Claude Opus 5.5": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3,
+    "mean_share_targets_unprotected": 0.06611529933608813,
+    "median_views": 40,
+    "median_tokens_over_rule": 1.1526181353767562
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3,
+    "mean_share_targets_unprotected": 0.00405564263322884,
+    "median_views": 10,
+    "median_tokens_over_rule": 1.1685872812633376
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.375,
+    "mean_share_targets_unprotected": 0.13063013811432633,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.43621399176954734
+   },
+   "4x4 cells, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3,
+    "mean_share_targets_unprotected": 0.32630318948660314,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.5992317541613317
+   }
+  },
+  "Qwen3-VL": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.375,
+    "mean_share_targets_unprotected": 0.06611529933608813,
+    "median_views": 40,
+    "median_tokens_over_rule": 0.9295570079883806
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.375,
+    "mean_share_targets_unprotected": 0.00405564263322884,
+    "median_views": 10,
+    "median_tokens_over_rule": 0.8757525998905309
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.525,
+    "mean_share_targets_unprotected": 0.13063013811432633,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.44390243902439025
+   },
+   "4x4 cells, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.4,
+    "mean_share_targets_unprotected": 0.32630318948660314,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.5254515599343186
+   }
+  },
+  "Gemini 3.8/4": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.025,
+    "mean_share_targets_unprotected": 0.06611529933608813,
+    "median_views": 40,
+    "median_tokens_over_rule": 5.625
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.275,
+    "mean_share_targets_unprotected": 0.00405564263322884,
+    "median_views": 10,
+    "median_tokens_over_rule": 1.6666666666666667
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.525,
+    "mean_share_targets_unprotected": 0.13063013811432633,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.6666666666666666
+   },
+   "4x4 cells, no overlap": {
+    "items": 40,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.32630318948660314,
+    "median_views": 16,
+    "median_tokens_over_rule": 2.6666666666666665
+   }
+  }
+ },
+ "Floor-plan mosaics": {
+  "GPT-6.1": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.15264796435075073,
+    "median_views": 64,
+    "median_tokens_over_rule": 1.011358024691358
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.048742368742368744,
+    "median_views": 16,
+    "median_tokens_over_rule": 1.011358024691358
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.09436959504490464,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.5454320987654321
+   },
+   "4x4 cells, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.28748535542863873,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.5688888888888889
+   }
+  },
+  "Claude Opus 5.5": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.03333333333333333,
+    "mean_share_targets_unprotected": 0.15264796435075073,
+    "median_views": 64,
+    "median_tokens_over_rule": 2.4284212739121296
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.03333333333333333,
+    "mean_share_targets_unprotected": 0.048742368742368744,
+    "median_views": 16,
+    "median_tokens_over_rule": 2.302291360100904
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.03333333333333333,
+    "mean_share_targets_unprotected": 0.09436959504490464,
+    "median_views": 4,
+    "median_tokens_over_rule": 1.2259827622451125
+   },
+   "4x4 cells, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.03333333333333333,
+    "mean_share_targets_unprotected": 0.28748535542863873,
+    "median_views": 16,
+    "median_tokens_over_rule": 1.2259827622451125
+   }
+  },
+  "Qwen3-VL": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.15264796435075073,
+    "median_views": 64,
+    "median_tokens_over_rule": 3.3436734693877552
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.048742368742368744,
+    "median_views": 16,
+    "median_tokens_over_rule": 3.3436734693877552
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.09436959504490464,
+    "median_views": 4,
+    "median_tokens_over_rule": 1.803265306122449
+   },
+   "4x4 cells, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.1,
+    "mean_share_targets_unprotected": 0.28748535542863873,
+    "median_views": 16,
+    "median_tokens_over_rule": 1.8808163265306121
+   }
+  },
+  "Gemini 3.8/4": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.016666666666666666,
+    "mean_share_targets_unprotected": 0.15264796435075073,
+    "median_views": 64,
+    "median_tokens_over_rule": 16.0
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.05,
+    "mean_share_targets_unprotected": 0.048742368742368744,
+    "median_views": 16,
+    "median_tokens_over_rule": 4.0
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.31666666666666665,
+    "mean_share_targets_unprotected": 0.09436959504490464,
+    "median_views": 4,
+    "median_tokens_over_rule": 1.0
+   },
+   "4x4 cells, no overlap": {
+    "items": 60,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.03333333333333333,
+    "mean_share_targets_unprotected": 0.28748535542863873,
+    "median_views": 16,
+    "median_tokens_over_rule": 4.0
+   }
+  }
+ },
+ "Floor-plan blocks": {
+  "GPT-6.1": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.05683713850837138,
+    "median_views": 9,
+    "median_tokens_over_rule": 0.28444444444444444
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.0,
+    "median_views": 1,
+    "median_tokens_over_rule": 0.12641975308641976
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.18877756033920418,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.12641975308641976
+   },
+   "4x4 cells, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.48541092089037297,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.12641975308641976
+   }
+  },
+  "Claude Opus 5.5": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.2054794520547945,
+    "mean_share_targets_unprotected": 0.05683713850837138,
+    "median_views": 9,
+    "median_tokens_over_rule": 0.6906887755102041
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.2054794520547945,
+    "mean_share_targets_unprotected": 0.0,
+    "median_views": 1,
+    "median_tokens_over_rule": 0.2755102040816326
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.2054794520547945,
+    "mean_share_targets_unprotected": 0.18877756033920418,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.2755102040816326
+   },
+   "4x4 cells, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.2054794520547945,
+    "mean_share_targets_unprotected": 0.48541092089037297,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.2755102040816326
+   }
+  },
+  "Qwen3-VL": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.05683713850837138,
+    "median_views": 9,
+    "median_tokens_over_rule": 0.9404081632653061
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.0,
+    "median_views": 1,
+    "median_tokens_over_rule": 0.4179591836734694
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.18877756033920418,
+    "median_views": 4,
+    "median_tokens_over_rule": 0.4179591836734694
+   },
+   "4x4 cells, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.3041095890410959,
+    "mean_share_targets_unprotected": 0.48541092089037297,
+    "median_views": 16,
+    "median_tokens_over_rule": 0.4179591836734694
+   }
+  },
+  "Gemini 3.8/4": {
+   "SAHI 512, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.01643835616438356,
+    "mean_share_targets_unprotected": 0.05683713850837138,
+    "median_views": 9,
+    "median_tokens_over_rule": 9.0
+   },
+   "SAHI 1024, 20% overlap (native px)": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.25205479452054796,
+    "mean_share_targets_unprotected": 0.0,
+    "median_views": 1,
+    "median_tokens_over_rule": 1.0
+   },
+   "2x2 quadrants, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.01643835616438356,
+    "mean_share_targets_unprotected": 0.18877756033920418,
+    "median_views": 4,
+    "median_tokens_over_rule": 4.0
+   },
+   "4x4 cells, no overlap": {
+    "items": 365,
+    "share_zoom_out": 0.0,
+    "share_below_Sstar": 0.0,
+    "mean_share_targets_unprotected": 0.48541092089037297,
+    "median_views": 16,
+    "median_tokens_over_rule": 16.0
+   }
+  }
+ }
+}

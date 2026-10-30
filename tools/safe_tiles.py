@@ -9,9 +9,9 @@ plan views such that
   * consecutive views overlap by one target margin e = max(target side, 2 * tau), so every target lies
     entirely inside some view.
 
-Under the paper's monotonicity assumptions such a decomposition cannot lower expected recall relative
-to sending the whole image, for any model that satisfies them, and its token cost approaches the
-minimum over all protected decompositions as the image grows.
+Under the paper's monotonicity assumptions such a split cannot lower expected recall relative to
+sending the whole image, for any model that satisfies them, and its token cost is at most an explicit
+factor times the minimum that every protected split pays.
 
 Only the standard library is needed for planning; Pillow is needed to cut views.
 
@@ -24,8 +24,8 @@ Example
     # cut the views of a real image
     python safe_tiles.py cut drawing.png --target 30 30 --interface res --token 32 --budget 8192 --out views/
 
-After the model answers each view, map its points back with `merge` (see merge_points below):
-points from all views are translated to image coordinates and points closer than tau are merged.
+After the model answers each view, map its points back with merge_points (below): points from all
+views are translated to image coordinates and all are kept, as in the paper (merge=True merges points closer than tau).
 """
 import argparse, json, math, os
 
@@ -94,14 +94,17 @@ def cut(path, p, out):
     return p
 
 
-def merge_points(p, answers):
-    """answers: {(i, j): [(x, y), ...]} in the pixel frame of each sent view. Returns image-frame points,
-    with points closer than tau merged."""
+def merge_points(p, answers, merge=False):
+    """answers: {(i, j): [(x, y), ...]} in the pixel frame of each sent view. Returns all points in the image
+    frame, as in step 4 of Algorithm 1 (duplicates in the overlaps are kept); merge=True instead keeps only one
+    point of any group closer than tau."""
     pts = []
     for v in p['views']:
         x0, y0 = v['box'][:2]
         for x, y in answers.get((v['i'], v['j']), []):
             pts.append((x0 + x / p['scale'], y0 + y / p['scale']))
+    if not merge:
+        return pts
     kept = []
     for q in pts:
         if all((q[0] - k[0]) ** 2 + (q[1] - k[1]) ** 2 > p['tau'] ** 2 for k in kept):

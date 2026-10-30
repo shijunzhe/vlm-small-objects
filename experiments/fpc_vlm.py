@@ -14,7 +14,7 @@ ITEMS = sorted(p.stem for p in (M.BENCH / 'annotations').glob('*.json'))
 T.TEST = ITEMS
 T.OUT = Path(f'results_fpc/{which}'); T.OUT.mkdir(parents=True, exist_ok=True)
 gen_test.OUT = T.OUT
-T.WORKERS.update({'gpt': 8, 'claude': 10, 'qwen3vl': 12, 'gemini': 16, 'gemma4': 12, 'sonnet55': 10, 'gpt56': 8, 'gem38': 16, 'gem38lo': 16, 'gem38uh': 16})  # FPC_WORKERS: small 1000 px images, more parallel calls
+T.WORKERS.update({'gpt': 8, 'claude': 10, 'qwen3vl': 12, 'gemini': 16, 'gemma4': 12, 'sonnet55': 10, 'gpt56': 8, 'gem38': 16, 'gem38lo': 16, 'gem38uh': 16, 'gem4': 16})  # FPC_WORKERS: small 1000 px images, more parallel calls
 if __name__ == '__main__':
     M.C.load_env('../config.env')
     cond, v = sys.argv[2], sys.argv[3]; run = int(sys.argv[4]) if len(sys.argv) > 4 else 0

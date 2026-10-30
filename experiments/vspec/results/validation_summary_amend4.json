@@ -1,0 +1,169 @@
+{
+ "gem38|n12|val": {
+  "model": "gem38",
+  "n": 12,
+  "phase": "val",
+  "k": 32,
+  "R": 0.9844,
+  "P": 0.9921,
+  "images_meeting_q": 30,
+  "images_perfect": 30,
+  "exact_lb95_image_q": 0.816,
+  "failures": [
+   [
+    25,
+    9,
+    9,
+    12
+   ],
+   [
+    28,
+    9,
+    12,
+    12
+   ]
+  ]
+ },
+ "gem4|n8|val": {
+  "model": "gem4",
+  "n": 8,
+  "phase": "val",
+  "k": 32,
+  "R": 0.9922,
+  "P": 0.9961,
+  "images_meeting_q": 30,
+  "images_perfect": 30,
+  "exact_lb95_image_q": 0.816,
+  "failures": [
+   [
+    11,
+    6,
+    6,
+    8
+   ],
+   [
+    16,
+    8,
+    9,
+    8
+   ]
+  ]
+ },
+ "gpt56|n8|val": {
+  "model": "gpt56",
+  "n": 8,
+  "phase": "val",
+  "k": 32,
+  "R": 0.9688,
+  "P": 0.9688,
+  "images_meeting_q": 31,
+  "images_perfect": 31,
+  "exact_lb95_image_q": 0.86,
+  "failures": [
+   [
+    27,
+    0,
+    8,
+    8
+   ]
+  ]
+ },
+ "gpt61|n132|val": {
+  "model": "gpt61",
+  "n": 132,
+  "phase": "val",
+  "k": 32,
+  "R": 0.9998,
+  "P": 1.0,
+  "images_meeting_q": 32,
+  "images_perfect": 31,
+  "exact_lb95_image_q": 0.911,
+  "failures": []
+ },
+ "gpt61|n260|val4": {
+  "model": "gpt61",
+  "n": 260,
+  "phase": "val4",
+  "k": 32,
+  "R": 0.9978,
+  "P": 1.0,
+  "images_meeting_q": 32,
+  "images_perfect": 22,
+  "exact_lb95_image_q": 0.911,
+  "failures": []
+ },
+ "opus55|n8|val": {
+  "model": "opus55",
+  "n": 8,
+  "phase": "val",
+  "k": 32,
+  "R": 1.0,
+  "P": 0.9846,
+  "images_meeting_q": 28,
+  "images_perfect": 28,
+  "exact_lb95_image_q": 0.736,
+  "failures": [
+   [
+    2,
+    8,
+    9,
+    8
+   ],
+   [
+    19,
+    8,
+    9,
+    8
+   ],
+   [
+    23,
+    8,
+    9,
+    8
+   ],
+   [
+    30,
+    8,
+    9,
+    8
+   ]
+  ]
+ },
+ "opus55|n68|val4": {
+  "model": "opus55",
+  "n": 68,
+  "phase": "val4",
+  "k": 32,
+  "R": 0.989,
+  "P": 0.9764,
+  "images_meeting_q": 28,
+  "images_perfect": 17,
+  "exact_lb95_image_q": 0.736,
+  "failures": [
+   [
+    2,
+    68,
+    77,
+    68
+   ],
+   [
+    20,
+    56,
+    56,
+    68
+   ],
+   [
+    21,
+    57,
+    57,
+    68
+   ],
+   [
+    24,
+    68,
+    77,
+    68
+   ]
+  ]
+ }
+}

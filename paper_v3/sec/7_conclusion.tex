@@ -1,0 +1,6 @@
+\section{Conclusion: back to computer vision}
+\label{sec:conclusion}
+
+VLMs miss small objects when an object gets too few visual tokens or a call must search and report too much. Splitting is safe exactly when every location inside the whole-image call lies inside some view that does not zoom out, which views that never zoom out and overlap by one object guarantee, for every model monotone on its input path; it has a minimum token cost, and a simple rule pays it up to an explicit factor. Across \CscaleModels{} models, including the newest, the rule raised recall most where the whole image gives targets the fewest tokens, at a cost known before the call.
+
+Tiling, a classical tool of computer vision, does not expire with VLMs: what one call cannot afford to see at the needed $S$, or cannot handle, must be split. What changes is who splits: the caller, a zoom tool, or the architecture. Future models can need less $S$, handle more per call, stay monotone across crops and scales, and declare their coordinate frame and scale.

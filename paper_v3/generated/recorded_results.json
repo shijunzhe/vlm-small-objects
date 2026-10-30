@@ -1,0 +1,17 @@
+{
+ "_note": "Results whose raw model answers were lost when the cloud workspace was reset on 2026-10-28. The Gemini 4 Table 2 runs were rerun on 2026-10-28 (5,660 calls, all successful; raw answers stored and synced) and Table 2 now comes from those outputs; tab1_recorded_2026-10-27.json keeps the earlier values. Still recorded only as per-cell values: the S = 1.5 load sweep (visual-spec record 14) and the rendering-sensitivity run (record 13).",
+ "scale": {
+  "release_calls": 177461,
+  "vspec_billed_calls": 3973,
+  "gem4_table2_calls": 5660,
+  "images": 3398,
+  "instances": 199262,
+  "controlled_images": 2769,
+  "models": 12,
+  "source": "recount of 2026-10-27 (release counting rule of paper2_numbers_x.py plus the visual-spec experiment and the Gemini 4 Table 2 runs)"
+ },
+ "load_sweep_S15": {
+  "gpt61_max_targets_recall_ge_0.9": 324,
+  "source": "visual-spec execution log, record 14 (s15.jsonl); \u7ecf\u9a8c\u6cd5\u5219_\u53c2\u8003\u6570\u636e section 6"
+ }
+}

@@ -24,9 +24,9 @@ def dispatch(vendor, images, system, user):
     return G.call(vendor, images, system, user) if vendor in G.VENDORS else _orig_call(vendor, images, system, user)
 M.C.call = dispatch
 G.REASONING['gemini-3.8-flash'] = {'thinking_budget': 0}
-T.TILE_IFACE.update({'sonnet55': ('px', 'px'), 'gpt56': ('px', 'px'), 'gem38': ('n1000', 'n1000'), 'gpt61': ('px', 'px'), 'opus55': ('px', 'px')})
-T.FOV_K.update({'gem38': 2.5 * 16 / math.sqrt(1090)})   # fov_tiles uses F = 16*m/k  ->  F = sqrt(1090)*m/2.5
-T.WORKERS.update({'sonnet55': 6, 'gpt56': 6, 'gem38': 10, 'gpt61': 8, 'opus55': 6}); T.XTILE.update({'sonnet55', 'gpt56', 'gpt61', 'opus55'})
+T.TILE_IFACE.update({'sonnet55': ('px', 'px'), 'gpt56': ('px', 'px'), 'gem38': ('n1000', 'n1000'), 'gpt61': ('px', 'px'), 'opus55': ('px', 'px'), 'gem4': ('n1000', 'n1000')})
+T.FOV_K.update({'gem38': 2.5 * 16 / math.sqrt(1090), 'gem4': 2.5 * 16 / math.sqrt(1090)})   # fov_tiles uses F = 16*m/k  ->  F = sqrt(1090)*m/2.5
+T.WORKERS.update({'sonnet55': 6, 'gpt56': 6, 'gem38': 10, 'gpt61': 8, 'opus55': 6, 'gem4': 10}); T.XTILE.update({'sonnet55', 'gpt56', 'gpt61', 'opus55'})
 
 
 def whole_native(vendor, run):

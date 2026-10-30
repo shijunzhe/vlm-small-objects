@@ -13,8 +13,9 @@ import cs_rule as CR
 
 M.FORMAT_AWARE = True
 RG, RT, RF, RC = Path('results_gen'), Path('results_test'), Path('results_fpc/sheets'), Path('results_cs')
-DEC = {'gpt61': 'px', 'opus55': 'px', 'qwen3vl': 'n1000', 'gem38': 'n1000'}
-MODELS = ['gpt61', 'opus55', 'gem38', 'qwen3vl']
+DEC = {'gpt61': 'px', 'opus55': 'px', 'qwen3vl': 'n1000', 'gem38': 'n1000', 'gem4': 'n1000'}
+MODELS = ['gpt61', 'opus55', 'gem38', 'gem4', 'qwen3vl']
+A1NAME = {'gem4': 'A1n'}   # Gemini 4 whole image: the 0-1000 prompt (Supp. B)
 
 
 def load_last(f, key):
@@ -27,7 +28,7 @@ def load_last(f, key):
 
 
 def whole(bench, v):
-    f = (RT if v == 'qwen3vl' else RG) / f'A1_{v}_run0.jsonl' if bench == 'redp' else RF / f'A1_{v}_run0.jsonl'
+    f = (RT if v == 'qwen3vl' else RG) / f'{A1NAME.get(v, "A1")}_{v}_run0.jsonl' if bench == 'redp' else RF / f'{A1NAME.get(v, "A1")}_{v}_run0.jsonl'
     out = {}
     for did, r in load_last(f, lambda r: r['did']).items():
         s = r['scale']; w, h = r['sent_size']; pts = []

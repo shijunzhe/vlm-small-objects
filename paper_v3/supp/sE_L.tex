@@ -1,0 +1,102 @@
+\section{Evidence on $L$}
+\label{sec:L-evidence}
+
+\subsection{More targets and more area at fixed $S$}
+\label{sec:L-sweeps}
+
+At fixed $S$, recall falls as one call must report more targets (\cref{fig:syn}b, \cref{tab:syn}). With 96 targets in one call it falls to \XcapNlastqwenThreevl{} for Qwen3-VL, \XcapNlastsonnetFourSix{} for Claude Sonnet 4.6, \XcapNlastgemmaFour{} for Gemma 4 and \XcapNlastgemThreeEight{} for Gemini 3.8. The slope against the number of targets is negative for every model whose $S$ in this sweep is above one, and negligible for GPT-5.6 and Claude Sonnet 5.5 on these well-separated targets (\XcapSlopegptFiveSix{} and \XcapSlopesonnetFiveFive{} per doubling; recall \XcapNlastgptFiveSix{} and \XcapNlastsonnetFiveFive{} with 96 targets). Within a vendor, what one call can handle rose across generations: from \XcapNlastsonnetFourSix{} to \XcapNlastsonnetFiveFive{} with 96 targets from Claude Sonnet 4.6 to 5.5, and from \XcapNlastgptFiveFour{} to \XcapNlastgptFiveSix{} from GPT-5.4 to GPT-5.6. Adding area at constant $S$ also costs recall: GPT-5.6, whose budget covers an 8.4-megapixel canvas without resizing, falls from \XareaFirstgptFiveSix{} to \XareaLastgptFiveSix{} with 16 targets (\cref{fig:syn}c).
+
+\paragraph{Failures in answers that end normally.} In the target-count sweep, \CcapNormal{} of \CcapCalls{} calls ended normally. The exception is a Gemini 3.8 call with 96 targets whose thinking used 7{,}861 of the 8{,}192 output tokens allowed, although its thinking budget was set to the minimum; the longest visible answer (Gemini 2.5) used \CcapMaxOut{} tokens. A call that must report more targets fails in three ways that the answers show directly: it stops listing early, it places points less precisely, and it reports look-alike symbols.
+
+\paragraph{Bits.} On the four 12 px images of the controlled test, the best model's whole-image answers carried on average at least about \XcapBestBits{} bits about the target positions by \cref{thm:capacity}, against at least \XcapBestFull{} bits needed for full recall without false points (recall \XcapBestRecall).
+
+\subsection{Packing tiles into one call}
+\label{sec:packing}
+
+On the 14 LegendSpot full sheets we packed the tiles of the 44 px recipe $k$ at a time into one image, separated by grey lines in the tile margins, so that one call must search $k$ times the content (\cref{tab:packing}). Each single tile is a crop of the packed image (\cref{lem:crop}), so the theory predicts no gain from packing. For GPT-5.6 each symbol keeps its tokens, and recall falls clearly at $k = 8$, although a call packing eight tiles must report a median of only \CpackMedian{} targets (mean \CpackMean, at most \CpackMax). Claude Sonnet 5.5's packed images at $k = 4$ and 8 exceed its 4{,}784-token cap and are resized, so its drop also reflects a lower $S$; it is read with the per-answer frame rule of \cref{sec:coords} (with the documented frame alone, its F1 at $k = 8$ would be \XmosRegFsonnetFiveFivekEight).
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lcccc}
+\toprule
+ & $k = 1$ & 2 & 4 & 8 \\
+\midrule
+\multicolumn{5}{l}{\emph{GPT-5.6}} \\
+Recall & \XmosRgptFiveSixkOne & \XmosRgptFiveSixkTwo & \XmosRgptFiveSixkFour & \XmosRgptFiveSixkEight \\
+Precision & \XmosPgptFiveSixkOne & \XmosPgptFiveSixkTwo & \XmosPgptFiveSixkFour & \XmosPgptFiveSixkEight \\
+F1 & \XmosFgptFiveSixkOne & \XmosFgptFiveSixkTwo & \XmosFgptFiveSixkFour & \XmosFgptFiveSixkEight \\
+$\Delta$ recall & & \XmosdRgptFiveSixkTwo & \XmosdRgptFiveSixkFour & \textbf{\XmosdRgptFiveSixkEight} \\
+\midrule
+\multicolumn{5}{l}{\emph{Claude Sonnet 5.5}} \\
+Recall & \XmosRsonnetFiveFivekOne & \XmosRsonnetFiveFivekTwo & \XmosRsonnetFiveFivekFour & \XmosRsonnetFiveFivekEight \\
+Precision & \XmosPsonnetFiveFivekOne & \XmosPsonnetFiveFivekTwo & \XmosPsonnetFiveFivekFour & \XmosPsonnetFiveFivekEight \\
+F1 & \XmosFsonnetFiveFivekOne & \XmosFsonnetFiveFivekTwo & \XmosFsonnetFiveFivekFour & \XmosFsonnetFiveFivekEight \\
+$\Delta$ recall & & \textbf{\XmosdRsonnetFiveFivekTwo} & \textbf{\XmosdRsonnetFiveFivekFour} & \textbf{\XmosdRsonnetFiveFivekEight} \\
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{Packing $k$ tiles into one call on 14 full sheets. $\Delta$ recall: packed minus single tiles; bold: 95\% interval below zero (GPT-5.6, $k = 8$: \XmosdRCIgptFiveSixkEight; Claude Sonnet 5.5, $k = 2, 4, 8$: \XmosdRCIsonnetFiveFivekTwo, \XmosdRCIsonnetFiveFivekFour, \XmosdRCIsonnetFiveFivekEight).}
+\label{tab:packing}
+\end{table}
+
+\subsection{Same targets, more content: the first block}
+\label{sec:firstblock}
+
+The floor-plan mosaics hold the same first block and the same reference at three areas, so scoring only the first block measures the effect of the content around it, which on the larger mosaics comes with a lower $S$ (\cref{tab:fpcsheets}). Whole-image F1 on the first block falls as the other blocks are added in the same call, for every model: by \XfBKDAOnegptFiveSix{} \XfBKDCIAOnegptFiveSix{} for GPT-5.6, \XfBKDAOnesonnetFiveFive{} \XfBKDCIAOnesonnetFiveFive{} for Claude Sonnet 5.5 and \XfBKDAOnegemThreeEight{} \XfBKDCIAOnegemThreeEight{} for Gemini 3.8, from one block to nine. Adding blocks also lowers $S$ (median \XfBKSmedGptFiveSix{} for GPT-5.6 on the largest mosaics), so we repeated the comparison on the mosaics where the largest still gives $S \ge 1$: the drop remains (GPT-5.6 \XfBKSoneGptFiveSix{} \XfBKSoneCIGptFiveSix{} on \XfBKSoneNGptFiveSix{} mosaics; Claude Sonnet 5.5 \XfBKSoneSonnetFiveFive{} \XfBKSoneCISonnetFiveFive{} on \XfBKSoneNSonnetFiveFive). GPT-5.6's tiles, whose content per call does not change, stay flat (GPT-5.6 \XfBKDDgptFiveSix{} \XfBKDCIDgptFiveSix), and so does GPT-5.6's zoom agent (\XfBKDAGgptFiveSix{} \XfBKDCIAGgptFiveSix). Scored over all blocks, every method declines with area, template matching included (0.54 to 0.18 at a fixed threshold), because the reference comes from the first block and 49\% of the instances in other blocks differ from it by more than 20\% in box size, against 14\% in the first block; scoring the first block removes this confound.
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lccccccccc}
+\toprule
+ & \multicolumn{3}{c}{Whole image} & \multicolumn{3}{c}{Tiles} & \multicolumn{3}{c}{Zoom agent} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+Model & $k{=}1$ & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+\midrule
+\multicolumn{10}{l}{\emph{First block only}} \\
+\inputrows{generated_x/tab_fpcsheets_b0.tex}
+\midrule
+\multicolumn{10}{l}{\emph{All blocks}} \\
+\inputrows{generated_x/tab_fpcsheets_all.tex}
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{Floor-plan mosaics of $k \times k$ blocks ($1{,}000^2$ to $3{,}000^2$ px), F1, 60 items per area. Columns: $k = 1, 2, 3$. First block only: F1 on the first block; all blocks: F1 on the whole mosaic. Tiles: the 44 px recipe and its fixed-grid counterpart. Point estimates; empty cells: not run.}
+\label{tab:fpcsheets}
+\end{table*}
+
+\subsection{Error types and tolerance}
+\label{sec:errors}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\resizebox{\columnwidth}{!}{\begin{tabular}{llcccc}
+\toprule
+Model & Condition & miss & dup. & displ. & spur. \\
+\midrule
+\inputrows{generated_x/tab_tax.tex}
+\bottomrule
+\end{tabular}}
+\caption{Errors per annotated instance on the LegendSpot test drawings (one run), pooled over drawings: missed instances, duplicate reports of a found instance, reports within $2\tau$ of a missed instance, and spurious reports elsewhere.}
+\label{tab:tax}
+\end{table}
+
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lccc}
+\toprule
+Model, condition & $\tau$ & ink box & $2\tau$ \\
+\midrule
+\inputrows{generated_x/tab_sens.tex}
+\bottomrule
+\end{tabular}\end{adjustbox}
+\caption{F1 on LegendSpot under alternative matching tolerances: the primary $\tau = m/2$, a tolerance from the template's ink box, and $2\tau$.}
+\label{tab:sens}
+\end{table}
+
+\Cref{tab:tax} splits the errors. Propose and verify removes nearly all displaced reports and, for most models, most spurious ones; GPT-5.6 is the exception, with more spurious reports as a verifier (0.35) than with tiles (0.15). GPT-5.6's whole-image calls at native resolution miss 0.35 of the instances and add 0.24 spurious reports per instance, so their counts are closer to the truth than their positions. Under the alternative tolerances of \cref{tab:sens} the comparisons keep their direction, with one exception: at $2\tau$ GPT-5.4's tiles (0.80) overtake Gemma 4's (0.76), consistent with less precise placement by GPT-5.4. Claude Sonnet 4.6's whole-image score also rises (0.36 to 0.50), as expected for a model that localizes coarsely at about half a token per target.
